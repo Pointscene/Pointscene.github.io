@@ -1,0 +1,22 @@
+{
+  "name": "pointscene.github.io",
+  "version": "1.0.0",
+  "description": "Pointscene API documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pointscene/Pointscene.github.io.git"
+  },
+  "author": "Pointscene Ltd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pointscene/Pointscene.github.io/issues"
+  },
+  "homepage": "https://github.com/Pointscene/Pointscene.github.io#readme",
+  "devDependencies": {
+    "spectaql": "^0.2.2"
+  }
+}

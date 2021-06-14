@@ -1,0 +1,24 @@
+spectaql:
+  logoFile: ./pointscene_logo.svg
+
+introspection:
+  url: https://api.pointscene.com/graphql
+
+info:
+  title: Pointscene GraphQL API Reference
+  description: Pointscene GraphQL API is used to analyze, manage and stream reality capture data.
+  termsOfService: https://pointscene.com/terms-of-service
+  contact:
+    name: API Support
+    url: https://pointscene.com/support
+    email: support@pointscene.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: https://api.pointscene.com/graphql
+    description: Production
+    production: true
+
+x-hidePoweredBy: true
