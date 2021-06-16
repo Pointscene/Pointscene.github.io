@@ -202,9 +202,13 @@
           <a href="#definition-ReferenceId"> ReferenceId </a>
           <a href="#definition-ReferenceType"> ReferenceType </a>
           <a href="#definition-Resource"> Resource </a>
+          <a href="#definition-ResourceDownloadTaskArgs"> ResourceDownloadTaskArgs </a>
+          <a href="#definition-ResourceEnableTaskArgs"> ResourceEnableTaskArgs </a>
           <a href="#definition-ResourceResult"> ResourceResult </a>
           <a href="#definition-ResourceStatus"> ResourceStatus </a>
+          <a href="#definition-ResourceSyncTaskArgs"> ResourceSyncTaskArgs </a>
           <a href="#definition-ResourceType"> ResourceType </a>
+          <a href="#definition-ResourceUploadTaskArgs"> ResourceUploadTaskArgs </a>
           <a href="#definition-Sort"> Sort </a>
           <a href="#definition-SpatialQuery"> SpatialQuery </a>
           <a href="#definition-SpatialQueryType"> SpatialQueryType </a>
@@ -337,8 +341,8 @@ https://api.pointscene.com/graphql
     <span class="hljs-attr">"client"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
       <span class="hljs-attr">"instanceId"</span>: [<span class="hljs-number">123</span>],
-      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"managed"</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>
     }
@@ -415,7 +419,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"page"</span>: Page}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"page"</span>: Page}
 </code></pre> </body>
                     </html>
                 </section>
@@ -519,7 +523,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"instance"</span>: {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"timestamps"</span>: Timestamps
@@ -597,7 +601,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"userId"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"userId"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -688,7 +692,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -705,7 +709,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"resource"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"key"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"key"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"type"</span>: ResourceType,
       <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"metadata"</span>: {},
@@ -810,7 +814,7 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"page"</span>: Page,
   <span class="hljs-attr">"sort"</span>: Sort,
   <span class="hljs-attr">"spatial"</span>: SpatialQuery,
@@ -923,7 +927,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"storageBucket"</span>: {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>
     }
@@ -1103,7 +1107,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"storageObjects"</span>: {
       <span class="hljs-attr">"items"</span>: [StorageObject],
-      <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
+      <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
       <span class="hljs-attr">"cursor"</span>: Cursor
     }
   }
@@ -1180,7 +1184,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: ID, <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: ID, <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1197,9 +1201,9 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"user"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
-      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"xyz789"</span>,
-      <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">"status"</span>: UserStatus
     }
@@ -1286,7 +1290,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"workflow"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"reports"</span>: [{}],
       <span class="hljs-attr">"debugging"</span>: {}
     }
@@ -1369,7 +1373,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"first"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"after"</span>: Cursor}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"first"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"after"</span>: Cursor}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1456,7 +1460,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"code"</span>: <span class="hljs-string">"abc123"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"code"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1501,7 +1505,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for creating a new client. Contact
-                    <a href="mailto:&#115;&#117;&#112;&#112;&#x6f;&#114;&#116;&#64;&#x70;&#111;&#x69;&#x6e;&#116;&#x73;&#99;&#101;&#110;&#101;&#x2e;&#99;&#111;&#109;">&#115;&#117;&#112;&#112;&#x6f;&#114;&#116;&#64;&#x70;&#111;&#x69;&#x6e;&#116;&#x73;&#99;&#101;&#110;&#101;&#x2e;&#99;&#111;&#109;</a> for client access.</p>
+                    <a href="mailto:&#x73;&#117;&#112;&#112;&#111;&#114;&#116;&#x40;&#x70;&#111;&#x69;&#110;&#x74;&#115;&#x63;&#101;&#110;&#101;&#x2e;&#99;&#111;&#x6d;">&#x73;&#117;&#112;&#112;&#111;&#114;&#116;&#x40;&#x70;&#111;&#x69;&#110;&#x74;&#115;&#x63;&#101;&#110;&#101;&#x2e;&#99;&#111;&#x6d;</a> for client access.</p>
                 </section>
               </div>
             </div>
@@ -1645,7 +1649,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1661,7 +1665,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"createInstance"</span>: {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
       <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"timestamps"</span>: Timestamps
@@ -1758,9 +1762,9 @@ https://api.pointscene.com/graphql
                     <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"accessKey"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"secretKey"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"endpoint"</span>: <span class="hljs-string">"xyz789"</span>
+  <span class="hljs-attr">"accessKey"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"secretKey"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"endpoint"</span>: <span class="hljs-string">"abc123"</span>
 }
 </code></pre> </body>
                     </html>
@@ -1777,9 +1781,9 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"createStorageBucket"</span>: {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
-      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
+      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>
     }
   }
 }
@@ -1864,8 +1868,8 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"metadata"</span>: JSONObject
 }
@@ -1881,7 +1885,7 @@ https://api.pointscene.com/graphql
                   <h5>Response </h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"createStorageObject"</span>: {<span class="hljs-attr">"uploadID"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>}}}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"createStorageObject"</span>: {<span class="hljs-attr">"uploadID"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>}}}
 </code></pre> </body>
                   </html>
                 </section>
@@ -1973,10 +1977,10 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"status"</span>: UserStatus
 }
 </code></pre> </body>
@@ -1996,7 +2000,7 @@ https://api.pointscene.com/graphql
     <span class="hljs-attr">"createUser"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
       <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
-      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"status"</span>: UserStatus
@@ -2105,9 +2109,9 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"dryrun"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"dryrun"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"inputs"</span>: {},
   <span class="hljs-attr">"outputs"</span>: {},
   <span class="hljs-attr">"tasks"</span>: [WorkflowTask],
@@ -2155,7 +2159,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for deleting an existing client. Contact
-                    <a href="mailto:&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#64;&#112;&#x6f;&#x69;&#x6e;&#116;&#x73;&#x63;&#x65;&#110;&#101;&#46;&#x63;&#x6f;&#109;">&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#64;&#112;&#x6f;&#x69;&#x6e;&#116;&#x73;&#x63;&#x65;&#110;&#101;&#46;&#x63;&#x6f;&#109;</a> for deletion requests.</p>
+                    <a href="mailto:&#115;&#117;&#x70;&#x70;&#111;&#x72;&#x74;&#64;&#x70;&#111;&#x69;&#x6e;&#x74;&#115;&#99;&#101;&#110;&#x65;&#x2e;&#x63;&#x6f;&#x6d;">&#115;&#117;&#x70;&#x70;&#111;&#x72;&#x74;&#64;&#x70;&#111;&#x69;&#x6e;&#x74;&#115;&#99;&#101;&#110;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a> for deletion requests.</p>
                 </section>
               </div>
             </div>
@@ -2231,7 +2235,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for deleting an existing instance. Contact
-                    <a href="mailto:&#115;&#x75;&#x70;&#112;&#111;&#114;&#116;&#64;&#112;&#x6f;&#105;&#x6e;&#x74;&#x73;&#x63;&#x65;&#x6e;&#101;&#46;&#x63;&#x6f;&#x6d;">&#115;&#x75;&#x70;&#112;&#111;&#114;&#116;&#64;&#112;&#x6f;&#105;&#x6e;&#x74;&#x73;&#x63;&#x65;&#x6e;&#101;&#46;&#x63;&#x6f;&#x6d;</a> for deletion requests.</p>
+                    <a href="mailto:&#115;&#117;&#112;&#112;&#x6f;&#x72;&#x74;&#64;&#x70;&#x6f;&#105;&#x6e;&#x74;&#115;&#99;&#x65;&#x6e;&#x65;&#x2e;&#99;&#x6f;&#x6d;">&#115;&#117;&#112;&#112;&#x6f;&#x72;&#x74;&#64;&#x70;&#x6f;&#105;&#x6e;&#x74;&#115;&#99;&#x65;&#x6e;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a> for deletion requests.</p>
                 </section>
               </div>
             </div>
@@ -2273,7 +2277,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2286,7 +2290,7 @@ https://api.pointscene.com/graphql
                   <h5>Response </h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"deleteInstance"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}}}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"deleteInstance"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}}}
 </code></pre> </body>
                   </html>
                 </section>
@@ -2307,7 +2311,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for deleting an existing storage bucket. Contact
-                    <a href="mailto:&#x73;&#117;&#112;&#112;&#111;&#114;&#x74;&#x40;&#112;&#111;&#x69;&#x6e;&#x74;&#x73;&#x63;&#x65;&#110;&#101;&#46;&#x63;&#x6f;&#109;">&#x73;&#117;&#112;&#112;&#111;&#114;&#x74;&#x40;&#112;&#111;&#x69;&#x6e;&#x74;&#x73;&#x63;&#x65;&#110;&#101;&#46;&#x63;&#x6f;&#109;</a> for deletion requests.</p>
+                    <a href="mailto:&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#x40;&#112;&#x6f;&#105;&#110;&#x74;&#115;&#x63;&#101;&#x6e;&#x65;&#x2e;&#x63;&#111;&#x6d;">&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#x40;&#112;&#x6f;&#105;&#110;&#x74;&#115;&#x63;&#101;&#x6e;&#x65;&#x2e;&#x63;&#111;&#x6d;</a> for deletion requests.</p>
                 </section>
               </div>
             </div>
@@ -2421,7 +2425,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2496,7 +2500,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2583,7 +2587,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"clientId"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"clientId"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2756,7 +2760,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2790,7 +2794,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for resetting Client Secret. Contact
-                    <a href="mailto:&#115;&#117;&#x70;&#112;&#111;&#x72;&#116;&#64;&#x70;&#111;&#105;&#110;&#x74;&#115;&#x63;&#x65;&#110;&#x65;&#46;&#99;&#111;&#109;">&#115;&#117;&#x70;&#112;&#111;&#x72;&#116;&#64;&#x70;&#111;&#105;&#110;&#x74;&#115;&#x63;&#x65;&#110;&#x65;&#46;&#99;&#111;&#109;</a> for resetting client secrets.</p>
+                    <a href="mailto:&#115;&#x75;&#x70;&#112;&#111;&#114;&#116;&#64;&#x70;&#111;&#x69;&#110;&#x74;&#115;&#99;&#x65;&#x6e;&#x65;&#x2e;&#99;&#111;&#x6d;">&#115;&#x75;&#x70;&#112;&#111;&#114;&#116;&#64;&#x70;&#111;&#x69;&#110;&#x74;&#115;&#99;&#x65;&#x6e;&#x65;&#x2e;&#99;&#111;&#x6d;</a> for resetting client secrets.</p>
                 </section>
               </div>
             </div>
@@ -2851,8 +2855,8 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"resetClientSecret"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>,
-      <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"abc123"</span>
+      <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"xyz789"</span>
     }
   }
 }
@@ -2934,7 +2938,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"code"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"password"</span>: <span class="hljs-string">"xyz789"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"code"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"password"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2953,7 +2957,7 @@ https://api.pointscene.com/graphql
       <span class="hljs-attr">"id"</span>: ID,
       <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"status"</span>: UserStatus
     }
@@ -3039,7 +3043,7 @@ https://api.pointscene.com/graphql
     <span class="hljs-attr">"updateStorageBucket"</span>: {
       <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>
     }
   }
 }
@@ -3121,8 +3125,8 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"metadata"</span>: JSONObject,
   <span class="hljs-attr">"file"</span>: Upload
 }
@@ -3138,7 +3142,7 @@ https://api.pointscene.com/graphql
                   <h5>Response </h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"uploadStorageObject"</span>: <span class="hljs-string">"xyz789"</span>}}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"uploadStorageObject"</span>: <span class="hljs-string">"abc123"</span>}}
 </code></pre> </body>
                   </html>
                 </section>
@@ -3203,7 +3207,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-literal">false</span></span>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-literal">true</span></span>
 </code></pre> </body>
                   </html>
                 </section>
@@ -3275,11 +3279,11 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: ID,
-  <span class="hljs-attr">"instanceId"</span>: [<span class="hljs-number">987</span>],
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"managed"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>
+  <span class="hljs-attr">"instanceId"</span>: [<span class="hljs-number">123</span>],
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"managed"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>
 }
 </code></pre> </body>
                   </html>
@@ -3340,7 +3344,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: ID,
-  <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"abc123"</span>
 }
 </code></pre> </body>
@@ -3445,7 +3449,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"uploadID"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"uploadID"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -3497,7 +3501,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">2020-12-16T09:31:12.879Z</span>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">2021-06-16T09:38:29.559Z</span>
 </code></pre> </body>
                   </html>
                 </section>
@@ -3581,7 +3585,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -3763,30 +3767,30 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"srs"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"srs"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"reprojection"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"hammer"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"threads"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"threads"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"force"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"dataType"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"span"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"span"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"noOriginId"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"bounds"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"bounds"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"deep"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"absolute"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"scale"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"absolute"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"scale"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"limit"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"subset"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"subset"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"maxNodeSize"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"minNodeSize"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"cacheSize"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"hierarchyStep"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"sleepCount"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"cacheSize"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"hierarchyStep"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"sleepCount"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"progress"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"requesterPays"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"allowInstanceProfile"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">"allowInstanceProfile"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">false</span>
 }
 </code></pre> </body>
                   </html>
@@ -3890,12 +3894,12 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"deep"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"srs"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"reprojection"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"hammer"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"reprojection"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"hammer"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"threads"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"config"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"requesterPays"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"allowInstanceProfile"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">true</span>
@@ -3985,13 +3989,13 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"config"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"config"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"threads"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"requesterPays"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"requesterPays"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"allowInstanceProfile"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"force"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre> </body>
@@ -4020,7 +4024,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">987.65</span>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">123.45</span>
 </code></pre> </body>
                   </html>
                 </section>
@@ -4197,22 +4201,22 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"mm"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"approxStats"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"hist"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"approxStats"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"hist"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"nogcp"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"nomd"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"nomd"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"norat"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"noct"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"checksum"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"listmdd"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"mdd"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"nofl"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"wktFormat"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"sd"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"proj4"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"xyz789"</span>],
-  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"xyz789"</span>
+  <span class="hljs-attr">"checksum"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"listmdd"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"mdd"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"nofl"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"wktFormat"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"sd"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"proj4"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"abc123"</span>],
+  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"abc123"</span>
 }
 </code></pre> </body>
                   </html>
@@ -4311,12 +4315,12 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"of"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"abc123"</span>],
-  <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"xyz789"</span>],
+  <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"ps"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"ulLr"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"separate"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"pct"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"pct"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"n"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"aNodata"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"init"</span>: StringOrFloat
@@ -4579,43 +4583,43 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"strict"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"of"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"b"</span>: [<span class="hljs-string">"xyz789"</span>],
   <span class="hljs-attr">"mask"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"expand"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"outsize"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"tr"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"outsize"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"tr"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"r"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"scale"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"exponent"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"exponent"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"unscale"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"srcwin"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"srcwin"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"projwin"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"projwinSrs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"projwinSrs"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"epo"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"eco"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"aScale"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"aOffset"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"aScale"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"aOffset"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"aUllr"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"aNodata"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"colorinterp1"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"colorinterp2"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"aNodata"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"colorinterp1"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"colorinterp2"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"colorinterp3"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"colorinterp4"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"colorinterp4"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"colorinterp"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"mo"</span>: [<span class="hljs-string">"abc123"</span>],
+  <span class="hljs-attr">"mo"</span>: [<span class="hljs-string">"xyz789"</span>],
   <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"xyz789"</span>],
-  <span class="hljs-attr">"nogcp"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"nogcp"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"gcp"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"sds"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"norat"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"noxmp"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"xyz789"</span>]
+  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"abc123"</span>]
 }
 </code></pre> </body>
                   </html>
@@ -4911,47 +4915,47 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"sSrs"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"tSrs"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"sSrs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"tSrs"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"ct"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"to"</span>: [<span class="hljs-string">"abc123"</span>],
   <span class="hljs-attr">"noshiftgrid"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"order"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"tps"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"tps"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"rpc"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"geoloc"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"geoloc"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"et"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"refineGcps"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"te"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"teSrs"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"tr"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"tap"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"tr"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"tap"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"ts"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"ovr"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"wo"</span>: [<span class="hljs-string">"abc123"</span>],
   <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"wt"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"r"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"srcnodata"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"dstnodata"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"srcalpha"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"nosrcalpha"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"dstalpha"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"wm"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"r"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"srcnodata"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"dstnodata"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"srcalpha"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"nosrcalpha"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"dstalpha"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"wm"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"multi"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"of"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"xyz789"</span>],
-  <span class="hljs-attr">"cutline"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"abc123"</span>],
+  <span class="hljs-attr">"cutline"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"cl"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"cwhere"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"csql"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"csql"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"cblend"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"cropToCutline"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"cropToCutline"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"overwrite"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"nomd"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"nomd"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"cvmd"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"setci"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"setci"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"abc123"</span>],
   <span class="hljs-attr">"doo"</span>: [<span class="hljs-string">"xyz789"</span>]
 }
@@ -5072,7 +5076,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"type"</span>: <span class="hljs-string">"xyz789"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"type"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -5160,7 +5164,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
   <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
   <span class="hljs-attr">"properties"</span>: JSONObject,
-  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"xyz789"</span>
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"abc123"</span>
 }
 </code></pre> </body>
                   </html>
@@ -5219,7 +5223,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
   <span class="hljs-attr">"features"</span>: [GeoJSONFeature]
 }
 </code></pre> </body>
@@ -5317,7 +5321,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>]
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>]
 }
 </code></pre> </body>
                   </html>
@@ -5420,7 +5424,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
   <span class="hljs-attr">"coordinates"</span>: GeoJSONCoordinates
 }
 </code></pre> </body>
@@ -5487,7 +5491,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"href"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"abc123"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"href"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -5709,7 +5713,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
   <span class="hljs-attr">"coordinates"</span>: GeoJSONCoordinates
 }
 </code></pre> </body>
@@ -5910,7 +5914,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
   <span class="hljs-attr">"coordinates"</span>: GeoJSONCoordinates
 }
 </code></pre> </body>
@@ -6124,8 +6128,8 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"timestamps"</span>: Timestamps
 }
@@ -6254,7 +6258,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">987</span>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">123</span>
 </code></pre> </body>
                   </html>
                 </section>
@@ -6886,81 +6890,81 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"buildOverviews"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"cameraLens"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"cameras"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"crop"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"debug"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"demDecimation"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"demEuclideanMap"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"buildOverviews"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"cameraLens"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"cameras"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"crop"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"debug"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"demDecimation"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"demEuclideanMap"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"demGapfillSteps"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"demResolution"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"depthmapResolution"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"dsm"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"dtm"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"edWith"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"fastOrthophoto"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"dtm"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"edWith"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"fastOrthophoto"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"featureQuality"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"featureType"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"forceGps"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"forceGps"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"gcp"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"geo"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"gpsAccuracy"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"geo"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"gpsAccuracy"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"ignoreGsd"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"matcherDistance"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"matcherDistance"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"matcherNeighbors"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"matcherType"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"matcherType"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"maxConcurrency"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"merge"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"meshOctreeDepth"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"meshSize"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"merge"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"meshOctreeDepth"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"meshSize"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"minNumFeatures"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"optimizeDiskSpace"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"orthophotoCompression"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"orthophotoCutline"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"orthophotoCutline"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"orthophotoNoTiled"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"orthophotoPng"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"orthophotoResolution"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"pcClassify"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"pcCsv"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"pcEpt"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"pcFilter"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"pcLas"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"pcQuality"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"pcClassify"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"pcCsv"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"pcEpt"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"pcFilter"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"pcLas"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"pcQuality"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"pcRectify"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"pcSample"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"pcSample"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"pcTile"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"primaryBand"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"projectPath"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"radiometricCalibration"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"rerun"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"rerunAll"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"rerunFrom"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"radiometricCalibration"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"rerun"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"rerunAll"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"rerunFrom"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"resizeTo"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"skip3dmodel"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"skipBandAlignment"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"skipReport"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"skip3dmodel"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"skipBandAlignment"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"skipReport"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"smCluster"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"smrfScalar"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"smrfSlope"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"smrfThreshold"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"smrfWindow"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"split"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"smrfThreshold"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"smrfWindow"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"split"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"splitImageGroups"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"splitOverlap"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"splitOverlap"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"texturingDataTerm"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"texturingOutlierRemovalType"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"texturingOutlierRemovalType"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"texturingSkipGlobalSeamLeveling"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"texturingSkipLocalSeamLeveling"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"texturingToneMapping"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"tiles"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"time"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"use3dmesh"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"tiles"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"time"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"use3dmesh"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"useExif"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"useFixedCameraParams"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"useHybridBundleAdjustment"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">"useHybridBundleAdjustment"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre> </body>
                   </html>
@@ -7115,11 +7119,11 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"polygon"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"outside"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"point"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"outside"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"point"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"distance"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"where"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"where"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"whereMerge"</span>: StringOrFloat
 }
 </code></pre> </body>
@@ -7237,10 +7241,10 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"inSrs"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"outSrs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"inSrs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"outSrs"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"inAxisOrdering"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"outAxisOrdering"</span>: <span class="hljs-string">"abc123"</span>
+  <span class="hljs-attr">"outAxisOrdering"</span>: <span class="hljs-string">"xyz789"</span>
 }
 </code></pre> </body>
                   </html>
@@ -7395,16 +7399,16 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"all"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"all"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"point"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"query"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"query"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"boundary"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"dimensions"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"enumerate"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"schema"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"summary"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"metadata"</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">"summary"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"metadata"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre> </body>
                   </html>
@@ -7739,20 +7743,20 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"resolution"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"radius"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"radius"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"power"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"gdaldriver"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"gdalopts"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"dataType"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"gdaldriver"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"gdalopts"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"dataType"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"nodata"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"outputType"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"windowSize"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"windowSize"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"dimension"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"bounds"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"originX"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"originY"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"width"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"height"</span>: <span class="hljs-number">123.45</span>
+  <span class="hljs-attr">"originY"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"width"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"height"</span>: <span class="hljs-number">987.65</span>
 }
 </code></pre> </body>
                   </html>
@@ -7955,16 +7959,16 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"forward"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"minorVersion"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"softwareId"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"forward"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"minorVersion"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"softwareId"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"creationDoy"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"creationYear"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"dataformatId"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"creationYear"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"dataformatId"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"systemId"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"globalEncoding"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"projectId"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"projectId"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"compression"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"scaleX"</span>: StringOrFloat,
   <span class="hljs-attr">"scaleY"</span>: StringOrFloat,
@@ -7972,7 +7976,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"offsetX"</span>: StringOrFloat,
   <span class="hljs-attr">"offsetY"</span>: StringOrFloat,
   <span class="hljs-attr">"offsetZ"</span>: StringOrFloat,
-  <span class="hljs-attr">"filesourceId"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"filesourceId"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"discardHighReturnNumbers"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"extraDims"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"pdalMetadata"</span>: <span class="hljs-literal">true</span>
@@ -8145,24 +8149,24 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"generatePage"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"spacing"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"spacing"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"spacingByDiagonalFraction"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"levels"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"inputformat"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"colorRange"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"levels"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"inputformat"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"colorRange"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"intensityRange"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"outputFormat"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"outputFormat"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"outputAttributes"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"scale"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"scale"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"aabb"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"incremental"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"overwrite"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"sourceListingOnly"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"projection"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"projection"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"listOfSourceFiles"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"sourceFile"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"edlEnabled"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"showSkyBox"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"material"</span>: <span class="hljs-string">"xyz789"</span>
@@ -8365,11 +8369,96 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"id"</span>: ID,
   <span class="hljs-attr">"key"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"type"</span>: ResourceType,
-  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"metadata"</span>: {},
   <span class="hljs-attr">"timestamps"</span>: Timestamps,
-  <span class="hljs-attr">"distance"</span>: <span class="hljs-number">123.45</span>
+  <span class="hljs-attr">"distance"</span>: <span class="hljs-number">987.65</span>
 }
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ResourceDownloadTaskArgs" class="definition panel" data-traverse-target="definition-ResourceDownloadTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/ResourceDownloadTaskArgs"></a>
+              <p><code>ResourceDownloadTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>resource.download</code>. <code>resource.download</code> is used to transfer existing resources to a workflow.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="id"> <code>id</code> -
+                        <a href="#definition-Int"><code>Int!</code></a>
+                      </td>
+                      <td>
+                        <p> Resource ID to download </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ResourceEnableTaskArgs" class="definition panel" data-traverse-target="definition-ResourceEnableTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/ResourceEnableTaskArgs"></a>
+              <p><code>ResourceEnableTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>resource.enable</code>.
+                    <br><code>resource.enable</code> is used to activate a resource after syncing. See <code>resource.sync</code> for syncing.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="_"> <code>_</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td>
+                        <p> No args </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"_"</span>: <span class="hljs-literal">true</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -8474,6 +8563,48 @@ https://api.pointscene.com/graphql
               </div>
             </div>
           </div>
+          <div id="definition-ResourceSyncTaskArgs" class="definition panel" data-traverse-target="definition-ResourceSyncTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/ResourceSyncTaskArgs"></a>
+              <p><code>ResourceSyncTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>resource.sync</code>. Resource sync is used to create a new resource or update an existing one. A new resource will be created if no arguments are given.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="id"> <code>id</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td>
+                        <p> Optional resource Id for updating an existing resource </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-ResourceType" class="definition panel" data-traverse-target="definition-ResourceType">
             <div class="definition-tags">
               <a class="label" href="#tag-types">Types</a>
@@ -8530,6 +8661,49 @@ https://api.pointscene.com/graphql
                       <td> </td>
                     </tr>
                   </table>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ResourceUploadTaskArgs" class="definition panel" data-traverse-target="definition-ResourceUploadTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/ResourceUploadTaskArgs"></a>
+              <p><code>ResourceUploadTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>resource.upload</code>.
+                    <br><code>resource.upload</code> is used to upload synced data from tasks back to storage. See <code>resource.sync</code> for syncing.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="_"> <code>_</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td>
+                        <p> No args </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"_"</span>: <span class="hljs-literal">true</span>}
+</code></pre> </body>
+                  </html>
                 </section>
               </div>
             </div>
@@ -8735,7 +8909,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -8856,7 +9030,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"size"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"metadata"</span>: JSONObject
 }
@@ -8910,7 +9084,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"items"</span>: [StorageObject],
-  <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"cursor"</span>: Cursor
 }
 </code></pre> </body>
@@ -9098,9 +9272,9 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"updatedAt"</span>: <span class="hljs-string">"2021-06-16T08:31:12.879Z"</span>,
-  <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2021-06-16T08:31:12.879Z"</span>,
-  <span class="hljs-attr">"deletedAt"</span>: <span class="hljs-string">"2021-06-16T08:31:12.879Z"</span>
+  <span class="hljs-attr">"updatedAt"</span>: <span class="hljs-string">"2020-12-16T10:38:29.559Z"</span>,
+  <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2021-06-16T09:38:29.559Z"</span>,
+  <span class="hljs-attr">"deletedAt"</span>: <span class="hljs-string">"2021-06-16T09:38:29.559Z"</span>
 }
 </code></pre> </body>
                   </html>
@@ -9213,7 +9387,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"id"</span>: ID,
   <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"status"</span>: UserStatus
 }
@@ -9358,7 +9532,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"withPrefix"</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">"maintainStructure"</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">"allowOverwrite"</span>: <span class="hljs-literal">false</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"withPrefix"</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">"maintainStructure"</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">"allowOverwrite"</span>: <span class="hljs-literal">false</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -9459,7 +9633,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"pathIn"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"pathOut"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"selector"</span>: <span class="hljs-string">"xyz789"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"pathIn"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"pathOut"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"selector"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -9545,7 +9719,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"url"</span>: <span class="hljs-string">"abc123"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"url"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -9613,7 +9787,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: ID,
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"reports"</span>: [{}],
   <span class="hljs-attr">"debugging"</span>: {}
 }
@@ -9656,7 +9830,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"status"</span>: <span class="hljs-string">"xyz789"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"status"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -9727,7 +9901,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"args"</span>: {},
   <span class="hljs-attr">"inputs"</span>: [<span class="hljs-string">"xyz789"</span>]
 }
@@ -9788,7 +9962,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"items"</span>: [Workflow],
-  <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"cursor"</span>: Cursor
 }
 </code></pre> </body>
@@ -9830,7 +10004,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}
 </code></pre> </body>
                   </html>
                 </section>

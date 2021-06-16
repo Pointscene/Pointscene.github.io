@@ -32,10 +32,140 @@
       Workflows can be used to convert data in to streaming formats, extract metadata and much more.
     </p>
     <h2>
-        Quickstart
+      Quickstart
     </h2>
+    <h3>
+      Convert ortho mosaic to Cloud Optimized GeoTIFF (COG) for streaming TMS tiles
+    </h3>
     <p>
-        Coming soon!
+      We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.
+    </p>
+    <p>
+      <code>
+        mutation {
+          createWorkflow(
+            instanceId: <Instance Id>
+            title: "Create COG for streaming TMS tiles"
+            tasks: [
+              {
+                # Define input data to be downloaded from an external source
+                name: "download"
+                type: "web.download"
+                args: {
+                  url: <URL to ortho photo>
+                }        
+              }
+              {
+                # Run gdal.translate to generate COG
+                name: "cog"
+                type: "gdal.translate"
+                args: {
+                  of: "COG"
+                  co: [
+                    "BIGTIFF=IF_SAFER"
+                  ]
+                }
+                # Define task input from "download"
+                inputs: ["download"]
+              }
+              {
+                # Extract metadata such as geographic boundary
+                name: "info"
+                type: "gdal.info"
+                args: {}
+                inputs: ["cog"]
+              }
+              {
+                # Sync extracted metadata to the DB
+                name: "sync"
+                type: "resource.sync"
+                args: {}
+                inputs: ["info"]
+              }
+              {
+                # Upload converted COG to storage
+                name: "upload"
+                type: "resource.upload"
+                args: {}
+                inputs: ["sync", "cog"]
+              }
+              {
+                # Enable resource
+                name: "enable"
+                type: "resource.enable"
+                args: {}
+                inputs: ["sync"]
+              }
+            ]
+          ) {
+            id
+          }
+        }
+      </code>
+    </p>
+    <h3>
+      Convert point cloud file to a streaming format for use in browsers
+    </h3>
+    <p>
+      We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.
+    </p>
+    <p>
+      <code>
+        mutation {
+          createWorkflow(
+            instanceId: <Instance Id>
+            title: "Create Potree structure for streaming point cloud"
+            tasks: [
+              {
+                # Define input to be downloaded from the web
+                name: "download"
+                type: "web.download"
+                args: {
+                  url: <URL for pointcloud>
+                }        
+              }
+              {
+                # Run PotreeConverter on the downloaded data
+                name: "potree"
+                type: "potreeconverter.convert"
+                args: {}
+                inputs: ["download"]
+              }
+              {
+                # Extract metadata
+                name: "info"
+                type: "pdal.info"
+                args: {}
+                inputs: ["download"]
+              }
+              {
+                # Sync the metadata to the DB
+                name: "sync"
+                type: "resource.sync"
+                args: {}
+                inputs: ["info"]
+              }
+              {
+                # Upload Potree files to storage
+                name: "upload"
+                type: "resource.upload"
+                args: {}
+                inputs: ["sync", "potree"]
+              }
+              {
+                # Enable resource for streaming
+                name: "enable"
+                type: "resource.enable"
+                args: {}
+                inputs: ["sync"]
+              }
+            ]
+          ) {
+            id
+          }
+        }
+        
+      </code>
     </p>
     <h2>
       Workflows
@@ -46,7 +176,7 @@
     <p>
       Workflows are built from tasks by linking them together as graphs.<br />
       You can find more information on building custom workflows from 
-      <a href="https://github.com/Pointscene/api-examples">here*</a>.
+      <a href="/workflows/index.html">here*</a>.
     </p>
     <h2>
       User authentication
