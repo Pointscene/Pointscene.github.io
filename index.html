@@ -13,6 +13,7 @@
     </style>
   </head>
   <body>
+    <img src="./pointscene_logo.svg" width="30%" />
     <h1>
       Pointscene API documentation
     </h1>
@@ -21,7 +22,7 @@
     </h2>
     <p>
       Pointscene API provides tools to analyze, manage and stream reality capture data.<br />
-      Please email us at support@pointscene.com for API access.
+      Please email us at sales@pointscene.com for API access.
     </p>
     <p>
       Pointscene API has built-in support for point clouds, raster files, mesh* models, 
@@ -34,6 +35,9 @@
     <h2>
       Quickstart
     </h2>
+    <p>
+      Before you can run your custom mutations you will need API access. Please contact sales@pointscene.com for inquiries.
+    </p>
     <h3>
       Convert ortho mosaic to Cloud Optimized GeoTIFF (COG) for streaming TMS tiles
     </h3>
@@ -41,67 +45,67 @@
       We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.
     </p>
     <p>
-      <code>
+      <div style="background-color: #eee; font-family: monospace; padding: 20px;">
         mutation {<br />
-          createWorkflow(<br />
-            instanceId: <Instance Id><br />
-            title: "Create COG for streaming TMS tiles"<br />
-            tasks: [<br />
-              {<br />
-                # Define input data to be downloaded from an external source<br />
-                name: "download"<br />
-                type: "web.download"<br />
-                args: {<br />
-                  url: <URL to ortho photo><br />
-                }<br />
-              }<br />
-              {<br />
-                # Run gdal.translate to generate COG<br />
-                name: "cog"<br />
-                type: "gdal.translate"<br />
-                args: {<br />
-                  of: "COG"<br />
-                  co: [<br />
-                    "BIGTIFF=IF_SAFER"<br />
-                  ]<br />
-                }<br />
-                # Define task input from "download"<br />
-                inputs: ["download"]<br />
-              }<br />
-              {<br />
-                # Extract metadata such as geographic boundary<br />
-                name: "info"<br />
-                type: "gdal.info"<br />
-                args: {}<br />
-                inputs: ["cog"]<br />
-              }<br />
-              {<br />
-                # Sync extracted metadata to the DB<br />
-                name: "sync"<br />
-                type: "resource.sync"<br />
-                args: {}<br />
-                inputs: ["info"]<br />
-              }<br />
-              {<br />
-                # Upload converted COG to storage<br />
-                name: "upload"<br />
-                type: "resource.upload"<br />
-                args: {}<br />
-                inputs: ["sync", "cog"]<br />
-              }<br />
-              {<br />
-                # Enable resource<br />
-                name: "enable"<br />
-                type: "resource.enable"<br />
-                args: {}<br />
-                inputs: ["sync"]<br />
-              }<br />
-            ]<br />
-          ) {<br />
-            id<br />
-          }<br />
+          &nbsp&nbspcreateWorkflow(<br />
+          &nbsp&nbsp&nbsp&nbspinstanceId: ${Your instance Id}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsptitle: "Create COG for streaming TMS tiles"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptasks: [<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Define input data to be downloaded from an external source<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "download"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "web.download"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspurl: ${Ortho URL}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Run gdal.translate to generate COG<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "cog"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "gdal.translate"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspof: "COG"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspco: [<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"BIGTIFF=IF_SAFER"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Define task input from "download"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["download"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Extract metadata such as geographic boundary<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "info"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "gdal.info"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["cog"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Sync extracted metadata to the DB<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "sync"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.sync"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["info"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Upload converted COG to storage<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "upload"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.upload"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync", "cog"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Enable resource<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "enable"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.enable"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp]<br />
+          &nbsp&nbsp) {<br />
+          &nbsp&nbsp&nbsp&nbspid<br />
+          &nbsp&nbsp}<br />
         }<br />
-      </code>
+      </div>
     </p>
     <h3>
       Convert point cloud file to a streaming format for use in browsers
@@ -110,61 +114,61 @@
       We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.
     </p>
     <p>
-      <code>
+      <div style="background-color: #eee; font-family: monospace; padding: 20px;">
         mutation {<br />
-          createWorkflow(<br />
-            instanceId: <Instance Id><br />
-            title: "Create Potree structure for streaming point cloud"<br />
-            tasks: [<br />
-              {<br />
-                # Define input to be downloaded from the web<br />
-                name: "download"<br />
-                type: "web.download"<br />
-                args: {<br />
-                  url: <URL for pointcloud><br />
-                }<br />
-              }<br />
-              {<br />
-                # Run PotreeConverter on the downloaded data<br />
-                name: "potree"<br />
-                type: "potreeconverter.convert"<br />
-                args: {}<br />
-                inputs: ["download"]<br />
-              }<br />
-              {<br />
-                # Extract metadata<br />
-                name: "info"<br />
-                type: "pdal.info"<br />
-                args: {}<br />
-                inputs: ["download"]<br />
-              }<br />
-              {<br />
-                # Sync the metadata to the DB<br />
-                name: "sync"<br />
-                type: "resource.sync"<br />
-                args: {}<br />
-                inputs: ["info"]<br />
-              }<br />
-              {<br />
-                # Upload Potree files to storage<br />
-                name: "upload"<br />
-                type: "resource.upload"<br />
-                args: {}<br />
-                inputs: ["sync", "potree"]<br />
-              }<br />
-              {<br />
-                # Enable resource for streaming<br />
-                name: "enable"<br />
-                type: "resource.enable"<br />
-                args: {}<br />
-                inputs: ["sync"]<br />
-              }<br />
-            ]<br />
-          ) {<br />
-            id<br />
-          }<br />
+          &nbsp&nbspcreateWorkflow(<br />
+          &nbsp&nbsp&nbsp&nbspinstanceId: ${Your instance Id}<br />
+          &nbsp&nbsp&nbsp&nbsptitle: "Create Potree structure for streaming point cloud"<br />
+          &nbsp&nbsp&nbsp&nbsptasks: [<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Define input to be downloaded from the web<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "download"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "web.download"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspurl: ${Point cloud URL}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Run PotreeConverter on the downloaded data<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "potree"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "potreeconverter.convert"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["download"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Extract metadata<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "info"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "pdal.info"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["download"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Sync the metadata to the DB<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "sync"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.sync"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["info"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Upload Potree files to storage<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "upload"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.upload"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync", "potree"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Enable resource for streaming<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "enable"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.enable"<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync"]<br />
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
+          &nbsp&nbsp&nbsp&nbsp]<br />
+          &nbsp&nbsp) {<br />
+          &nbsp&nbsp&nbsp&nbspid<br />
+          &nbsp&nbsp}<br />
         }<br />
-      </code>
+      </div>
     </p>
     <h2>
       Workflows
