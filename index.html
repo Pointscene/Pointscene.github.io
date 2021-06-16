@@ -42,65 +42,65 @@
     </p>
     <p>
       <code>
-        mutation {
-          createWorkflow(
-            instanceId: <Instance Id>
-            title: "Create COG for streaming TMS tiles"
-            tasks: [
-              {
-                # Define input data to be downloaded from an external source
-                name: "download"
-                type: "web.download"
-                args: {
-                  url: <URL to ortho photo>
-                }        
-              }
-              {
-                # Run gdal.translate to generate COG
-                name: "cog"
-                type: "gdal.translate"
-                args: {
-                  of: "COG"
-                  co: [
-                    "BIGTIFF=IF_SAFER"
-                  ]
-                }
-                # Define task input from "download"
-                inputs: ["download"]
-              }
-              {
-                # Extract metadata such as geographic boundary
-                name: "info"
-                type: "gdal.info"
-                args: {}
-                inputs: ["cog"]
-              }
-              {
-                # Sync extracted metadata to the DB
-                name: "sync"
-                type: "resource.sync"
-                args: {}
-                inputs: ["info"]
-              }
-              {
-                # Upload converted COG to storage
-                name: "upload"
-                type: "resource.upload"
-                args: {}
-                inputs: ["sync", "cog"]
-              }
-              {
-                # Enable resource
-                name: "enable"
-                type: "resource.enable"
-                args: {}
-                inputs: ["sync"]
-              }
-            ]
-          ) {
-            id
-          }
-        }
+        mutation {<br />
+          createWorkflow(<br />
+            instanceId: <Instance Id><br />
+            title: "Create COG for streaming TMS tiles"<br />
+            tasks: [<br />
+              {<br />
+                # Define input data to be downloaded from an external source<br />
+                name: "download"<br />
+                type: "web.download"<br />
+                args: {<br />
+                  url: <URL to ortho photo><br />
+                }<br />
+              }<br />
+              {<br />
+                # Run gdal.translate to generate COG<br />
+                name: "cog"<br />
+                type: "gdal.translate"<br />
+                args: {<br />
+                  of: "COG"<br />
+                  co: [<br />
+                    "BIGTIFF=IF_SAFER"<br />
+                  ]<br />
+                }<br />
+                # Define task input from "download"<br />
+                inputs: ["download"]<br />
+              }<br />
+              {<br />
+                # Extract metadata such as geographic boundary<br />
+                name: "info"<br />
+                type: "gdal.info"<br />
+                args: {}<br />
+                inputs: ["cog"]<br />
+              }<br />
+              {<br />
+                # Sync extracted metadata to the DB<br />
+                name: "sync"<br />
+                type: "resource.sync"<br />
+                args: {}<br />
+                inputs: ["info"]<br />
+              }<br />
+              {<br />
+                # Upload converted COG to storage<br />
+                name: "upload"<br />
+                type: "resource.upload"<br />
+                args: {}<br />
+                inputs: ["sync", "cog"]<br />
+              }<br />
+              {<br />
+                # Enable resource<br />
+                name: "enable"<br />
+                type: "resource.enable"<br />
+                args: {}<br />
+                inputs: ["sync"]<br />
+              }<br />
+            ]<br />
+          ) {<br />
+            id<br />
+          }<br />
+        }<br />
       </code>
     </p>
     <h3>
@@ -111,60 +111,59 @@
     </p>
     <p>
       <code>
-        mutation {
-          createWorkflow(
-            instanceId: <Instance Id>
-            title: "Create Potree structure for streaming point cloud"
-            tasks: [
-              {
-                # Define input to be downloaded from the web
-                name: "download"
-                type: "web.download"
-                args: {
-                  url: <URL for pointcloud>
-                }        
-              }
-              {
-                # Run PotreeConverter on the downloaded data
-                name: "potree"
-                type: "potreeconverter.convert"
-                args: {}
-                inputs: ["download"]
-              }
-              {
-                # Extract metadata
-                name: "info"
-                type: "pdal.info"
-                args: {}
-                inputs: ["download"]
-              }
-              {
-                # Sync the metadata to the DB
-                name: "sync"
-                type: "resource.sync"
-                args: {}
-                inputs: ["info"]
-              }
-              {
-                # Upload Potree files to storage
-                name: "upload"
-                type: "resource.upload"
-                args: {}
-                inputs: ["sync", "potree"]
-              }
-              {
-                # Enable resource for streaming
-                name: "enable"
-                type: "resource.enable"
-                args: {}
-                inputs: ["sync"]
-              }
-            ]
-          ) {
-            id
-          }
-        }
-        
+        mutation {<br />
+          createWorkflow(<br />
+            instanceId: <Instance Id><br />
+            title: "Create Potree structure for streaming point cloud"<br />
+            tasks: [<br />
+              {<br />
+                # Define input to be downloaded from the web<br />
+                name: "download"<br />
+                type: "web.download"<br />
+                args: {<br />
+                  url: <URL for pointcloud><br />
+                }<br />
+              }<br />
+              {<br />
+                # Run PotreeConverter on the downloaded data<br />
+                name: "potree"<br />
+                type: "potreeconverter.convert"<br />
+                args: {}<br />
+                inputs: ["download"]<br />
+              }<br />
+              {<br />
+                # Extract metadata<br />
+                name: "info"<br />
+                type: "pdal.info"<br />
+                args: {}<br />
+                inputs: ["download"]<br />
+              }<br />
+              {<br />
+                # Sync the metadata to the DB<br />
+                name: "sync"<br />
+                type: "resource.sync"<br />
+                args: {}<br />
+                inputs: ["info"]<br />
+              }<br />
+              {<br />
+                # Upload Potree files to storage<br />
+                name: "upload"<br />
+                type: "resource.upload"<br />
+                args: {}<br />
+                inputs: ["sync", "potree"]<br />
+              }<br />
+              {<br />
+                # Enable resource for streaming<br />
+                name: "enable"<br />
+                type: "resource.enable"<br />
+                args: {}<br />
+                inputs: ["sync"]<br />
+              }<br />
+            ]<br />
+          ) {<br />
+            id<br />
+          }<br />
+        }<br />
       </code>
     </p>
     <h2>
