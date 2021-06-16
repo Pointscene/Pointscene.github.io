@@ -136,12 +136,15 @@
           <a href="#definition-Date"> Date </a>
           <a href="#definition-DeleteClientResult"> DeleteClientResult </a>
           <a href="#definition-DeleteInstanceResult"> DeleteInstanceResult </a>
+          <a href="#definition-EntwineBuildTaskArgs"> EntwineBuildTaskArgs </a>
+          <a href="#definition-EntwineInfoTaskArgs"> EntwineInfoTaskArgs </a>
+          <a href="#definition-EntwineMergeTaskArgs"> EntwineMergeTaskArgs </a>
           <a href="#definition-Float"> Float </a>
           <a href="#definition-ForceReference"> ForceReference </a>
-          <a href="#definition-GdalInfoArgs"> GdalInfoArgs </a>
-          <a href="#definition-GdalMergeArgs"> GdalMergeArgs </a>
-          <a href="#definition-GdalTranslateArgs"> GdalTranslateArgs </a>
-          <a href="#definition-GdalWarpArgs"> GdalWarpArgs </a>
+          <a href="#definition-GdalInfoTaskArgs"> GdalInfoTaskArgs </a>
+          <a href="#definition-GdalMergeTaskArgs"> GdalMergeTaskArgs </a>
+          <a href="#definition-GdalTranslateTaskArgs"> GdalTranslateTaskArgs </a>
+          <a href="#definition-GdalWarpTaskArgs"> GdalWarpTaskArgs </a>
           <a href="#definition-GeoJSON"> GeoJSON </a>
           <a href="#definition-GeoJSONBboxScalar"> GeoJSONBboxScalar </a>
           <a href="#definition-GeoJSONCRSType"> GeoJSONCRSType </a>
@@ -179,6 +182,7 @@
           <a href="#definition-JSONObject"> JSONObject </a>
           <a href="#definition-LinkLevel"> LinkLevel </a>
           <a href="#definition-Location"> Location </a>
+          <a href="#definition-OdmRunTaskArgs"> OdmRunTaskArgs </a>
           <a href="#definition-Order"> Order </a>
           <a href="#definition-Page"> Page </a>
           <a href="#definition-PdalFiltersCropOptions"> PdalFiltersCropOptions </a>
@@ -194,6 +198,7 @@
           <a href="#definition-PdalWritersGdalOptionsArgs"> PdalWritersGdalOptionsArgs </a>
           <a href="#definition-PdalWritersLasOptions"> PdalWritersLasOptions </a>
           <a href="#definition-PdalWritersLasOptionsArgs"> PdalWritersLasOptionsArgs </a>
+          <a href="#definition-PotreeConverterTaskArgs"> PotreeConverterTaskArgs </a>
           <a href="#definition-ReferenceId"> ReferenceId </a>
           <a href="#definition-ReferenceType"> ReferenceType </a>
           <a href="#definition-Resource"> Resource </a>
@@ -216,6 +221,11 @@
           <a href="#definition-User"> User </a>
           <a href="#definition-UserLevel"> UserLevel </a>
           <a href="#definition-UserStatus"> UserStatus </a>
+          <a href="#definition-UtilCombineTaskArgs"> UtilCombineTaskArgs </a>
+          <a href="#definition-UtilFlattenTaskArgs"> UtilFlattenTaskArgs </a>
+          <a href="#definition-UtilMoveTaskArgs"> UtilMoveTaskArgs </a>
+          <a href="#definition-UtilUnzipTaskArgs"> UtilUnzipTaskArgs </a>
+          <a href="#definition-WebDownloadTaskArgs"> WebDownloadTaskArgs </a>
           <a href="#definition-Workflow"> Workflow </a>
           <a href="#definition-WorkflowStatus"> WorkflowStatus </a>
           <a href="#definition-WorkflowTask"> WorkflowTask </a>
@@ -327,8 +337,8 @@ https://api.pointscene.com/graphql
     <span class="hljs-attr">"client"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
       <span class="hljs-attr">"instanceId"</span>: [<span class="hljs-number">123</span>],
-      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"managed"</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>
     }
@@ -405,7 +415,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"page"</span>: Page}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"page"</span>: Page}
 </code></pre> </body>
                     </html>
                 </section>
@@ -511,7 +521,7 @@ https://api.pointscene.com/graphql
     <span class="hljs-attr">"instance"</span>: {
       <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
       <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"timestamps"</span>: Timestamps
     }
   }
@@ -604,7 +614,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"instances"</span>: {
       <span class="hljs-attr">"items"</span>: [Instance],
-      <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
+      <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"cursor"</span>: Cursor
     }
   }
@@ -678,7 +688,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -695,9 +705,9 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"resource"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"key"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"key"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"type"</span>: ResourceType,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"metadata"</span>: {},
       <span class="hljs-attr">"timestamps"</span>: Timestamps,
       <span class="hljs-attr">"distance"</span>: <span class="hljs-number">123.45</span>
@@ -800,7 +810,7 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"page"</span>: Page,
   <span class="hljs-attr">"sort"</span>: Sort,
   <span class="hljs-attr">"spatial"</span>: SpatialQuery,
@@ -823,7 +833,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"resources"</span>: {
       <span class="hljs-attr">"items"</span>: [Resource],
-      <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
+      <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"cursor"</span>: Cursor
     }
   }
@@ -897,7 +907,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -914,8 +924,8 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"storageBucket"</span>: {
       <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
-      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"xyz789"</span>,
-      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>
+      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>
     }
   }
 }
@@ -983,7 +993,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"page"</span>: Page}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"page"</span>: Page}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1000,7 +1010,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"storageBuckets"</span>: {
       <span class="hljs-attr">"items"</span>: [StorageBucket],
-      <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
+      <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"cursor"</span>: Cursor
     }
   }
@@ -1093,7 +1103,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"storageObjects"</span>: {
       <span class="hljs-attr">"items"</span>: [StorageObject],
-      <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
+      <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"cursor"</span>: Cursor
     }
   }
@@ -1187,7 +1197,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"user"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">false</span>,
@@ -1276,7 +1286,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"workflow"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"reports"</span>: [{}],
       <span class="hljs-attr">"debugging"</span>: {}
     }
@@ -1359,7 +1369,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"first"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"after"</span>: Cursor}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"first"</span>: <span class="hljs-number">987</span>, <span class="hljs-attr">"after"</span>: Cursor}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1376,7 +1386,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"workflows"</span>: {
       <span class="hljs-attr">"items"</span>: [Workflow],
-      <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
+      <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
       <span class="hljs-attr">"cursor"</span>: Cursor
     }
   }
@@ -1464,7 +1474,7 @@ https://api.pointscene.com/graphql
     <span class="hljs-attr">"activateUser"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
       <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"status"</span>: UserStatus
@@ -1491,7 +1501,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for creating a new client. Contact
-                    <a href="mailto:&#x73;&#x75;&#x70;&#x70;&#111;&#x72;&#x74;&#x40;&#112;&#x6f;&#x69;&#110;&#x74;&#115;&#x63;&#x65;&#x6e;&#x65;&#x2e;&#x63;&#111;&#109;">&#x73;&#x75;&#x70;&#x70;&#111;&#x72;&#x74;&#x40;&#112;&#x6f;&#x69;&#110;&#x74;&#115;&#x63;&#x65;&#x6e;&#x65;&#x2e;&#x63;&#111;&#109;</a> for client access.</p>
+                    <a href="mailto:&#x73;&#x75;&#x70;&#x70;&#x6f;&#114;&#116;&#x40;&#x70;&#x6f;&#105;&#110;&#x74;&#x73;&#x63;&#101;&#110;&#x65;&#x2e;&#x63;&#111;&#109;">&#x73;&#x75;&#x70;&#x70;&#x6f;&#114;&#116;&#x40;&#x70;&#x6f;&#105;&#110;&#x74;&#x73;&#x63;&#101;&#110;&#x65;&#x2e;&#x63;&#111;&#109;</a> for client access.</p>
                 </section>
               </div>
             </div>
@@ -1541,7 +1551,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1558,7 +1568,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"createClient"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"xyz789"</span>
     }
   }
@@ -1635,7 +1645,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -1652,7 +1662,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"createInstance"</span>: {
       <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
-      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"timestamps"</span>: Timestamps
     }
@@ -1746,10 +1756,10 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"accessKey"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"secretKey"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"secretKey"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"endpoint"</span>: <span class="hljs-string">"xyz789"</span>
 }
 </code></pre> </body>
@@ -1768,7 +1778,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"createStorageBucket"</span>: {
       <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
-      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"abc123"</span>,
+      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"xyz789"</span>,
       <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>
     }
   }
@@ -1854,8 +1864,8 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"metadata"</span>: JSONObject
 }
@@ -1964,9 +1974,9 @@ https://api.pointscene.com/graphql
                     <head></head>
                     <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"password"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"status"</span>: UserStatus
 }
 </code></pre> </body>
@@ -1985,7 +1995,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"createUser"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">true</span>,
@@ -2095,7 +2105,7 @@ https://api.pointscene.com/graphql
                     <html>
                     <head></head>
                     <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"dryrun"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"inputs"</span>: {},
@@ -2119,7 +2129,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"createWorkflow"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"reports"</span>: [{}],
       <span class="hljs-attr">"debugging"</span>: {}
     }
@@ -2145,7 +2155,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for deleting an existing client. Contact
-                    <a href="mailto:&#115;&#117;&#112;&#x70;&#111;&#x72;&#x74;&#x40;&#x70;&#x6f;&#x69;&#x6e;&#116;&#115;&#x63;&#101;&#x6e;&#101;&#46;&#99;&#111;&#109;">&#115;&#117;&#112;&#x70;&#111;&#x72;&#x74;&#x40;&#x70;&#x6f;&#x69;&#x6e;&#116;&#115;&#x63;&#101;&#x6e;&#101;&#46;&#99;&#111;&#109;</a> for deletion requests.</p>
+                    <a href="mailto:&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#x40;&#112;&#111;&#105;&#x6e;&#x74;&#x73;&#99;&#x65;&#110;&#x65;&#46;&#99;&#111;&#109;">&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#x40;&#112;&#111;&#105;&#x6e;&#x74;&#x73;&#99;&#x65;&#110;&#x65;&#46;&#99;&#111;&#109;</a> for deletion requests.</p>
                 </section>
               </div>
             </div>
@@ -2221,7 +2231,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for deleting an existing instance. Contact
-                    <a href="mailto:&#x73;&#117;&#112;&#x70;&#x6f;&#x72;&#x74;&#64;&#x70;&#111;&#105;&#110;&#x74;&#x73;&#x63;&#101;&#x6e;&#101;&#x2e;&#99;&#111;&#x6d;">&#x73;&#117;&#112;&#x70;&#x6f;&#x72;&#x74;&#64;&#x70;&#111;&#105;&#110;&#x74;&#x73;&#x63;&#101;&#x6e;&#101;&#x2e;&#99;&#111;&#x6d;</a> for deletion requests.</p>
+                    <a href="mailto:&#115;&#x75;&#112;&#112;&#111;&#114;&#x74;&#x40;&#x70;&#111;&#105;&#x6e;&#116;&#115;&#99;&#x65;&#x6e;&#101;&#x2e;&#99;&#111;&#x6d;">&#115;&#x75;&#112;&#112;&#111;&#114;&#x74;&#x40;&#x70;&#111;&#105;&#x6e;&#116;&#115;&#99;&#x65;&#x6e;&#101;&#x2e;&#99;&#111;&#x6d;</a> for deletion requests.</p>
                 </section>
               </div>
             </div>
@@ -2297,7 +2307,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for deleting an existing storage bucket. Contact
-                    <a href="mailto:&#x73;&#117;&#x70;&#x70;&#111;&#x72;&#x74;&#x40;&#112;&#x6f;&#105;&#110;&#x74;&#115;&#x63;&#101;&#110;&#101;&#46;&#x63;&#x6f;&#x6d;">&#x73;&#117;&#x70;&#x70;&#111;&#x72;&#x74;&#x40;&#112;&#x6f;&#105;&#110;&#x74;&#115;&#x63;&#101;&#110;&#101;&#46;&#x63;&#x6f;&#x6d;</a> for deletion requests.</p>
+                    <a href="mailto:&#x73;&#x75;&#112;&#x70;&#111;&#x72;&#x74;&#64;&#112;&#x6f;&#x69;&#x6e;&#x74;&#115;&#99;&#101;&#110;&#101;&#x2e;&#x63;&#x6f;&#x6d;">&#x73;&#x75;&#112;&#x70;&#111;&#x72;&#x74;&#64;&#112;&#x6f;&#x69;&#x6e;&#x74;&#115;&#99;&#101;&#110;&#101;&#x2e;&#x63;&#x6f;&#x6d;</a> for deletion requests.</p>
                 </section>
               </div>
             </div>
@@ -2339,7 +2349,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2352,7 +2362,7 @@ https://api.pointscene.com/graphql
                   <h5>Response </h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"deleteStorageBucket"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}}}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"deleteStorageBucket"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}}}
 </code></pre> </body>
                   </html>
                 </section>
@@ -2411,7 +2421,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"bucket"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2586,7 +2596,7 @@ https://api.pointscene.com/graphql
                   <h5>Response </h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"linkInstanceClient"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}}}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"linkInstanceClient"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}}}
 </code></pre> </body>
                   </html>
                 </section>
@@ -2669,7 +2679,7 @@ https://api.pointscene.com/graphql
                     <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"instanceId"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"userId"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"level"</span>: UserLevel
 }
 </code></pre> </body>
@@ -2684,7 +2694,7 @@ https://api.pointscene.com/graphql
                   <h5>Response </h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"linkInstanceUser"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}}}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"linkInstanceUser"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}}}
 </code></pre> </body>
                   </html>
                 </section>
@@ -2759,7 +2769,7 @@ https://api.pointscene.com/graphql
                   <h5>Response </h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"requestResetPassword"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}}}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"data"</span>: {<span class="hljs-attr">"requestResetPassword"</span>: {<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}}}
 </code></pre> </body>
                   </html>
                 </section>
@@ -2780,7 +2790,7 @@ https://api.pointscene.com/graphql
               <div class="doc-copy">
                 <section class="swagger-operation-description operation-description">
                   <p>Mutation for resetting Client Secret. Contact
-                    <a href="mailto:&#115;&#x75;&#x70;&#112;&#x6f;&#x72;&#116;&#x40;&#112;&#x6f;&#x69;&#110;&#x74;&#x73;&#99;&#101;&#x6e;&#x65;&#46;&#99;&#x6f;&#109;">&#115;&#x75;&#x70;&#112;&#x6f;&#x72;&#116;&#x40;&#112;&#x6f;&#x69;&#110;&#x74;&#x73;&#99;&#101;&#x6e;&#x65;&#46;&#99;&#x6f;&#109;</a> for resetting client secrets.</p>
+                    <a href="mailto:&#115;&#x75;&#x70;&#112;&#111;&#x72;&#116;&#64;&#x70;&#x6f;&#x69;&#110;&#x74;&#115;&#99;&#101;&#110;&#x65;&#x2e;&#99;&#x6f;&#109;">&#115;&#x75;&#x70;&#112;&#111;&#x72;&#116;&#64;&#x70;&#x6f;&#x69;&#110;&#x74;&#115;&#99;&#101;&#110;&#x65;&#x2e;&#99;&#x6f;&#109;</a> for resetting client secrets.</p>
                 </section>
               </div>
             </div>
@@ -2824,7 +2834,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2842,7 +2852,7 @@ https://api.pointscene.com/graphql
     <span class="hljs-attr">"resetClientSecret"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
       <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"abc123"</span>
+      <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"xyz789"</span>
     }
   }
 }
@@ -2924,7 +2934,7 @@ https://api.pointscene.com/graphql
                     <h5>Variables</h5>
                     <html>
                     <head></head>
-                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"code"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"password"</span>: <span class="hljs-string">"xyz789"</span>}
+                    <body><pre><code class="hljs language-json">{<span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"code"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"password"</span>: <span class="hljs-string">"abc123"</span>}
 </code></pre> </body>
                     </html>
                 </section>
@@ -2941,10 +2951,10 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"resetPassword"</span>: {
       <span class="hljs-attr">"id"</span>: ID,
-      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"email"</span>: <span class="hljs-string">"abc123"</span>,
-      <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"status"</span>: UserStatus
     }
   }
@@ -3027,8 +3037,8 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"data"</span>: {
     <span class="hljs-attr">"updateStorageBucket"</span>: {
-      <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
-      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"xyz789"</span>,
+      <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
+      <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"abc123"</span>,
       <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>
     }
   }
@@ -3167,7 +3177,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"noDeleteOn"</span>: <span class="hljs-string">"abc123"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"noDeleteOn"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -3193,7 +3203,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-literal">true</span></span>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-literal">false</span></span>
 </code></pre> </body>
                   </html>
                 </section>
@@ -3268,7 +3278,7 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"instanceId"</span>: [<span class="hljs-number">123</span>],
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"managed"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"managed"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>
 }
 </code></pre> </body>
@@ -3330,7 +3340,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: ID,
-  <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"clientKey"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"clientSecret"</span>: <span class="hljs-string">"xyz789"</span>
 }
 </code></pre> </body>
@@ -3487,7 +3497,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">2021-06-15T14:23:16.215Z</span>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">2021-06-16T07:18:56.899Z</span>
 </code></pre> </body>
                   </html>
                 </section>
@@ -3529,7 +3539,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -3571,7 +3581,419 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EntwineBuildTaskArgs" class="definition panel" data-traverse-target="definition-EntwineBuildTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/EntwineBuildTaskArgs"></a>
+              <p><code>EntwineBuildTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>entwine.build</code>.
+                    <br>See reference for more information: (link)[
+                    <a href="https://entwine.io/configuration.html#build%5D">https://entwine.io/configuration.html#build]</a>
+                  </p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="srs"> <code>srs</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="reprojection"> <code>reprojection</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="hammer"> <code>hammer</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="threads"> <code>threads</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="force"> <code>force</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="dataType"> <code>dataType</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="span"> <code>span</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="noOriginId"> <code>noOriginId</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="bounds"> <code>bounds</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="deep"> <code>deep</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="absolute"> <code>absolute</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="scale"> <code>scale</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="limit"> <code>limit</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="subset"> <code>subset</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="maxNodeSize"> <code>maxNodeSize</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="minNodeSize"> <code>minNodeSize</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="cacheSize"> <code>cacheSize</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="hierarchyStep"> <code>hierarchyStep</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="sleepCount"> <code>sleepCount</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="progress"> <code>progress</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="sse"> <code>sse</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="requesterPays"> <code>requesterPays</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="allowInstanceProfile"> <code>allowInstanceProfile</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="verbose"> <code>verbose</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">"srs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"reprojection"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"hammer"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"threads"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"force"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"dataType"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"span"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"noOriginId"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"bounds"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"deep"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"absolute"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"scale"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"limit"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"subset"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"maxNodeSize"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"minNodeSize"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"cacheSize"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"hierarchyStep"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"sleepCount"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"progress"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"requesterPays"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"allowInstanceProfile"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">true</span>
+}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EntwineInfoTaskArgs" class="definition panel" data-traverse-target="definition-EntwineInfoTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/EntwineInfoTaskArgs"></a>
+              <p><code>EntwineInfoTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>entwine.info</code>. </p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="deep"> <code>deep</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="srs"> <code>srs</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="reprojection"> <code>reprojection</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="hammer"> <code>hammer</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="threads"> <code>threads</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="config"> <code>config</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="profile"> <code>profile</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="sse"> <code>sse</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="requesterPays"> <code>requesterPays</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="allowInstanceProfile"> <code>allowInstanceProfile</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="verbose"> <code>verbose</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">"deep"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"srs"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"reprojection"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"hammer"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"threads"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"config"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"requesterPays"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"allowInstanceProfile"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">false</span>
+}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-EntwineMergeTaskArgs" class="definition panel" data-traverse-target="definition-EntwineMergeTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/EntwineMergeTaskArgs"></a>
+              <p><code>EntwineMergeTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>entwine.merge</code>.
+                    <br>See reference for more information: (link)[
+                    <a href="https://entwine.io/configuration.html#merge%5D">https://entwine.io/configuration.html#merge]</a>
+                  </p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="config"> <code>config</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="threads"> <code>threads</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="profile"> <code>profile</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="sse"> <code>sse</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="requesterPays"> <code>requesterPays</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="allowInstanceProfile"> <code>allowInstanceProfile</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="verbose"> <code>verbose</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="force"> <code>force</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">"config"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"threads"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"profile"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"sse"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"requesterPays"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"allowInstanceProfile"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"force"</span>: <span class="hljs-literal">true</span>
+}
 </code></pre> </body>
                   </html>
                 </section>
@@ -3642,13 +4064,13 @@ https://api.pointscene.com/graphql
               </div>
             </div>
           </div>
-          <div id="definition-GdalInfoArgs" class="definition panel" data-traverse-target="definition-GdalInfoArgs">
+          <div id="definition-GdalInfoTaskArgs" class="definition panel" data-traverse-target="definition-GdalInfoTaskArgs">
             <div class="definition-tags">
               <a class="label" href="#tag-types">Types</a>
             </div>
             <h2 class="panel-title">
-              <a name="/definitions/GdalInfoArgs"></a>
-              <p><code>GdalInfoArgs</code></p>
+              <a name="/definitions/GdalInfoTaskArgs"></a>
+              <p><code>GdalInfoTaskArgs</code></p>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3774,8 +4196,8 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"mm"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"mm"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"approxStats"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"hist"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"nogcp"</span>: <span class="hljs-literal">true</span>,
@@ -3786,11 +4208,11 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"listmdd"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"mdd"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"nofl"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"wktFormat"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"wktFormat"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"sd"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"proj4"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"abc123"</span>],
-  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"abc123"</span>
+  <span class="hljs-attr">"proj4"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"xyz789"</span>],
+  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"xyz789"</span>
 }
 </code></pre> </body>
                   </html>
@@ -3798,13 +4220,13 @@ https://api.pointscene.com/graphql
               </div>
             </div>
           </div>
-          <div id="definition-GdalMergeArgs" class="definition panel" data-traverse-target="definition-GdalMergeArgs">
+          <div id="definition-GdalMergeTaskArgs" class="definition panel" data-traverse-target="definition-GdalMergeTaskArgs">
             <div class="definition-tags">
               <a class="label" href="#tag-types">Types</a>
             </div>
             <h2 class="panel-title">
-              <a name="/definitions/GdalMergeArgs"></a>
-              <p><code>GdalMergeArgs</code></p>
+              <a name="/definitions/GdalMergeTaskArgs"></a>
+              <p><code>GdalMergeTaskArgs</code></p>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -3888,15 +4310,15 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"of"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"xyz789"</span>],
-  <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"ps"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"of"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"abc123"</span>],
+  <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"ps"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"ulLr"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"separate"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"pct"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"n"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"aNodata"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"pct"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"n"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"aNodata"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"init"</span>: StringOrFloat
 }
 </code></pre> </body>
@@ -3905,13 +4327,13 @@ https://api.pointscene.com/graphql
               </div>
             </div>
           </div>
-          <div id="definition-GdalTranslateArgs" class="definition panel" data-traverse-target="definition-GdalTranslateArgs">
+          <div id="definition-GdalTranslateTaskArgs" class="definition panel" data-traverse-target="definition-GdalTranslateTaskArgs">
             <div class="definition-tags">
               <a class="label" href="#tag-types">Types</a>
             </div>
             <h2 class="panel-title">
-              <a name="/definitions/GdalTranslateArgs"></a>
-              <p><code>GdalTranslateArgs</code></p>
+              <a name="/definitions/GdalTranslateTaskArgs"></a>
+              <p><code>GdalTranslateTaskArgs</code></p>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4158,42 +4580,42 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"strict"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"of"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"b"</span>: [<span class="hljs-string">"abc123"</span>],
+  <span class="hljs-attr">"strict"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"if"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"of"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"b"</span>: [<span class="hljs-string">"xyz789"</span>],
   <span class="hljs-attr">"mask"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"expand"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"outsize"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"outsize"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"tr"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"r"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"scale"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"exponent"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"unscale"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"srcwin"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"r"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"scale"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"exponent"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"unscale"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"srcwin"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"projwin"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"projwinSrs"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"epo"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"eco"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"aScale"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"aOffset"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"aUllr"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"aNodata"</span>: <span class="hljs-number">987</span>,
-  <span class="hljs-attr">"colorinterp1"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"colorinterp2"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"epo"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"eco"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"aScale"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"aOffset"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"aUllr"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"aNodata"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"colorinterp1"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"colorinterp2"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"colorinterp3"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"colorinterp4"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"colorinterp4"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"colorinterp"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"mo"</span>: [<span class="hljs-string">"xyz789"</span>],
   <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"xyz789"</span>],
-  <span class="hljs-attr">"nogcp"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"gcp"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"nogcp"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"gcp"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"sds"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"norat"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"norat"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"noxmp"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"abc123"</span>]
+  <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"xyz789"</span>]
 }
 </code></pre> </body>
                   </html>
@@ -4201,13 +4623,13 @@ https://api.pointscene.com/graphql
               </div>
             </div>
           </div>
-          <div id="definition-GdalWarpArgs" class="definition panel" data-traverse-target="definition-GdalWarpArgs">
+          <div id="definition-GdalWarpTaskArgs" class="definition panel" data-traverse-target="definition-GdalWarpTaskArgs">
             <div class="definition-tags">
               <a class="label" href="#tag-types">Types</a>
             </div>
             <h2 class="panel-title">
-              <a name="/definitions/GdalWarpArgs"></a>
-              <p><code>GdalWarpArgs</code></p>
+              <a name="/definitions/GdalWarpTaskArgs"></a>
+              <p><code>GdalWarpTaskArgs</code></p>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
@@ -4490,48 +4912,48 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"sSrs"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"tSrs"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"ct"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"tSrs"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"ct"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"to"</span>: [<span class="hljs-string">"xyz789"</span>],
   <span class="hljs-attr">"noshiftgrid"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"order"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"order"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"tps"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"rpc"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"geoloc"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"rpc"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"geoloc"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"et"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"refineGcps"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"te"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"teSrs"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"tr"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"tap"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"tap"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"ts"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"ovr"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"wo"</span>: [<span class="hljs-string">"abc123"</span>],
   <span class="hljs-attr">"ot"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"wt"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"r"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"wt"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"r"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"srcnodata"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"dstnodata"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"srcalpha"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"nosrcalpha"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"nosrcalpha"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"dstalpha"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"wm"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"multi"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"if"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"of"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"xyz789"</span>],
-  <span class="hljs-attr">"cutline"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"cl"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"cwhere"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"of"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"co"</span>: [<span class="hljs-string">"abc123"</span>],
+  <span class="hljs-attr">"cutline"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"cl"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"cwhere"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"csql"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"cblend"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"cblend"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"cropToCutline"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"overwrite"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"overwrite"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"nomd"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"cvmd"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"cvmd"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"setci"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"oo"</span>: [<span class="hljs-string">"xyz789"</span>],
-  <span class="hljs-attr">"doo"</span>: [<span class="hljs-string">"abc123"</span>]
+  <span class="hljs-attr">"doo"</span>: [<span class="hljs-string">"xyz789"</span>]
 }
 </code></pre> </body>
                   </html>
@@ -4797,7 +5219,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
   <span class="hljs-attr">"features"</span>: [GeoJSONFeature]
 }
 </code></pre> </body>
@@ -4895,7 +5317,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>]
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>]
 }
 </code></pre> </body>
                   </html>
@@ -5065,7 +5487,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"href"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"xyz789"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"href"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -5123,7 +5545,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
   <span class="hljs-attr">"coordinates"</span>: GeoJSONCoordinates
 }
 </code></pre> </body>
@@ -5205,7 +5627,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
   <span class="hljs-attr">"coordinates"</span>: GeoJSONCoordinates
 }
 </code></pre> </body>
@@ -5348,7 +5770,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -5406,7 +5828,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: GeoJSONType,
   <span class="hljs-attr">"crs"</span>: GeoJSONCoordinateReferenceSystem,
-  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">123.45</span>],
+  <span class="hljs-attr">"bbox"</span>: [<span class="hljs-number">987.65</span>],
   <span class="hljs-attr">"coordinates"</span>: GeoJSONCoordinates
 }
 </code></pre> </body>
@@ -5702,9 +6124,9 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"id"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"timestamps"</span>: Timestamps
 }
 </code></pre> </body>
@@ -5746,7 +6168,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -5832,7 +6254,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">123</span>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">987</span>
 </code></pre> </body>
                   </html>
                 </section>
@@ -5978,6 +6400,568 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{<span class="hljs-attr">"test"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"path"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"URL"</span>: <span class="hljs-string">"abc123"</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-OdmRunTaskArgs" class="definition panel" data-traverse-target="definition-OdmRunTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/OdmRunTaskArgs"></a>
+              <p><code>OdmRunTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for OpenDroneMap task <code>odm.run</code>.
+                    <br>See reference
+                    <a href="https://docs.opendronemap.org/arguments.html">url</a> for more information.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="buildOverviews"> <code>buildOverviews</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="cameraLens"> <code>cameraLens</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="cameras"> <code>cameras</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="crop"> <code>crop</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="debug"> <code>debug</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="demDecimation"> <code>demDecimation</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="demEuclideanMap"> <code>demEuclideanMap</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="demGapfillSteps"> <code>demGapfillSteps</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="demResolution"> <code>demResolution</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="depthmapResolution"> <code>depthmapResolution</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="dsm"> <code>dsm</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="dtm"> <code>dtm</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="edWith"> <code>edWith</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="fastOrthophoto"> <code>fastOrthophoto</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="featureQuality"> <code>featureQuality</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="featureType"> <code>featureType</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="forceGps"> <code>forceGps</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="gcp"> <code>gcp</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="geo"> <code>geo</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="gpsAccuracy"> <code>gpsAccuracy</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="ignoreGsd"> <code>ignoreGsd</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="matcherDistance"> <code>matcherDistance</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="matcherNeighbors"> <code>matcherNeighbors</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="matcherType"> <code>matcherType</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="maxConcurrency"> <code>maxConcurrency</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="merge"> <code>merge</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="meshOctreeDepth"> <code>meshOctreeDepth</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="meshSize"> <code>meshSize</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="minNumFeatures"> <code>minNumFeatures</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="name"> <code>name</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="optimizeDiskSpace"> <code>optimizeDiskSpace</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="orthophotoCompression"> <code>orthophotoCompression</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="orthophotoCutline"> <code>orthophotoCutline</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="orthophotoNoTiled"> <code>orthophotoNoTiled</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="orthophotoPng"> <code>orthophotoPng</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="orthophotoResolution"> <code>orthophotoResolution</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcClassify"> <code>pcClassify</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcCsv"> <code>pcCsv</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcEpt"> <code>pcEpt</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcFilter"> <code>pcFilter</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcLas"> <code>pcLas</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcQuality"> <code>pcQuality</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcRectify"> <code>pcRectify</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcSample"> <code>pcSample</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pcTile"> <code>pcTile</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="primaryBand"> <code>primaryBand</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="projectPath"> <code>projectPath</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="radiometricCalibration"> <code>radiometricCalibration</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="rerun"> <code>rerun</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="rerunAll"> <code>rerunAll</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="rerunFrom"> <code>rerunFrom</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="resizeTo"> <code>resizeTo</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="skip3dmodel"> <code>skip3dmodel</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="skipBandAlignment"> <code>skipBandAlignment</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="skipReport"> <code>skipReport</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="smCluster"> <code>smCluster</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="smrfScalar"> <code>smrfScalar</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="smrfSlope"> <code>smrfSlope</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="smrfThreshold"> <code>smrfThreshold</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="smrfWindow"> <code>smrfWindow</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="split"> <code>split</code> -
+                        <a href="#definition-Int"><code>Int</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="splitImageGroups"> <code>splitImageGroups</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="splitOverlap"> <code>splitOverlap</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="texturingDataTerm"> <code>texturingDataTerm</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="texturingOutlierRemovalType"> <code>texturingOutlierRemovalType</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="texturingSkipGlobalSeamLeveling"> <code>texturingSkipGlobalSeamLeveling</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="texturingSkipLocalSeamLeveling"> <code>texturingSkipLocalSeamLeveling</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="texturingToneMapping"> <code>texturingToneMapping</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="tiles"> <code>tiles</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="time"> <code>time</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="use3dmesh"> <code>use3dmesh</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="useExif"> <code>useExif</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="useFixedCameraParams"> <code>useFixedCameraParams</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="useHybridBundleAdjustment"> <code>useHybridBundleAdjustment</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="verbose"> <code>verbose</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">"buildOverviews"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"cameraLens"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"cameras"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"crop"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"debug"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"demDecimation"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"demEuclideanMap"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"demGapfillSteps"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"demResolution"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"depthmapResolution"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"dsm"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"dtm"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"edWith"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"fastOrthophoto"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"featureQuality"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"featureType"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"forceGps"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"gcp"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"geo"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"gpsAccuracy"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"ignoreGsd"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"matcherDistance"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"matcherNeighbors"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"matcherType"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"maxConcurrency"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"merge"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"meshOctreeDepth"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"meshSize"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"minNumFeatures"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"optimizeDiskSpace"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"orthophotoCompression"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"orthophotoCutline"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"orthophotoNoTiled"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"orthophotoPng"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"orthophotoResolution"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"pcClassify"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"pcCsv"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"pcEpt"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"pcFilter"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"pcLas"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"pcQuality"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"pcRectify"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"pcSample"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"pcTile"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"primaryBand"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"projectPath"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"radiometricCalibration"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"rerun"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"rerunAll"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"rerunFrom"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"resizeTo"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"skip3dmodel"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"skipBandAlignment"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"skipReport"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"smCluster"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"smrfScalar"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"smrfSlope"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"smrfThreshold"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"smrfWindow"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"split"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"splitImageGroups"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"splitOverlap"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"texturingDataTerm"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"texturingOutlierRemovalType"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"texturingSkipGlobalSeamLeveling"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"texturingSkipLocalSeamLeveling"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"texturingToneMapping"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"tiles"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"time"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"use3dmesh"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"useExif"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"useFixedCameraParams"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"useHybridBundleAdjustment"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"verbose"</span>: <span class="hljs-literal">true</span>
+}
 </code></pre> </body>
                   </html>
                 </section>
@@ -6131,9 +7115,9 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"polygon"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"outside"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"point"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"distance"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"outside"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"point"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"distance"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"where"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"whereMerge"</span>: StringOrFloat
@@ -6311,8 +7295,8 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"radius"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"where"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"radius"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"where"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"whereMerge"</span>: StringOrFloat
 }
 </code></pre> </body>
@@ -6411,16 +7395,16 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"all"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"all"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"point"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"query"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"stats"</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">"boundary"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"dimensions"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"enumerate"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"enumerate"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"schema"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"summary"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"metadata"</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">"metadata"</span>: <span class="hljs-literal">false</span>
 }
 </code></pre> </body>
                   </html>
@@ -6465,7 +7449,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"_"</span>: <span class="hljs-literal">false</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"_"</span>: <span class="hljs-literal">true</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -6588,7 +7572,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"doublePrecision"</span>: <span class="hljs-literal">true</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"doublePrecision"</span>: <span class="hljs-literal">false</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -6754,18 +7738,18 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"resolution"</span>: <span class="hljs-number">123.45</span>,
-  <span class="hljs-attr">"radius"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"resolution"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"radius"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"power"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"gdaldriver"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"gdalopts"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"dataType"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"dataType"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"nodata"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"outputType"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"windowSize"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"dimension"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"bounds"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"originX"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"bounds"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"originX"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"originY"</span>: <span class="hljs-number">123.45</span>,
   <span class="hljs-attr">"width"</span>: <span class="hljs-number">987.65</span>,
   <span class="hljs-attr">"height"</span>: <span class="hljs-number">123.45</span>
@@ -6972,13 +7956,13 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"forward"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"minorVersion"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"softwareId"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"creationDoy"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"minorVersion"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"softwareId"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"creationDoy"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"creationYear"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"dataformatId"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"systemId"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"aSrs"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"globalEncoding"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"projectId"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"compression"</span>: <span class="hljs-string">"xyz789"</span>,
@@ -6988,10 +7972,200 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"offsetX"</span>: StringOrFloat,
   <span class="hljs-attr">"offsetY"</span>: StringOrFloat,
   <span class="hljs-attr">"offsetZ"</span>: StringOrFloat,
-  <span class="hljs-attr">"filesourceId"</span>: <span class="hljs-number">987.65</span>,
-  <span class="hljs-attr">"discardHighReturnNumbers"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"filesourceId"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"discardHighReturnNumbers"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"extraDims"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"pdalMetadata"</span>: <span class="hljs-literal">false</span>
+}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-PotreeConverterTaskArgs" class="definition panel" data-traverse-target="definition-PotreeConverterTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/PotreeConverterTaskArgs"></a>
+              <p><code>PotreeConverterTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>potree.convert</code>. <code>potree.convert</code> is used to generate a streaming point cloud structure.
+                    <br>The output is in Potree 1.7 format.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="generatePage"> <code>generatePage</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="spacing"> <code>spacing</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="spacingByDiagonalFraction"> <code>spacingByDiagonalFraction</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="levels"> <code>levels</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="inputformat"> <code>inputformat</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="colorRange"> <code>colorRange</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="intensityRange"> <code>intensityRange</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="outputFormat"> <code>outputFormat</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="outputAttributes"> <code>outputAttributes</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="scale"> <code>scale</code> -
+                        <a href="#definition-Float"><code>Float</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="aabb"> <code>aabb</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="incremental"> <code>incremental</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="overwrite"> <code>overwrite</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="sourceListingOnly"> <code>sourceListingOnly</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="projection"> <code>projection</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="listOfSourceFiles"> <code>listOfSourceFiles</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="sourceFile"> <code>sourceFile</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="title"> <code>title</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="description"> <code>description</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="edlEnabled"> <code>edlEnabled</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="showSkyBox"> <code>showSkyBox</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="material"> <code>material</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td> </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{
+  <span class="hljs-attr">"generatePage"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"spacing"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"spacingByDiagonalFraction"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"levels"</span>: <span class="hljs-number">987.65</span>,
+  <span class="hljs-attr">"inputformat"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"colorRange"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"intensityRange"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"outputFormat"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"outputAttributes"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"scale"</span>: <span class="hljs-number">123.45</span>,
+  <span class="hljs-attr">"aabb"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"incremental"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"overwrite"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"sourceListingOnly"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"projection"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"listOfSourceFiles"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"sourceFile"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"edlEnabled"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"showSkyBox"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"material"</span>: <span class="hljs-string">"abc123"</span>
 }
 </code></pre> </body>
                   </html>
@@ -7191,10 +8365,10 @@ https://api.pointscene.com/graphql
   <span class="hljs-attr">"id"</span>: ID,
   <span class="hljs-attr">"key"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"type"</span>: ResourceType,
-  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"metadata"</span>: {},
   <span class="hljs-attr">"timestamps"</span>: Timestamps,
-  <span class="hljs-attr">"distance"</span>: <span class="hljs-number">987.65</span>
+  <span class="hljs-attr">"distance"</span>: <span class="hljs-number">123.45</span>
 }
 </code></pre> </body>
                   </html>
@@ -7249,7 +8423,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"items"</span>: [Resource],
-  <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"cursor"</span>: Cursor
 }
 </code></pre> </body>
@@ -7457,7 +8631,7 @@ https://api.pointscene.com/graphql
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"type"</span>: SpatialQueryType,
   <span class="hljs-attr">"target"</span>: GeoJSON,
-  <span class="hljs-attr">"inverse"</span>: <span class="hljs-literal">false</span>
+  <span class="hljs-attr">"inverse"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre> </body>
                   </html>
@@ -7561,7 +8735,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>, <span class="hljs-attr">"bucketName"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"description"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -7682,8 +8856,8 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: <span class="hljs-number">123</span>,
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"abc123"</span>,
-  <span class="hljs-attr">"size"</span>: <span class="hljs-number">123</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"size"</span>: <span class="hljs-number">987</span>,
   <span class="hljs-attr">"metadata"</span>: JSONObject
 }
 </code></pre> </body>
@@ -7736,7 +8910,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"items"</span>: [StorageObject],
-  <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"cursor"</span>: Cursor
 }
 </code></pre> </body>
@@ -7874,7 +9048,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -7924,9 +9098,9 @@ https://api.pointscene.com/graphql
                   <html>
                   <head></head>
                   <body><pre><code class="hljs language-json">{
-  <span class="hljs-attr">"updatedAt"</span>: <span class="hljs-string">"2021-06-15T14:23:16.215Z"</span>,
-  <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2021-06-15T14:23:16.215Z"</span>,
-  <span class="hljs-attr">"deletedAt"</span>: <span class="hljs-string">"2021-06-15T14:23:16.215Z"</span>
+  <span class="hljs-attr">"updatedAt"</span>: <span class="hljs-string">"2020-12-16T08:18:56.899Z"</span>,
+  <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2021-06-16T07:18:56.899Z"</span>,
+  <span class="hljs-attr">"deletedAt"</span>: <span class="hljs-string">"2021-06-16T07:18:56.899Z"</span>
 }
 </code></pre> </body>
                   </html>
@@ -8037,8 +9211,8 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: ID,
-  <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"xyz789"</span>,
-  <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"firstName"</span>: <span class="hljs-string">"abc123"</span>,
+  <span class="hljs-attr">"lastName"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"email"</span>: <span class="hljs-string">"xyz789"</span>,
   <span class="hljs-attr">"admin"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"status"</span>: UserStatus
@@ -8133,6 +9307,251 @@ https://api.pointscene.com/graphql
               </div>
             </div>
           </div>
+          <div id="definition-UtilCombineTaskArgs" class="definition panel" data-traverse-target="definition-UtilCombineTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/UtilCombineTaskArgs"></a>
+              <p><code>UtilCombineTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>util.combine</code>. <code>util.combine</code> is used to combine separate resources as one.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="withPrefix"> <code>withPrefix</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td>
+                        <p> Use input folder path as filename prefix </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="maintainStructure"> <code>maintainStructure</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td>
+                        <p> Keep input folder structure </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="allowOverwrite"> <code>allowOverwrite</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td>
+                        <p> Allow overwrite of files in case of duplicates </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"withPrefix"</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">"maintainStructure"</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">"allowOverwrite"</span>: <span class="hljs-literal">true</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-UtilFlattenTaskArgs" class="definition panel" data-traverse-target="definition-UtilFlattenTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/UtilFlattenTaskArgs"></a>
+              <p><code>UtilFlattenTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>util.flatten</code>.
+                    <br><code>util.flatten</code> is used to flatten input folder structure.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="_"> <code>_</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td>
+                        <p> No arguments </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"_"</span>: <span class="hljs-literal">true</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-UtilMoveTaskArgs" class="definition panel" data-traverse-target="definition-UtilMoveTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/UtilMoveTaskArgs"></a>
+              <p><code>UtilMoveTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>util.move</code>. <code>util.move</code> is used to move folders or files from input resource.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pathIn"> <code>pathIn</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td>
+                        <p> Path for input files or folders </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="pathOut"> <code>pathOut</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td>
+                        <p> Where contents of selected input will be moved to </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td data-property-name="selector"> <code>selector</code> -
+                        <a href="#definition-String"><code>String</code></a>
+                      </td>
+                      <td>
+                        <p> Wildcard for selecting files e.g. <code>*.tif</code> </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"pathIn"</span>: <span class="hljs-string">"xyz789"</span>, <span class="hljs-attr">"pathOut"</span>: <span class="hljs-string">"abc123"</span>, <span class="hljs-attr">"selector"</span>: <span class="hljs-string">"abc123"</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-UtilUnzipTaskArgs" class="definition panel" data-traverse-target="definition-UtilUnzipTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/UtilUnzipTaskArgs"></a>
+              <p><code>UtilUnzipTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>util.unzip</code>.
+                    <br>Unzip is used to extract zip files.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="_"> <code>_</code> -
+                        <a href="#definition-Boolean"><code>Boolean</code></a>
+                      </td>
+                      <td>
+                        <p> No args </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"_"</span>: <span class="hljs-literal">false</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-WebDownloadTaskArgs" class="definition panel" data-traverse-target="definition-WebDownloadTaskArgs">
+            <div class="definition-tags">
+              <a class="label" href="#tag-types">Types</a>
+            </div>
+            <h2 class="panel-title">
+              <a name="/definitions/WebDownloadTaskArgs"></a>
+              <p><code>WebDownloadTaskArgs</code></p>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>Arguments for task <code>web.download</code>.
+                    <br><code>web.download</code> is used to download files from URL&#39;s.</p>
+                </section>
+                <section class="json-schema-properties-blank">
+                  <table>
+                    <tr>
+                      <th>Field Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+                      <td data-property-name="url"> <code>url</code> -
+                        <a href="#definition-String"><code>String!</code></a>
+                      </td>
+                      <td>
+                        <p> Download url </p>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"url"</span>: <span class="hljs-string">"xyz789"</span>}
+</code></pre> </body>
+                  </html>
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="definition-Workflow" class="definition panel" data-traverse-target="definition-Workflow">
             <div class="definition-tags">
               <a class="label" href="#tag-types">Types</a>
@@ -8194,7 +9613,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"id"</span>: ID,
-  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"xyz789"</span>,
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"abc123"</span>,
   <span class="hljs-attr">"reports"</span>: [{}],
   <span class="hljs-attr">"debugging"</span>: {}
 }
@@ -8237,7 +9656,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"status"</span>: <span class="hljs-string">"abc123"</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"status"</span>: <span class="hljs-string">"xyz789"</span>}
 </code></pre> </body>
                   </html>
                 </section>
@@ -8369,7 +9788,7 @@ https://api.pointscene.com/graphql
                   <head></head>
                   <body><pre><code class="hljs language-json">{
   <span class="hljs-attr">"items"</span>: [Workflow],
-  <span class="hljs-attr">"count"</span>: <span class="hljs-number">987</span>,
+  <span class="hljs-attr">"count"</span>: <span class="hljs-number">123</span>,
   <span class="hljs-attr">"cursor"</span>: Cursor
 }
 </code></pre> </body>
@@ -8411,7 +9830,7 @@ https://api.pointscene.com/graphql
                   <h5>Example</h5>
                   <html>
                   <head></head>
-                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">false</span>}
+                  <body><pre><code class="hljs language-json">{<span class="hljs-attr">"success"</span>: <span class="hljs-literal">true</span>}
 </code></pre> </body>
                   </html>
                 </section>
