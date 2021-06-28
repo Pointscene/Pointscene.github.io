@@ -87,7 +87,7 @@
       Different open source components are used as tasks and tasks are used to build workflows.<br />
       Workflows are used to manipulate and extract meaningful information from the input data.<br />
       For a more in-depth documentation and complete list of available tasks you can have a look directly at
-      the docs in <a href="https://api.pointscene.com/graphql">Pointscene GraphQL API</a>.
+      the docs here: <a href="https://api.pointscene.com/graphql">Pointscene GraphQL API</a>.
     </p>
 
     <h3>
@@ -101,6 +101,9 @@
         mutation {<br />
           <div class="left-pad-2x">
             createWorkflow(<br />
+              <span class="comment">
+                # Define which instance is the owner of the workflow and its outputs
+              </span><br />
               instanceId: <span class="user-variable">${Your instance Id}</span><br />
               title: <span class="variable">"Create COG for streaming TMS tiles"</span><br />
               tasks: [<br />
@@ -114,6 +117,9 @@
                       type: <span class="variable">"web.download"</span><br />
                       args: {
                         <div class="left-pad-2x">
+                          <span class="comment">
+                            # Define the file URL e.g. a signed URL to your cloud storage
+                          </span><br />
                           url: <span class="user-variable">${Ortho URL}</span>
                         </div>
                       }
