@@ -13,24 +13,6 @@
       .left-pad-2x {
         padding-left: 20px;
       }
-      .left-pad-4x {
-        padding-left: 40px;
-      }
-      .left-pad-6x {
-        padding-left: 60px;
-      }
-      .left-pad-8x {
-        padding-left: 80px;
-      }
-      .left-pad-10x {
-        padding-left: 100px;
-      }
-      .left-pad-12x {
-        padding-left: 120px;
-      }
-      .left-pad-14x {
-        padding-left: 140px;
-      }
       .user-variable {
         color: darkred;
       }
@@ -94,7 +76,7 @@
       Example workflow: Convert ortho mosaic to Cloud Optimized GeoTIFF (COG) for streaming TMS tiles
     </h3>
     <p>
-      We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.
+      We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.<br />
     </p>
     <p>
       <div class="code-block">
@@ -120,7 +102,7 @@
                           <span class="comment">
                             # Define the file URL e.g. a signed URL to your cloud storage
                           </span><br />
-                          url: <span class="user-variable">${Ortho URL}</span>
+                          url: <span class="user-variable">${Your ortho URL}</span>
                         </div>
                       }
                     </div>
@@ -211,6 +193,7 @@
           }
         </div>
       </div>
+      <small>Note: sync, upload and enable tasks can be abstracted for convenience and are here to show the level of customization possible.</small>
     </p>
 
     <h1>Pointscene API entities</h1>
@@ -222,8 +205,8 @@
 
     <h2>Instances</h2>
     <p>
-      Instances are the base entity which links all resources, assets, workflows, users and clients.<br />
-      Depending on your domain and business logic it might make sense to think of instances as worksites or projects.
+      Instances are the base entity used to link all resources, assets, workflows, users and clients.<br />
+      Depending on your domain or business logic it may make sense to think of instances as worksites or projects.
     </p>
     <p>
       Users can be given access to different roles linked to an instance.<br />
