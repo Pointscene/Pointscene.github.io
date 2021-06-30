@@ -10,6 +10,28 @@
         overflow-y: scroll;
         font-family: "Open Sans";
       }
+      .left-pad-2x {
+        padding-left: 20px;
+      }
+      .user-variable {
+        color: darkred;
+      }
+      .variable {
+        color: darkmagenta;
+      }
+      .comment {
+        color: green;
+      }
+      .code-block {
+        background-color: #eee;
+        font-family: monospace;
+        padding: 20px;
+        border-radius: 4px;
+        border-color: #aaa;
+        border-width: 1px;
+        overflow-y: scroll;
+        overflow-x: scroll;
+      }
     </style>
   </head>
   <body>
@@ -21,173 +43,240 @@
       Introduction
     </h2>
     <p>
-      Pointscene API provides tools to analyze, manage and stream reality capture data.<br />
-      Please email us at sales@pointscene.com for API access.
+      Pointscene API provides tools to analyse, manage and stream reality capture data.<br />
+      With Pointscene API you can have a faster and more predictable time from development to production.
     </p>
     <p>
-      Pointscene API has built-in support for point clouds, raster files, mesh* models, 
-      images* and vector* files.
+      The API has built-in support for point clouds, raster files, mesh* models, images* and vector* files.<br />
+      You can use the API to create custom applications that leverage existing libraries such as <a href="https://openlayers.org/">OpenLayers</a> or <a href="https://github.com/CesiumGS/cesium">Cesium JS</a>.
     </p>
     <p>
       The power of Pointscene API comes from fully customizable workflows.<br />
-      Workflows can be used to convert data in to streaming formats, extract metadata and much more.
+      Workflows can be used to convert data into streaming formats, extract metadata and much more.
     </p>
+    <p>
+      Please email us at <a href="mailto:sales@pointscene.com">sales@pointscene.com</a> for API access.
+    </p>
+
     <h2>
       Quickstart
     </h2>
     <p>
-      Before you can run your custom mutations you will need API access. Please contact sales@pointscene.com for inquiries.
+      This quickstart chapter will jump directly into the interesting bits of Pointscene API.<br />
+      Pointscene API is leveraging open source components such as <a href="https://gdal.org/">GDAL</a> and <a href="https://pdal.io">PDAL</a>.
+    </p>
+    <p>
+      Different open source components are used as tasks and tasks are used to build workflows.<br />
+      Workflows are used to manipulate and extract meaningful information from the input data.<br />
+      For a more in-depth documentation and complete list of available tasks you can have a look directly at
+      the docs here: <a href="/graphql/index.html">Pointscene GraphQL API</a>.
+    </p>
+    <p>
+      A growing list of API examples will be updated on our Github repository: <a href="https://github.com/Pointscene/api-examples">API examples</a>.
     </p>
     <h3>
-      Convert ortho mosaic to Cloud Optimized GeoTIFF (COG) for streaming TMS tiles
+      Example workflow: Convert ortho mosaic to Cloud Optimized GeoTIFF (COG) for streaming TMS tiles
     </h3>
     <p>
-      We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.
+      We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.<br />
     </p>
     <p>
-      <div style="background-color: #eee; font-family: monospace; padding: 20px;">
+      <div class="code-block">
         mutation {<br />
-          &nbsp&nbspcreateWorkflow(<br />
-          &nbsp&nbsp&nbsp&nbspinstanceId: ${Your instance Id}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsptitle: "Create COG for streaming TMS tiles"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptasks: [<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Define input data to be downloaded from an external source<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "download"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "web.download"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspurl: ${Ortho URL}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Run gdal.translate to generate COG<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "cog"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "gdal.translate"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspof: "COG"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspco: [<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"BIGTIFF=IF_SAFER"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Define task input from "download"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["download"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Extract metadata such as geographic boundary<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "info"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "gdal.info"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["cog"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Sync extracted metadata to the DB<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "sync"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.sync"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["info"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Upload converted COG to storage<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "upload"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.upload"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync", "cog"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Enable resource<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "enable"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.enable"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp]<br />
-          &nbsp&nbsp) {<br />
-          &nbsp&nbsp&nbsp&nbspid<br />
-          &nbsp&nbsp}<br />
-        }<br />
+          <div class="left-pad-2x">
+            createWorkflow(<br />
+              <span class="comment">
+                # Define which instance is the owner of the workflow and its outputs
+              </span><br />
+              instanceId: <span class="user-variable">${Your instance Id}</span><br />
+              title: <span class="variable">"Create COG for streaming TMS tiles"</span><br />
+              tasks: [<br />
+                <div class="left-pad-2x">
+                  {
+                    <div class="left-pad-2x">
+                      <span class="comment">
+                        # Define input data to be downloaded from an external source
+                      </span><br />
+                      name: <span class="variable">"download"</span><br />
+                      type: <span class="variable">"web.download"</span><br />
+                      args: {
+                        <div class="left-pad-2x">
+                          <span class="comment">
+                            # Define the file URL e.g. a signed URL to your cloud storage
+                          </span><br />
+                          url: <span class="user-variable">${Your ortho URL}</span>
+                        </div>
+                      }
+                    </div>
+                  }<br />
+                  {
+                    <div class="left-pad-2x">
+                      <span class="comment">
+                        # Run gdal.translate to generate COG<br />
+                        # Reference: <a href="https://gdal.org/programs/gdal_translate.html">https://gdal.org/programs/gdal_translate.html</a>
+                      </span><br />
+                      name: <span class="variable">"cog"</span><br />
+                      type: <span class="variable">"gdal.translate"</span><br />
+                      args: {
+                        <div class="left-pad-2x">
+                          of: <span class="variable">"COG"</span><br />
+                          co: [
+                            <div class="left-pad-2x variable">
+                              "BIGTIFF=IF_SAFER"
+                            </div>
+                          ]
+                        </div>
+                      }<br />
+                      <span class="comment">
+                        # Define task input from "download"
+                      </span><br />
+                      inputs: <span class="variable">["download"]</span>
+                    </div>
+                  }<br />
+                  {
+                    <div class="left-pad-2x">
+                      <span class="comment">
+                        # Extract metadata such as geographic boundary<br />
+                        # Reference: <a href="https://gdal.org/programs/gdalinfo.html">https://gdal.org/programs/gdalinfo.html</a>
+                      </span><br />
+                      name: <span class="variable">"info"</span><br />
+                      type: <span class="variable">"gdal.info"</span><br />
+                      args: {}<br />
+                      <span class="comment">
+                        # Use "cog" task as input
+                      </span><br />
+                      inputs: <span class="variable">["cog"]</span>
+                    </div>
+                  }<br />
+                  {
+                    <div class="left-pad-2x">
+                      <span class="comment">
+                        # Sync extracted metadata to the DB for use in queries
+                      </span><br />
+                      name: <span class="variable">"sync"</span><br />
+                      type: <span class="variable">"resource.sync"</span><br />
+                      args: {}<br />
+                      <span class="comment">
+                        # Use input from "info" task
+                      </span><br />
+                      inputs: <span class="variable">["info"]</span>
+                    </div>
+                  }<br />
+                  {
+                    <div class="left-pad-2x">
+                      <span class="comment">
+                        # Upload converted COG to storage
+                      </span><br />
+                      name: <span class="variable">"upload"</span><br />
+                      type: <span class="variable">"resource.upload"</span><br />
+                      args: {}<br />
+                      inputs: <span class="variable">["sync", "cog"]</span><br />
+                    </div>
+                  }<br />
+                  {
+                    <div class="left-pad-2x">
+                      <span class="comment">
+                        # Enable resource so it can be queried
+                      </span><br />
+                      name: <span class="variable">"enable"</span><br />
+                      type: <span class="variable">"resource.enable"</span><br />
+                      args: {}<br />
+                      inputs: <span class="variable">["sync"]</span><br />
+                    </div>
+                  }
+                </div>
+                ]) {
+              <div class="left-pad-2x">
+                <div class="left-pad-2x">
+                    id
+                  </div>
+                }
+              </div>
+          }
+        </div>
       </div>
+      <small>Note: sync, upload and enable tasks can be abstracted for convenience and are here to show the level of customization possible.</small>
     </p>
-    <h3>
-      Convert point cloud file to a streaming format for use in browsers
-    </h3>
+
+    <h1>Pointscene API entities</h1>
     <p>
-      We will use the <code>createWorkflow</code> mutation to define the workflow tasks for the conversion.
+      This chapter will explain the different entities in Pointscene API.<br />
+      As an overview Pointscene API consists of <b>instances</b>, <b>workflows</b>, <b>resources</b> and <b>assets</b>.
+      Instances are the base entity for which all the other entities, users and clients can be linked to.<br />
+    </p>
+
+    <h2>Instances</h2>
+    <p>
+      Instances are the base entity used to link all resources, assets, workflows, users and clients.<br />
+      Depending on your domain or business logic it may make sense to think of instances as worksites or projects.
     </p>
     <p>
-      <div style="background-color: #eee; font-family: monospace; padding: 20px;">
-        mutation {<br />
-          &nbsp&nbspcreateWorkflow(<br />
-          &nbsp&nbsp&nbsp&nbspinstanceId: ${Your instance Id}<br />
-          &nbsp&nbsp&nbsp&nbsptitle: "Create Potree structure for streaming point cloud"<br />
-          &nbsp&nbsp&nbsp&nbsptasks: [<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Define input to be downloaded from the web<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "download"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "web.download"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspurl: ${Point cloud URL}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Run PotreeConverter on the downloaded data<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "potree"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "potreeconverter.convert"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["download"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Extract metadata<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "info"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "pdal.info"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["download"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Sync the metadata to the DB<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "sync"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.sync"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["info"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Upload Potree files to storage<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "upload"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.upload"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync", "potree"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Enable resource for streaming<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspname: "enable"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptype: "resource.enable"<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspargs: {}<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspinputs: ["sync"]<br />
-          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp}<br />
-          &nbsp&nbsp&nbsp&nbsp]<br />
-          &nbsp&nbsp) {<br />
-          &nbsp&nbsp&nbsp&nbspid<br />
-          &nbsp&nbsp}<br />
-        }<br />
-      </div>
+      Users can be given access to different roles linked to an instance.<br />
+      Clients can be given scoped access to different instances.
     </p>
+    <p>
+      Resources and assets linked to an instance can be queried based on metadata such as geospatial extent.
+    </p>
+
     <h2>
       Workflows
     </h2>
     <p>
-      Workflows and queries are consumed through <a href="/graphql/index.html">Pointscene GraphQL API</a>.
+      Workflows provide a way to manipulate input data.<br />
+      They are constructed from tasks that carry out a specific operation and allow for a fully customizable way to process and manage business critical data.
     </p>
     <p>
-      Workflows are built from tasks by linking them together as graphs.<br />
-      You can find more information on building custom workflows from 
-      <a href="/workflows/index.html">here*</a>.
+      Workflows and queries are consumed through <a href="/graphql/index.html">Pointscene GraphQL API</a>.<br />
+      Pointscene GraphQL endpoint is located at <a href="https://api.pointscene.com/graphql">https://api.pointscene.com/graphql</a>.
     </p>
+
+    <h2>Resources</h2>
+    <p>
+      Resources can be anything from single files to complex folder structures and provide a way to manage different files and formats by extracting queryable metadata.<br />
+      For example files containing geospatial information can be queried by their spatial extent.
+    </p>
+    <p>
+      Known resources have generic types for rasters, point clouds, vector data, mesh models and photos.<br />
+      These types will be useful when building workflows.<br />
+      The workflow engine will check that the task inputs and outputs are compatible.
+    </p>
+    <p>
+      Resources can be created by workflows, web downloads or user uploads.<br />
+      It is possible to create several different output resources from a single input resource.<br />
+      For example when uploading point clouds it is possible to define a workflow that will output separate resources or assets for ortho photos, surface models and streaming point clouds.
+    </p>
+    <p>
+      Resources of specific types are linked as assets which can be used to stream e.g. slippy map tiles (TMS) or point clouds (Potree, EPT, 3D Tiles) over the internet.
+    </p>
+
+    <h2>Assets</h2>
+    <p>
+      Assets are a convenient way of accessing resources of specific types.<br />
+      Compared to resources which contain generic types for the resource data, assets are of a known format.<br />
+      Assets can be for example Cloud Optimized GeoTIFF's (COG), a streaming point cloud in EPT format or LandXML layers streamed as 3D Tiles.
+    </p>
+
     <h2>
-      User authentication
+      User and client authentication
     </h2>
     <p>
       User authentication (OAuth2.0) is handled via REST endpoints. 
-      REST API documentation can be found <a href="/rest/index.html">here*</a>.
+      REST API documentation can be found <a href="/rest/index.html">here*</a>.<br />
+      Pointscene REST endpoint for authentication is <a href="https://api.pointscene.com/oauth2">https://api.pointscene.com/oauth2</a>.
     </p>
+    <p>
+      Users can have different roles for instances. Available user roles are:<br />
+      <code>Viewer</code> - Read access to an instance and its entities<br />
+      <code>Editor</code> - Read/Write access to an instance and its entities<br />
+      <code>Owner</code> - Admin access to an instance and its resources<br />
+    </p>
+    <p>
+      Clients can be granted scoped access. Available scopes for client access are:<br />
+      <code>instance-read-{id}</code> - Read access to an instance and its entities<br />
+      <code>instance-write-{id}</code> - Write access to an instance and its entities<br />
+      <code>instance-create</code> - Can create a new instance<br />
+    </p>
+
     <h2>Support</h2>
     <p>
       You can contact us at support@pointscene.com.
@@ -196,7 +285,8 @@
     <p>
       <a href="https://api.pointscene.com/graphql">Pointscene GraphQL API playground</a><br />
       <a href="/graphql/index.html">Pointscene GraphQL API documentation</a><br />
-      <a href="/rest/index.html">Pointscene REST API documentation</a><br />
+      <a href="https://api.pointscene.com/api">Pointscene REST API documentation</a><br />
+      <a href="https://github.com/Pointscene/api-examples">Pointscene API examples</a><br />
     </p>
     <p>
       <small>*) Coming soon</small>
