@@ -44,7 +44,7 @@
     </h2>
     <p>
       Pointscene API provides tools to analyse, manage and stream reality capture data.<br />
-      By using Pointscene API you can have a faster and more predictable time from development to production.
+      With Pointscene API you can have a faster and more predictable time from development to production.
     </p>
     <p>
       The API has built-in support for point clouds, raster files, mesh* models, images* and vector* files.<br />
@@ -52,7 +52,7 @@
     </p>
     <p>
       The power of Pointscene API comes from fully customizable workflows.<br />
-      Workflows can be used to convert data in to streaming formats, extract metadata and much more.
+      Workflows can be used to convert data into streaming formats, extract metadata and much more.
     </p>
     <p>
       Please email us at <a href="mailto:sales@pointscene.com">sales@pointscene.com</a> for API access.
@@ -200,7 +200,7 @@
 
     <h1>Pointscene API entities</h1>
     <p>
-      This chapter will explain more in-depth the different entities used in Pointscene API.<br />
+      This chapter will explain the different entities in Pointscene API.<br />
       As an overview Pointscene API consists of <b>instances</b>, <b>workflows</b>, <b>resources</b> and <b>assets</b>.
       Instances are the base entity for which all the other entities, users and clients can be linked to.<br />
     </p>
@@ -257,13 +257,26 @@
     </p>
 
     <h2>
-      User authentication
+      User and client authentication
     </h2>
     <p>
       User authentication (OAuth2.0) is handled via REST endpoints. 
       REST API documentation can be found <a href="/rest/index.html">here*</a>.<br />
-      Pointscene REST endpoint for authentication is <code>https://api.pointscene.com/oauth2</code>.
+      Pointscene REST endpoint for authentication is <a href="https://api.pointscene.com/oauth2">https://api.pointscene.com/oauth2</a>.
     </p>
+    <p>
+      Users can have different roles for instances. Available user roles are:<br />
+      <code>Viewer</code> - Read access to an instance and its entities<br />
+      <code>Editor</code> - Read/Write access to an instance and its entities<br />
+      <code>Owner</code> - Admin access to an instance and its resources<br />
+    </p>
+    <p>
+      Clients can be granted scoped access. Available scopes for client access are:<br />
+      <code>instance-read-{id}</code> - Read access to an instance and its entities<br />
+      <code>instance-write-{id}</code> - Write access to an instance and its entities<br />
+      <code>instance-create</code> - Can create a new instance<br />
+    </p>
+
     <h2>Support</h2>
     <p>
       You can contact us at support@pointscene.com.
