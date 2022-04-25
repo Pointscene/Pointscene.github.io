@@ -825,7 +825,6 @@ declare class ReferenceFrame {
     private mPosition;
     private mPreComputed;
     private mNeedsUpdate;
-    private epsg?;
     computeBoundingBox(box: Box3): Box3;
     computeUntranslatedBoundingBox(box: Box3): Box3;
     decomposeMatrix(m: Matrix4): {
