@@ -1,5 +1,5 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Plane, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Raycaster, SpriteMaterial, Sprite, Mesh } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Raycaster, Plane, SpriteMaterial, Sprite, Mesh } from 'three';
 import CamControls from 'camera-controls';
 import { Context } from 'vm';
 
@@ -524,7 +524,6 @@ interface IPointCloudMaterialUniforms {
     enablePointHighlighting: IUniform<boolean>;
     highlightedPointScale: IUniform<number>;
     useUnscaledElevation: IUniform<boolean>;
-    clippingPlanes: IUniform<Vector4[]>;
     clipIntersection: IUniform<boolean>;
 }
 declare class PointCloudMaterial extends RawShaderMaterial {
@@ -533,7 +532,6 @@ declare class PointCloudMaterial extends RawShaderMaterial {
     fog: boolean;
     numClipBoxes: number;
     clipBoxes: IClipBox[];
-    _clippingPlanes: Plane[];
     visibleNodesTexture: Texture | undefined;
     private visibleNodeTextureOffsets;
     private _gradient;
@@ -588,7 +586,6 @@ declare class PointCloudMaterial extends RawShaderMaterial {
     pointOpacityType: PointOpacityType;
     useFilterByNormal: boolean;
     highlightPoint: boolean;
-    clippingPlanes: Plane[];
     attributes: {
         position: {
             type: string;
@@ -1170,6 +1167,7 @@ declare class PointClouds {
     dispose(): void;
     pick(opts: IPickPointCloud): PickResult | null;
     getBoundingBox(pointclouds?: PointCloudOctree[]): Box3;
+    getHeightRange(): number[];
     setReferenceFrame(rf: ReferenceFrame): void;
     /**
      * Fit height range to point clouds bounding box
@@ -1440,7 +1438,13 @@ interface Init {
     referenceFrame?: ReferenceFrame;
 }
 declare const init: (opts: Init) => World;
-declare const fitView: (object: Object3D, direction: Vector3, camera: PerspectiveCamera, controls: any, referenceFrame: ReferenceFrame) => void;
+declare const eulerToQuaternion: (x: number, y: number, z: number, order?: string, transformation?: number[]) => {
+    x: number;
+    y: number;
+    z: number;
+    w: number;
+};
+declare const getPlane: (normalX: number, normalY: number, normalZ: number, constant: number) => Plane;
 
 interface IPoint2D {
     x: number;
@@ -1586,4 +1590,4 @@ declare namespace index {
   };
 }
 
-export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index$1 as Potree, TextSprite, Transformations, World, init as default, fitView, init, index as loaders };
+export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index$1 as Potree, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, index as loaders };
