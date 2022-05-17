@@ -1,5 +1,5 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Raycaster, Plane, SpriteMaterial, Sprite, Mesh } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Raycaster, Plane, SpriteMaterial, Sprite, Line, Mesh } from 'three';
 import CamControls from 'camera-controls';
 import { Context } from 'vm';
 
@@ -1550,10 +1550,16 @@ interface LoadMeshOpts {
     isPickable?: boolean;
     isInteractive?: boolean;
 }
+declare function loadLine(vertices: number[][]): Line;
 declare function loadMesh(vertices: number[][], faces: number[][], colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
 
 declare function loadIFC(url: string, wasmPath?: string): Promise<unknown>;
 
+interface Vec3 {
+    x: number;
+    y: number;
+    z: number;
+}
 interface LandXMLProperties {
     sourceCodings?: {
         infraCoding: string;
@@ -1571,11 +1577,13 @@ interface LandXMLProperties {
     name?: string;
     vertices: number[][];
     faces: number[][];
+    lines: number[][][];
 }
-declare function parseLandXml(xmlStr: string, offset?: number[]): LandXMLProperties[];
-declare function loadLandXML(url: string, offset?: number[]): Promise<Mesh[]>;
+declare function parseLandXml(xmlStr: string, offset?: Vec3): LandXMLProperties[];
+declare function loadLandXML(url: string, offset?: Vec3): Promise<Group[]>;
 
 type index_LoadMeshOpts = LoadMeshOpts;
+declare const index_loadLine: typeof loadLine;
 declare const index_loadMesh: typeof loadMesh;
 declare const index_loadIFC: typeof loadIFC;
 declare const index_parseLandXml: typeof parseLandXml;
@@ -1583,6 +1591,7 @@ declare const index_loadLandXML: typeof loadLandXML;
 declare namespace index {
   export {
     index_LoadMeshOpts as LoadMeshOpts,
+    index_loadLine as loadLine,
     index_loadMesh as loadMesh,
     index_loadIFC as loadIFC,
     index_parseLandXml as parseLandXml,
