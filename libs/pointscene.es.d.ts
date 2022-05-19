@@ -1550,8 +1550,8 @@ interface LoadMeshOpts {
     isPickable?: boolean;
     isInteractive?: boolean;
 }
-declare function loadLine(vertices: number[][]): Line;
-declare function loadMesh(vertices: number[][], faces: number[][], colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
+declare function loadLine(vertices: number[][], color?: number): Line;
+declare function loadMesh(vertices: number[][], faces: number[][], color?: number, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
 
 declare function loadIFC(url: string, wasmPath?: string): Promise<unknown>;
 
@@ -1560,24 +1560,24 @@ interface Vec3 {
     y: number;
     z: number;
 }
-interface LandXMLProperties {
-    sourceCodings?: {
-        infraCoding: string;
-        infraCodingDesc: string;
-    };
-    surfaceCodings?: {
-        surfaceCoding: string;
-        surfaceCodingDesc: string;
-    };
-    projectCodings?: {
-        terrainCoding: string;
-        surfaceCoding: string;
-        infraCoding: string;
-    };
-    name?: string;
+interface Breakline {
+    properties: BreaklineProperties;
+    coordinates: number[][];
+}
+interface BreaklineProperties {
+    [key: string]: string;
+}
+interface SurfaceTinProperties {
+    [key: string]: string;
+}
+interface SurfaceTin {
+    properties: SurfaceTinProperties;
     vertices: number[][];
     faces: number[][];
-    lines: number[][][];
+}
+interface LandXMLProperties {
+    tin: SurfaceTin;
+    lines: Breakline[];
 }
 declare function parseLandXml(xmlStr: string, offset?: Vec3): LandXMLProperties[];
 declare function loadLandXML(url: string, offset?: Vec3): Promise<Group[]>;
