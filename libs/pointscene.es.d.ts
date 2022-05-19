@@ -1550,8 +1550,8 @@ interface LoadMeshOpts {
     isPickable?: boolean;
     isInteractive?: boolean;
 }
-declare function loadLine(vertices: number[][], color?: number): Line;
-declare function loadMesh(vertices: number[][], faces: number[][], color?: number, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
+declare function loadLine(vertices: number[][], color?: Color): Line;
+declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
 
 declare function loadIFC(url: string, wasmPath?: string): Promise<unknown>;
 
