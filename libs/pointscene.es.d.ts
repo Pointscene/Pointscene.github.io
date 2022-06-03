@@ -1,5 +1,5 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Raycaster, Plane, SpriteMaterial, Sprite, Line, Mesh } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Plane, Raycaster, SpriteMaterial, Sprite, Line, Mesh } from 'three';
 import CamControls from 'camera-controls';
 import { Context } from 'vm';
 
@@ -428,6 +428,7 @@ interface PickParams {
 
 declare class PointCloudTree extends Object3D {
     root: IPointCloudTreeNode | null;
+    geometry: BufferGeometry;
     initialized(): boolean;
 }
 
@@ -528,11 +529,13 @@ interface IPointCloudMaterialUniforms {
 }
 declare class PointCloudMaterial extends RawShaderMaterial {
     private static helperVec3;
+    morphTargets: boolean;
     lights: boolean;
     fog: boolean;
     numClipBoxes: number;
     clipBoxes: IClipBox[];
     visibleNodesTexture: Texture | undefined;
+    private cacheKeyIndex;
     private visibleNodeTextureOffsets;
     private _gradient;
     private gradientTexture;
@@ -629,7 +632,6 @@ declare class PointCloudMaterial extends RawShaderMaterial {
     clearVisibleNodeTextureOffsets(): void;
     updateShaderSource(): void;
     applyDefines(shaderSrc: string): string;
-    updateClippingPlanes(): void;
     setClipBoxes(clipBoxes: IClipBox[]): void;
     get gradient(): IGradient;
     set gradient(value: IGradient);
@@ -642,6 +644,8 @@ declare class PointCloudMaterial extends RawShaderMaterial {
     setUniform<K extends keyof IPointCloudMaterialUniforms>(name: K, value: IPointCloudMaterialUniforms[K]['value']): void;
     updateMaterial(octree: PointCloudOctree, visibleNodes: PointCloudOctreeNode[], camera: Camera, renderer: WebGLRenderer): void;
     private updateVisibilityTextureData;
+    onBeforeCompile(shader: Shader, renderer: WebGLRenderer): void;
+    customProgramCacheKey(): string;
     static makeOnBeforeRender(octree: PointCloudOctree, node: PointCloudOctreeNode, pcIndex?: number): (_renderer: WebGLRenderer, _scene: Scene, _camera: Camera, _geometry: BufferGeometry, material: Material) => void;
 }
 
@@ -1071,7 +1075,8 @@ interface PickResult {
     distance: number;
     normal?: Vector3 | null;
     object: Object3D;
-    objectType: 'pointcloud' | 'mesh' | 'depth';
+    plane?: Plane;
+    objectType: 'pointcloud' | 'mesh' | 'depth' | 'plane';
 }
 declare class Picker {
     domEl: HTMLElement;
@@ -1088,6 +1093,7 @@ declare class Picker {
     constructor(opts: PickerOpts);
     private getFaceNormal;
     pick(): PickResult | null;
+    intersectPlane(plane: Plane): PickResult | null;
 }
 
 interface IPhotoSpheres extends IPhotos {
@@ -1153,7 +1159,7 @@ declare class PointClouds {
     private renderer;
     private domEl;
     private referenceFrame;
-    private pointclouds;
+    pointclouds: PointCloudOctree[];
     private pointBudgetLow;
     private pointBudgetMed;
     private pointBudgetHigh;
@@ -1161,7 +1167,8 @@ declare class PointClouds {
     private potree;
     private useEDL;
     private edlRenderer;
-    private clippingPlanes;
+    private needsVisibilityFlip;
+    private prevClippingPlaneCount;
     constructor(props?: IPointClouds);
     private initGLExtensions;
     dispose(): void;
@@ -1196,8 +1203,6 @@ declare class PointClouds {
      * Set clip boxes
      */
     setClipBoxes(clipBoxes: IClipBox[]): void;
-    setClippingPlanes(clippingPlanes: Plane[]): void;
-    private updateClippingPlanes;
     setEDLEnabled(value: boolean): void;
     isEDLEnabled(): boolean;
     setOpacity(value: number): void;
@@ -1411,7 +1416,7 @@ declare class World {
     fitTopView(): void;
     getScreenShot(saveAsFile?: boolean): boolean | string;
     private setClipMode;
-    private setClippingPlanes;
+    setClippingPlanes(planes: Plane[]): void;
     /**
      * Main render loop. Calls modules.render().
      */
