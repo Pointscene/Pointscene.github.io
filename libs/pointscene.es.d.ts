@@ -869,6 +869,8 @@ declare const enum PointsceneEvents {
     ControlModeChanged = "pointscene_control_mode_change",
     ControlsUICreated = "pointscene_controls_ui_created",
     DepthEnabled = "pointscene_depth_enabled",
+    DisableControls = "pointscene_disable_controls",
+    EnableControls = "pointscene_enable_controls",
     EnterSphereMode = "pointscene_enter_sphere_mode",
     ExitSphereMode = "pointscene_exit_sphere_mode",
     LayerUICreated = "pointscene_layer_ui_created",
@@ -1543,11 +1545,16 @@ declare class CameraControls {
     private sphereMinDistance;
     private sphereMaxDistance;
     constructor(opts: CameraControlOpts);
+    private handleDisableControls;
+    private handleEnableControls;
     getMode(): ControlMode;
     updateOrbitPoint(point: Vector3): void;
     setFirstPersonMode(saveState?: boolean, reset?: boolean): void;
     setSphericalMode(position: Vector3, normal: Vector3, saveState?: boolean, reset?: boolean): void;
     setOrbitMode(saveState?: boolean, reset?: boolean): void;
+    disable(): void;
+    enable(): void;
+    update(deltaT: number): void;
     dispose(): void;
 }
 
