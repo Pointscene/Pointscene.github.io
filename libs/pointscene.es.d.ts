@@ -1,5 +1,5 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Plane, Raycaster, SpriteMaterial, Sprite, Line, Mesh } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Plane, Raycaster, SpriteMaterial, Sprite, Line, Mesh } from 'three';
 import CamControls from 'camera-controls';
 import { Context } from 'vm';
 
@@ -948,7 +948,7 @@ interface IPhotos {
     sceneLabels: Scene;
     domEl: HTMLElement;
     mouse: Vector2;
-    camera: PerspectiveCamera;
+    camera: PerspectiveCamera | OrthographicCamera;
     referenceFrame: ReferenceFrame;
 }
 declare type PhotoUrlCallback = (photo: Photo) => Promise<string>;
@@ -982,7 +982,7 @@ declare class Photos {
     protected sceneLabels: Scene;
     protected domEl: HTMLElement;
     protected mouse: Vector2;
-    protected camera: PerspectiveCamera;
+    protected camera: PerspectiveCamera | OrthographicCamera;
     protected referenceFrame: ReferenceFrame;
     protected screenWidth: number;
     protected screenHeight: number;
@@ -1067,7 +1067,7 @@ declare class Photos {
 interface PickerOpts {
     mouse: Vector2;
     domEl: HTMLElement;
-    camera: PerspectiveCamera;
+    camera: PerspectiveCamera | OrthographicCamera;
     scenePickable: Scene;
     sceneStatic: Scene;
     modules: Modules;
@@ -1084,7 +1084,7 @@ declare class Picker {
     domEl: HTMLElement;
     private raycaster;
     private mouse;
-    camera: PerspectiveCamera;
+    camera: PerspectiveCamera | OrthographicCamera;
     scenePickable: Scene;
     sceneStatic: Scene;
     modules: Modules;
@@ -1148,7 +1148,7 @@ interface IPickPointCloud {
 }
 interface IPointClouds {
     scene?: Scene;
-    camera?: PerspectiveCamera;
+    camera?: PerspectiveCamera | OrthographicCamera;
     renderer?: WebGLRenderer;
     domEl?: HTMLElement;
     referenceFrame?: ReferenceFrame;
@@ -1230,7 +1230,7 @@ declare class PointClouds {
     setUseUnscaledElevation(value: boolean): void;
     setIntensityRange(range: [number, number]): void;
     setVisibility(value: boolean): void;
-    resize(renderer?: WebGLRenderer, camera?: PerspectiveCamera, domEl?: HTMLElement): void;
+    resize(renderer?: WebGLRenderer, camera?: PerspectiveCamera | OrthographicCamera, domEl?: HTMLElement): void;
     handleWindowResize(): void;
     handleLoadPointcloud(event: Event): void;
     handleSetClipBoxes(event: Event): void;
@@ -1259,7 +1259,7 @@ declare class PointClouds {
 
 interface IModules {
     scene: Scene;
-    camera: PerspectiveCamera;
+    camera: PerspectiveCamera | OrthographicCamera;
     renderer: WebGLRenderer;
     domEl: HTMLElement;
     referenceFrame?: ReferenceFrame;
@@ -1363,6 +1363,7 @@ interface IWorld {
     preserveDrawingBuffer?: boolean;
     referenceFrame?: ReferenceFrame;
 }
+declare type CameraMode = 'perspective' | 'orthographic';
 interface InitUIOpts {
     disableControls?: boolean;
     disableLayers?: boolean;
@@ -1381,6 +1382,8 @@ declare class World {
     modules: Modules | undefined;
     private rangeNear;
     private rangeFar;
+    private perspectiveCamera;
+    private orthoCamera;
     private camera;
     private fov;
     private aspectRatio;
@@ -1418,6 +1421,7 @@ declare class World {
     fitTopView(): void;
     getScreenShot(saveAsFile?: boolean): boolean | string;
     private setClipMode;
+    setCameraMode(mode: CameraMode): void;
     setClippingPlanes(planes: Plane[]): void;
     /**
      * Main render loop. Calls modules.render().
@@ -1520,7 +1524,7 @@ declare class Transformations {
 }
 
 interface CameraControlOpts {
-    camera: PerspectiveCamera;
+    camera: PerspectiveCamera | OrthographicCamera;
     domEl: HTMLElement;
 }
 declare enum ControlMode {
@@ -1565,7 +1569,19 @@ interface LoadMeshOpts {
 declare function loadLine(vertices: number[][], color?: Color): Line;
 declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
 
-declare function loadIFC(url: string, wasmPath?: string): Promise<unknown>;
+interface IfcLoadOpts {
+    wasmPath?: string;
+    offset?: {
+        x: number;
+        y: number;
+        z: number;
+    };
+    projIn?: string;
+    projOut?: string;
+    isPickable?: boolean;
+    isInteractive?: boolean;
+}
+declare function loadIFC(url: string, opts: IfcLoadOpts): Promise<Object3D>;
 
 interface Vec3 {
     x: number;
@@ -1591,23 +1607,29 @@ interface LandXMLProperties {
     tin: SurfaceTin;
     lines: Breakline[];
 }
-declare function parseLandXml(xmlStr: string, offset?: Vec3): LandXMLProperties[];
-declare function loadLandXML(url: string, offset?: Vec3): Promise<Group[]>;
+declare function parseLandXml(xmlStr: string, offset?: Vec3, projIn?: string, projOut?: string): LandXMLProperties[];
+declare function loadLandXML(url: string, offset?: Vec3, projIn?: string, projOut?: string): Promise<Group[]>;
+
+declare function loadDXF(url: string): Promise<void>;
 
 type index_LoadMeshOpts = LoadMeshOpts;
 declare const index_loadLine: typeof loadLine;
 declare const index_loadMesh: typeof loadMesh;
+type index_IfcLoadOpts = IfcLoadOpts;
 declare const index_loadIFC: typeof loadIFC;
 declare const index_parseLandXml: typeof parseLandXml;
 declare const index_loadLandXML: typeof loadLandXML;
+declare const index_loadDXF: typeof loadDXF;
 declare namespace index {
   export {
     index_LoadMeshOpts as LoadMeshOpts,
     index_loadLine as loadLine,
     index_loadMesh as loadMesh,
+    index_IfcLoadOpts as IfcLoadOpts,
     index_loadIFC as loadIFC,
     index_parseLandXml as parseLandXml,
     index_loadLandXML as loadLandXML,
+    index_loadDXF as loadDXF,
   };
 }
 
