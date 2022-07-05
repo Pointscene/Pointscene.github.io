@@ -1094,7 +1094,7 @@ declare class Picker {
     pickInteractive: boolean;
     constructor(opts: PickerOpts);
     private getFaceNormal;
-    pick(): PickResult | null;
+    pick(normalizedPosition?: Vector2): PickResult | null;
     intersectPlane(plane: Plane): PickResult | null;
 }
 
@@ -1435,6 +1435,7 @@ declare class World {
      * Animate loop
      */
     private animate;
+    projectPoints(points: number[][], projIn: string, projOut: string): Promise<number[][]>;
     /**
      * Start looping
      */
@@ -1607,8 +1608,12 @@ interface LandXMLProperties {
     tin: SurfaceTin;
     lines: Breakline[];
 }
-declare function parseLandXml(xmlStr: string, offset?: Vec3, projIn?: string, projOut?: string): LandXMLProperties[];
-declare function loadLandXML(url: string, offset?: Vec3, projIn?: string, projOut?: string): Promise<Group[]>;
+interface LandXMLLoadOpts {
+    offset?: number[];
+    projIn?: string;
+    projOut?: string;
+}
+declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group[]>;
 
 declare function loadDXF(url: string): Promise<void>;
 
@@ -1617,7 +1622,13 @@ declare const index_loadLine: typeof loadLine;
 declare const index_loadMesh: typeof loadMesh;
 type index_IfcLoadOpts = IfcLoadOpts;
 declare const index_loadIFC: typeof loadIFC;
-declare const index_parseLandXml: typeof parseLandXml;
+type index_Vec3 = Vec3;
+type index_Breakline = Breakline;
+type index_BreaklineProperties = BreaklineProperties;
+type index_SurfaceTinProperties = SurfaceTinProperties;
+type index_SurfaceTin = SurfaceTin;
+type index_LandXMLProperties = LandXMLProperties;
+type index_LandXMLLoadOpts = LandXMLLoadOpts;
 declare const index_loadLandXML: typeof loadLandXML;
 declare const index_loadDXF: typeof loadDXF;
 declare namespace index {
@@ -1627,7 +1638,13 @@ declare namespace index {
     index_loadMesh as loadMesh,
     index_IfcLoadOpts as IfcLoadOpts,
     index_loadIFC as loadIFC,
-    index_parseLandXml as parseLandXml,
+    index_Vec3 as Vec3,
+    index_Breakline as Breakline,
+    index_BreaklineProperties as BreaklineProperties,
+    index_SurfaceTinProperties as SurfaceTinProperties,
+    index_SurfaceTin as SurfaceTin,
+    index_LandXMLProperties as LandXMLProperties,
+    index_LandXMLLoadOpts as LandXMLLoadOpts,
     index_loadLandXML as loadLandXML,
     index_loadDXF as loadDXF,
   };
