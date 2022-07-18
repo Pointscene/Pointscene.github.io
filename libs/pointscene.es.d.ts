@@ -1,5 +1,5 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Plane, Raycaster, SpriteMaterial, Sprite, Line, Mesh } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Plane, Raycaster, Line, Mesh, SpriteMaterial, Sprite } from 'three';
 import CamControls from 'camera-controls';
 import { Context } from 'vm';
 
@@ -700,120 +700,120 @@ declare class Potree implements IPotree {
     private updateVisibilityStructures;
 }
 
-type index$1_IBlurMaterialUniforms = IBlurMaterialUniforms;
-type index$1_BlurMaterial = BlurMaterial;
-declare const index$1_BlurMaterial: typeof BlurMaterial;
-type index$1_ClipMode = ClipMode;
-declare const index$1_ClipMode: typeof ClipMode;
-type index$1_IClipBox = IClipBox;
-type index$1_PointSizeType = PointSizeType;
-declare const index$1_PointSizeType: typeof PointSizeType;
-type index$1_PointShape = PointShape;
-declare const index$1_PointShape: typeof PointShape;
-type index$1_TreeType = TreeType;
-declare const index$1_TreeType: typeof TreeType;
-type index$1_PointOpacityType = PointOpacityType;
-declare const index$1_PointOpacityType: typeof PointOpacityType;
-type index$1_PointColorType = PointColorType;
-declare const index$1_PointColorType: typeof PointColorType;
-type index$1_IPointCloudMaterialParameters = IPointCloudMaterialParameters;
-type index$1_IPointCloudMaterialUniforms = IPointCloudMaterialUniforms;
-type index$1_PointCloudMaterial = PointCloudMaterial;
-declare const index$1_PointCloudMaterial: typeof PointCloudMaterial;
-declare const index$1_generateDataTexture: typeof generateDataTexture;
-declare const index$1_generateGradientTexture: typeof generateGradientTexture;
-declare const index$1_generateClassificationTexture: typeof generateClassificationTexture;
-type index$1_IGradient = IGradient;
-type index$1_IClassification = IClassification;
-type index$1_IUniform<T> = IUniform<T>;
-declare const index$1_GRAYSCALE: typeof GRAYSCALE;
-declare const index$1_INFERNO: typeof INFERNO;
-declare const index$1_PLASMA: typeof PLASMA;
-declare const index$1_RAINBOW: typeof RAINBOW;
-declare const index$1_SPECTRAL: typeof SPECTRAL;
-declare const index$1_VIRIDIS: typeof VIRIDIS;
-declare const index$1_YELLOW_GREEN: typeof YELLOW_GREEN;
-type index$1_PointAttributeName = PointAttributeName;
-declare const index$1_PointAttributeName: typeof PointAttributeName;
-type index$1_PointAttributeType = PointAttributeType;
-declare const index$1_POINT_ATTRIBUTE_TYPES: typeof POINT_ATTRIBUTE_TYPES;
-type index$1_IPointAttribute = IPointAttribute;
-type index$1_IPointAttributes = IPointAttributes;
-declare const index$1_POINT_ATTRIBUTES: typeof POINT_ATTRIBUTES;
-type index$1_PointAttributeStringName = PointAttributeStringName;
-type index$1_PointAttributes = PointAttributes;
-declare const index$1_PointAttributes: typeof PointAttributes;
-type index$1_NodeData = NodeData;
-type index$1_PointCloudOctreeGeometryNode = PointCloudOctreeGeometryNode;
-declare const index$1_PointCloudOctreeGeometryNode: typeof PointCloudOctreeGeometryNode;
-type index$1_PointCloudOctreeGeometry = PointCloudOctreeGeometry;
-declare const index$1_PointCloudOctreeGeometry: typeof PointCloudOctreeGeometry;
-type index$1_PointCloudOctreeNode = PointCloudOctreeNode;
-declare const index$1_PointCloudOctreeNode: typeof PointCloudOctreeNode;
-type index$1_PointCloudOctree = PointCloudOctree;
-declare const index$1_PointCloudOctree: typeof PointCloudOctree;
-type index$1_PointCloudTree = PointCloudTree;
-declare const index$1_PointCloudTree: typeof PointCloudTree;
-type index$1_QueueItem = QueueItem;
-declare const index$1_QueueItem: typeof QueueItem;
-type index$1_Potree = Potree;
-declare const index$1_Potree: typeof Potree;
-type index$1_IPointCloudTreeNode = IPointCloudTreeNode;
-type index$1_IVisibilityUpdateResult = IVisibilityUpdateResult;
-type index$1_IPotree = IPotree;
-type index$1_PickPoint = PickPoint;
-type index$1_PointCloudHit = PointCloudHit;
-type index$1_Version = Version;
-declare const index$1_Version: typeof Version;
-declare namespace index$1 {
+type index_IBlurMaterialUniforms = IBlurMaterialUniforms;
+type index_BlurMaterial = BlurMaterial;
+declare const index_BlurMaterial: typeof BlurMaterial;
+type index_ClipMode = ClipMode;
+declare const index_ClipMode: typeof ClipMode;
+type index_IClipBox = IClipBox;
+type index_PointSizeType = PointSizeType;
+declare const index_PointSizeType: typeof PointSizeType;
+type index_PointShape = PointShape;
+declare const index_PointShape: typeof PointShape;
+type index_TreeType = TreeType;
+declare const index_TreeType: typeof TreeType;
+type index_PointOpacityType = PointOpacityType;
+declare const index_PointOpacityType: typeof PointOpacityType;
+type index_PointColorType = PointColorType;
+declare const index_PointColorType: typeof PointColorType;
+type index_IPointCloudMaterialParameters = IPointCloudMaterialParameters;
+type index_IPointCloudMaterialUniforms = IPointCloudMaterialUniforms;
+type index_PointCloudMaterial = PointCloudMaterial;
+declare const index_PointCloudMaterial: typeof PointCloudMaterial;
+declare const index_generateDataTexture: typeof generateDataTexture;
+declare const index_generateGradientTexture: typeof generateGradientTexture;
+declare const index_generateClassificationTexture: typeof generateClassificationTexture;
+type index_IGradient = IGradient;
+type index_IClassification = IClassification;
+type index_IUniform<T> = IUniform<T>;
+declare const index_GRAYSCALE: typeof GRAYSCALE;
+declare const index_INFERNO: typeof INFERNO;
+declare const index_PLASMA: typeof PLASMA;
+declare const index_RAINBOW: typeof RAINBOW;
+declare const index_SPECTRAL: typeof SPECTRAL;
+declare const index_VIRIDIS: typeof VIRIDIS;
+declare const index_YELLOW_GREEN: typeof YELLOW_GREEN;
+type index_PointAttributeName = PointAttributeName;
+declare const index_PointAttributeName: typeof PointAttributeName;
+type index_PointAttributeType = PointAttributeType;
+declare const index_POINT_ATTRIBUTE_TYPES: typeof POINT_ATTRIBUTE_TYPES;
+type index_IPointAttribute = IPointAttribute;
+type index_IPointAttributes = IPointAttributes;
+declare const index_POINT_ATTRIBUTES: typeof POINT_ATTRIBUTES;
+type index_PointAttributeStringName = PointAttributeStringName;
+type index_PointAttributes = PointAttributes;
+declare const index_PointAttributes: typeof PointAttributes;
+type index_NodeData = NodeData;
+type index_PointCloudOctreeGeometryNode = PointCloudOctreeGeometryNode;
+declare const index_PointCloudOctreeGeometryNode: typeof PointCloudOctreeGeometryNode;
+type index_PointCloudOctreeGeometry = PointCloudOctreeGeometry;
+declare const index_PointCloudOctreeGeometry: typeof PointCloudOctreeGeometry;
+type index_PointCloudOctreeNode = PointCloudOctreeNode;
+declare const index_PointCloudOctreeNode: typeof PointCloudOctreeNode;
+type index_PointCloudOctree = PointCloudOctree;
+declare const index_PointCloudOctree: typeof PointCloudOctree;
+type index_PointCloudTree = PointCloudTree;
+declare const index_PointCloudTree: typeof PointCloudTree;
+type index_QueueItem = QueueItem;
+declare const index_QueueItem: typeof QueueItem;
+type index_Potree = Potree;
+declare const index_Potree: typeof Potree;
+type index_IPointCloudTreeNode = IPointCloudTreeNode;
+type index_IVisibilityUpdateResult = IVisibilityUpdateResult;
+type index_IPotree = IPotree;
+type index_PickPoint = PickPoint;
+type index_PointCloudHit = PointCloudHit;
+type index_Version = Version;
+declare const index_Version: typeof Version;
+declare namespace index {
   export {
-    index$1_IBlurMaterialUniforms as IBlurMaterialUniforms,
-    index$1_BlurMaterial as BlurMaterial,
-    index$1_ClipMode as ClipMode,
-    index$1_IClipBox as IClipBox,
-    index$1_PointSizeType as PointSizeType,
-    index$1_PointShape as PointShape,
-    index$1_TreeType as TreeType,
-    index$1_PointOpacityType as PointOpacityType,
-    index$1_PointColorType as PointColorType,
-    index$1_IPointCloudMaterialParameters as IPointCloudMaterialParameters,
-    index$1_IPointCloudMaterialUniforms as IPointCloudMaterialUniforms,
-    index$1_PointCloudMaterial as PointCloudMaterial,
-    index$1_generateDataTexture as generateDataTexture,
-    index$1_generateGradientTexture as generateGradientTexture,
-    index$1_generateClassificationTexture as generateClassificationTexture,
-    index$1_IGradient as IGradient,
-    index$1_IClassification as IClassification,
-    index$1_IUniform as IUniform,
-    index$1_GRAYSCALE as GRAYSCALE,
-    index$1_INFERNO as INFERNO,
-    index$1_PLASMA as PLASMA,
-    index$1_RAINBOW as RAINBOW,
-    index$1_SPECTRAL as SPECTRAL,
-    index$1_VIRIDIS as VIRIDIS,
-    index$1_YELLOW_GREEN as YELLOW_GREEN,
-    index$1_PointAttributeName as PointAttributeName,
-    index$1_PointAttributeType as PointAttributeType,
-    index$1_POINT_ATTRIBUTE_TYPES as POINT_ATTRIBUTE_TYPES,
-    index$1_IPointAttribute as IPointAttribute,
-    index$1_IPointAttributes as IPointAttributes,
-    index$1_POINT_ATTRIBUTES as POINT_ATTRIBUTES,
-    index$1_PointAttributeStringName as PointAttributeStringName,
-    index$1_PointAttributes as PointAttributes,
-    index$1_NodeData as NodeData,
-    index$1_PointCloudOctreeGeometryNode as PointCloudOctreeGeometryNode,
-    index$1_PointCloudOctreeGeometry as PointCloudOctreeGeometry,
-    index$1_PointCloudOctreeNode as PointCloudOctreeNode,
-    index$1_PointCloudOctree as PointCloudOctree,
-    index$1_PointCloudTree as PointCloudTree,
-    index$1_QueueItem as QueueItem,
-    index$1_Potree as Potree,
-    index$1_IPointCloudTreeNode as IPointCloudTreeNode,
-    index$1_IVisibilityUpdateResult as IVisibilityUpdateResult,
-    index$1_IPotree as IPotree,
-    index$1_PickPoint as PickPoint,
-    index$1_PointCloudHit as PointCloudHit,
-    index$1_Version as Version,
+    index_IBlurMaterialUniforms as IBlurMaterialUniforms,
+    index_BlurMaterial as BlurMaterial,
+    index_ClipMode as ClipMode,
+    index_IClipBox as IClipBox,
+    index_PointSizeType as PointSizeType,
+    index_PointShape as PointShape,
+    index_TreeType as TreeType,
+    index_PointOpacityType as PointOpacityType,
+    index_PointColorType as PointColorType,
+    index_IPointCloudMaterialParameters as IPointCloudMaterialParameters,
+    index_IPointCloudMaterialUniforms as IPointCloudMaterialUniforms,
+    index_PointCloudMaterial as PointCloudMaterial,
+    index_generateDataTexture as generateDataTexture,
+    index_generateGradientTexture as generateGradientTexture,
+    index_generateClassificationTexture as generateClassificationTexture,
+    index_IGradient as IGradient,
+    index_IClassification as IClassification,
+    index_IUniform as IUniform,
+    index_GRAYSCALE as GRAYSCALE,
+    index_INFERNO as INFERNO,
+    index_PLASMA as PLASMA,
+    index_RAINBOW as RAINBOW,
+    index_SPECTRAL as SPECTRAL,
+    index_VIRIDIS as VIRIDIS,
+    index_YELLOW_GREEN as YELLOW_GREEN,
+    index_PointAttributeName as PointAttributeName,
+    index_PointAttributeType as PointAttributeType,
+    index_POINT_ATTRIBUTE_TYPES as POINT_ATTRIBUTE_TYPES,
+    index_IPointAttribute as IPointAttribute,
+    index_IPointAttributes as IPointAttributes,
+    index_POINT_ATTRIBUTES as POINT_ATTRIBUTES,
+    index_PointAttributeStringName as PointAttributeStringName,
+    index_PointAttributes as PointAttributes,
+    index_NodeData as NodeData,
+    index_PointCloudOctreeGeometryNode as PointCloudOctreeGeometryNode,
+    index_PointCloudOctreeGeometry as PointCloudOctreeGeometry,
+    index_PointCloudOctreeNode as PointCloudOctreeNode,
+    index_PointCloudOctree as PointCloudOctree,
+    index_PointCloudTree as PointCloudTree,
+    index_QueueItem as QueueItem,
+    index_Potree as Potree,
+    index_IPointCloudTreeNode as IPointCloudTreeNode,
+    index_IVisibilityUpdateResult as IVisibilityUpdateResult,
+    index_IPotree as IPotree,
+    index_PickPoint as PickPoint,
+    index_PointCloudHit as PointCloudHit,
+    index_Version as Version,
   };
 }
 
@@ -1094,7 +1094,7 @@ declare class Picker {
     pickInteractive: boolean;
     constructor(opts: PickerOpts);
     private getFaceNormal;
-    pick(normalizedPosition?: Vector2): PickResult | null;
+    pick(normalizedPosition?: Vector2, multiple?: boolean): PickResult | PickResult[] | null;
     intersectPlane(plane: Plane): PickResult | null;
 }
 
@@ -1294,7 +1294,7 @@ declare class Modules {
     private disableRaycast;
     private updateHooks;
     constructor(opts: IModules);
-    setupLights(scene: Scene): void;
+    setupLights(scene: Scene, intensity?: number): void;
     /**
      * Main render function
      */
@@ -1315,6 +1315,8 @@ declare class Modules {
     loadPointcloud(url: string, opts?: {
         queryString?: string;
         xhrInit?: RequestInit;
+        projIn?: string;
+        projOut?: string;
     }): Promise<PointCloudOctree[]>;
     /**
      * Creates all the different modules
@@ -1344,17 +1346,107 @@ interface Layer {
 declare class Layers {
     private data;
     private onUpdateFn;
+    private onVisibilityUpdateFn;
     constructor();
     add(layer: Layer): void;
     dispose(): void;
     getAll(): Layer[];
     remove(layer: Layer): void;
     registerOnUpdateCallback(fn: () => void): void;
+    registerOnVisibilityUpdateCallback(fn: () => void): void;
     private triggerUpdate;
+    private triggerVisibilityUpdate;
     count(): number;
     isVisible(id: string): boolean | undefined;
     setVisibility(id: string, value: boolean): void;
     toggleVisibility(id: string): void;
+}
+
+interface LoadMeshOpts {
+    isPickable?: boolean;
+    isInteractive?: boolean;
+}
+declare function loadLine(vertices: number[][], color?: Color): Line;
+declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
+
+interface IfcLoadOpts {
+    wasmPath?: string;
+    offset?: {
+        x: number;
+        y: number;
+        z: number;
+    };
+    projIn?: string;
+    projOut?: string;
+    isPickable?: boolean;
+    isInteractive?: boolean;
+}
+declare function loadIFC(url: string, opts: IfcLoadOpts): Promise<Object3D>;
+
+interface Vec3 {
+    x: number;
+    y: number;
+    z: number;
+}
+interface Breakline {
+    properties: BreaklineProperties;
+    coordinates: number[][];
+}
+interface BreaklineProperties {
+    [key: string]: string;
+}
+interface SurfaceTinProperties {
+    [key: string]: string;
+}
+interface SurfaceTin {
+    properties: SurfaceTinProperties;
+    vertices: number[][];
+    faces: number[][];
+}
+interface LandXMLProperties {
+    tin: SurfaceTin;
+    lines: Breakline[];
+}
+interface LandXMLLoadOpts {
+    offset?: number[];
+    projIn?: string;
+    projOut?: string;
+}
+declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group[]>;
+
+declare function loadDXF(url: string): Promise<void>;
+
+type Loaders_LoadMeshOpts = LoadMeshOpts;
+declare const Loaders_loadLine: typeof loadLine;
+declare const Loaders_loadMesh: typeof loadMesh;
+type Loaders_IfcLoadOpts = IfcLoadOpts;
+declare const Loaders_loadIFC: typeof loadIFC;
+type Loaders_Vec3 = Vec3;
+type Loaders_Breakline = Breakline;
+type Loaders_BreaklineProperties = BreaklineProperties;
+type Loaders_SurfaceTinProperties = SurfaceTinProperties;
+type Loaders_SurfaceTin = SurfaceTin;
+type Loaders_LandXMLProperties = LandXMLProperties;
+type Loaders_LandXMLLoadOpts = LandXMLLoadOpts;
+declare const Loaders_loadLandXML: typeof loadLandXML;
+declare const Loaders_loadDXF: typeof loadDXF;
+declare namespace Loaders {
+  export {
+    Loaders_LoadMeshOpts as LoadMeshOpts,
+    Loaders_loadLine as loadLine,
+    Loaders_loadMesh as loadMesh,
+    Loaders_IfcLoadOpts as IfcLoadOpts,
+    Loaders_loadIFC as loadIFC,
+    Loaders_Vec3 as Vec3,
+    Loaders_Breakline as Breakline,
+    Loaders_BreaklineProperties as BreaklineProperties,
+    Loaders_SurfaceTinProperties as SurfaceTinProperties,
+    Loaders_SurfaceTin as SurfaceTin,
+    Loaders_LandXMLProperties as LandXMLProperties,
+    Loaders_LandXMLLoadOpts as LandXMLLoadOpts,
+    Loaders_loadLandXML as loadLandXML,
+    Loaders_loadDXF as loadDXF,
+  };
 }
 
 interface IWorld {
@@ -1362,6 +1454,14 @@ interface IWorld {
     showStats?: boolean;
     preserveDrawingBuffer?: boolean;
     referenceFrame?: ReferenceFrame;
+    cameraMode?: CameraMode;
+    rendererClearColor?: number;
+    rendererAlpha?: boolean;
+    renderWidth?: number;
+    renderHeight?: number;
+    preventAutoStart?: boolean;
+    antialias?: boolean;
+    disableControls?: boolean;
 }
 declare type CameraMode = 'perspective' | 'orthographic';
 interface InitUIOpts {
@@ -1369,6 +1469,7 @@ interface InitUIOpts {
     disableLayers?: boolean;
     disablePointclouds?: boolean;
     disableMeasure?: boolean;
+    domElId?: string;
 }
 /** Main class for PointsceneJS */
 declare class World {
@@ -1377,14 +1478,15 @@ declare class World {
     private showStats;
     private preserveDrawingBuffer;
     scene: Scene | undefined;
-    controls: CamControls;
-    private camControls;
+    controls?: CamControls;
+    private camControls?;
     modules: Modules | undefined;
+    loaders: typeof Loaders;
     private rangeNear;
     private rangeFar;
     private perspectiveCamera;
     private orthoCamera;
-    private camera;
+    camera: PerspectiveCamera | OrthographicCamera;
     private fov;
     private aspectRatio;
     private clock;
@@ -1398,8 +1500,6 @@ declare class World {
     constructor(opts: IWorld);
     dispose(): void;
     private onWindowResize;
-    private handleStart;
-    private handleFitTopView;
     private handleRendererFocus;
     /**
      * Add binds
@@ -1420,7 +1520,6 @@ declare class World {
      */
     fitTopView(): void;
     getScreenShot(saveAsFile?: boolean): boolean | string;
-    private setClipMode;
     setCameraMode(mode: CameraMode): void;
     setClippingPlanes(planes: Plane[]): void;
     /**
@@ -1435,6 +1534,7 @@ declare class World {
      * Animate loop
      */
     private animate;
+    static projectPoints(points: number[][], projIn: string, projOut: string): Promise<number[][]>;
     projectPoints(points: number[][], projIn: string, projOut: string): Promise<number[][]>;
     /**
      * Start looping
@@ -1550,6 +1650,8 @@ declare class CameraControls {
     private sphereMinDistance;
     private sphereMaxDistance;
     constructor(opts: CameraControlOpts);
+    private handleOnSleep;
+    private handleOnRest;
     private handleDisableControls;
     private handleEnableControls;
     getMode(): ControlMode;
@@ -1560,94 +1662,8 @@ declare class CameraControls {
     disable(): void;
     enable(): void;
     update(deltaT: number): void;
+    private resetFocalOffset;
     dispose(): void;
 }
 
-interface LoadMeshOpts {
-    isPickable?: boolean;
-    isInteractive?: boolean;
-}
-declare function loadLine(vertices: number[][], color?: Color): Line;
-declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
-
-interface IfcLoadOpts {
-    wasmPath?: string;
-    offset?: {
-        x: number;
-        y: number;
-        z: number;
-    };
-    projIn?: string;
-    projOut?: string;
-    isPickable?: boolean;
-    isInteractive?: boolean;
-}
-declare function loadIFC(url: string, opts: IfcLoadOpts): Promise<Object3D>;
-
-interface Vec3 {
-    x: number;
-    y: number;
-    z: number;
-}
-interface Breakline {
-    properties: BreaklineProperties;
-    coordinates: number[][];
-}
-interface BreaklineProperties {
-    [key: string]: string;
-}
-interface SurfaceTinProperties {
-    [key: string]: string;
-}
-interface SurfaceTin {
-    properties: SurfaceTinProperties;
-    vertices: number[][];
-    faces: number[][];
-}
-interface LandXMLProperties {
-    tin: SurfaceTin;
-    lines: Breakline[];
-}
-interface LandXMLLoadOpts {
-    offset?: number[];
-    projIn?: string;
-    projOut?: string;
-}
-declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group[]>;
-
-declare function loadDXF(url: string): Promise<void>;
-
-type index_LoadMeshOpts = LoadMeshOpts;
-declare const index_loadLine: typeof loadLine;
-declare const index_loadMesh: typeof loadMesh;
-type index_IfcLoadOpts = IfcLoadOpts;
-declare const index_loadIFC: typeof loadIFC;
-type index_Vec3 = Vec3;
-type index_Breakline = Breakline;
-type index_BreaklineProperties = BreaklineProperties;
-type index_SurfaceTinProperties = SurfaceTinProperties;
-type index_SurfaceTin = SurfaceTin;
-type index_LandXMLProperties = LandXMLProperties;
-type index_LandXMLLoadOpts = LandXMLLoadOpts;
-declare const index_loadLandXML: typeof loadLandXML;
-declare const index_loadDXF: typeof loadDXF;
-declare namespace index {
-  export {
-    index_LoadMeshOpts as LoadMeshOpts,
-    index_loadLine as loadLine,
-    index_loadMesh as loadMesh,
-    index_IfcLoadOpts as IfcLoadOpts,
-    index_loadIFC as loadIFC,
-    index_Vec3 as Vec3,
-    index_Breakline as Breakline,
-    index_BreaklineProperties as BreaklineProperties,
-    index_SurfaceTinProperties as SurfaceTinProperties,
-    index_SurfaceTin as SurfaceTin,
-    index_LandXMLProperties as LandXMLProperties,
-    index_LandXMLLoadOpts as LandXMLLoadOpts,
-    index_loadLandXML as loadLandXML,
-    index_loadDXF as loadDXF,
-  };
-}
-
-export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index$1 as Potree, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, index as loaders };
+export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index as Potree, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
