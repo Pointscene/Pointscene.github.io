@@ -1270,6 +1270,7 @@ declare class Modules {
     private camera;
     private renderer;
     private domEl;
+    private tmsProvider?;
     sceneStatic: Scene;
     scenePointCloud: Scene;
     scenePickable: Scene;
@@ -1318,6 +1319,9 @@ declare class Modules {
         projIn?: string;
         projOut?: string;
     }): Promise<PointCloudOctree[]>;
+    loadTMS(url: string, opts: {
+        proj4?: string;
+    }): Promise<void>;
     /**
      * Creates all the different modules
      */
