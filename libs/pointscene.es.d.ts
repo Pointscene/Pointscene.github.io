@@ -1257,6 +1257,72 @@ declare class PointClouds {
     removeListeners(domEl?: HTMLElement): void;
 }
 
+interface Coords {
+    x: number;
+    y: number;
+    z: number;
+}
+interface TmsProviderOpts {
+    scene: Scene;
+    referenceFrame: ReferenceFrame;
+}
+interface InitTmsProviderOpts {
+    proj4?: string;
+    gridCenter: Coords;
+    gridSize?: {
+        x: number;
+        y: number;
+    };
+    minZoom?: number;
+    maxZoom?: number;
+}
+declare class TmsProvider {
+    private earthRadius;
+    private earthCircumference;
+    private tileSize;
+    private gridSize;
+    private gridCenter;
+    private minZoom;
+    private maxZoom;
+    private proj4;
+    private wgs84;
+    private tiles;
+    private referenceFrame;
+    private urls;
+    private scene;
+    private updateCounter;
+    private updateInProgress;
+    constructor(opts: TmsProviderOpts);
+    init(opts: InitTmsProviderOpts): Promise<void>;
+    addUrl(url: string): void;
+    removeUrl(url: string): void;
+    setUrlIndex(url: string, toIdx: number): void;
+    refresh(): Promise<void>;
+    private removeTileDelayed;
+    private removeTile;
+    private getParentCoords;
+    private hasChildren;
+    private getChildCoords;
+    private replaceWithChildren;
+    private getSiblings;
+    private recursiveMerge;
+    private recursiveSplit;
+    update(delta: number, camera: PerspectiveCamera | OrthographicCamera): Promise<void>;
+    createBaseGrid(): Promise<void>;
+    private createTiles;
+    private tileDistanceSquared;
+    private createTileMesh;
+    private loadImage;
+    private getTexture;
+    private tileCoordsToKey;
+    private keyToTileCoords;
+    private zoom;
+    private coordToTile;
+    private tileToLng;
+    private tileToLat;
+    private tileToBounds;
+}
+
 interface IModules {
     scene: Scene;
     camera: PerspectiveCamera | OrthographicCamera;
@@ -1319,9 +1385,9 @@ declare class Modules {
         projIn?: string;
         projOut?: string;
     }): Promise<PointCloudOctree[]>;
-    loadTMS(url: string, opts: {
+    initTMSProvider(gridCenter: Coords, opts: {
         proj4?: string;
-    }): Promise<void>;
+    }): Promise<TmsProvider>;
     /**
      * Creates all the different modules
      */
@@ -1416,6 +1482,7 @@ interface LandXMLLoadOpts {
     projIn?: string;
     projOut?: string;
 }
+declare const stringToHex: (str: string) => Color;
 declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group[]>;
 
 declare function loadDXF(url: string): Promise<void>;
@@ -1432,6 +1499,7 @@ type Loaders_SurfaceTinProperties = SurfaceTinProperties;
 type Loaders_SurfaceTin = SurfaceTin;
 type Loaders_LandXMLProperties = LandXMLProperties;
 type Loaders_LandXMLLoadOpts = LandXMLLoadOpts;
+declare const Loaders_stringToHex: typeof stringToHex;
 declare const Loaders_loadLandXML: typeof loadLandXML;
 declare const Loaders_loadDXF: typeof loadDXF;
 declare namespace Loaders {
@@ -1448,6 +1516,7 @@ declare namespace Loaders {
     Loaders_SurfaceTin as SurfaceTin,
     Loaders_LandXMLProperties as LandXMLProperties,
     Loaders_LandXMLLoadOpts as LandXMLLoadOpts,
+    Loaders_stringToHex as stringToHex,
     Loaders_loadLandXML as loadLandXML,
     Loaders_loadDXF as loadDXF,
   };
@@ -1519,6 +1588,9 @@ declare class World {
     private handleMeasureUICreated;
     private handlePointcloudUICreated;
     initUI(opts?: InitUIOpts): void;
+    getSceneBoundingBox(): Box3 | null | undefined;
+    getCameraPosition(): Vector3 | undefined;
+    getControlTarget(): Vector3 | undefined;
     /**
      * Fits top view based on point clouds bounding box
      */
