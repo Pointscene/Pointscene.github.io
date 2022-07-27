@@ -1169,8 +1169,6 @@ declare class PointClouds {
     private potree;
     private useEDL;
     private edlRenderer;
-    private needsVisibilityFlip;
-    private prevClippingPlaneCount;
     constructor(props?: IPointClouds);
     private initGLExtensions;
     dispose(): void;
@@ -1224,6 +1222,7 @@ declare class PointClouds {
     setClassVisibility(key: number | string, value: boolean): void;
     setClipMode(value: number): void;
     setPointShape(value: string | number): void;
+    getPointsize(): number;
     setPointSize(value: number): void;
     setPointSizeType(value: string | number): void;
     setHeightRange(range: number[]): void;
