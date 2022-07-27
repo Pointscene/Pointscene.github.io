@@ -1359,6 +1359,7 @@ declare class Modules {
     private hoveredElement;
     private disableRaycast;
     private updateHooks;
+    private orbitPoint;
     constructor(opts: IModules);
     setupLights(scene: Scene, intensity?: number): void;
     /**
