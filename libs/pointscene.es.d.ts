@@ -826,6 +826,7 @@ declare class ReferenceFrame {
     private mPosition;
     private mPreComputed;
     private mNeedsUpdate;
+    private proj4?;
     computeBoundingBox(box: Box3): Box3;
     computeUntranslatedBoundingBox(box: Box3): Box3;
     decomposeMatrix(m: Matrix4): {
@@ -862,6 +863,9 @@ declare class ReferenceFrame {
     set scale(s: Vector3);
     getScale(): Vector3;
     getScaleMatrix3(): Matrix3;
+    setProj4(proj4: string): void;
+    getProj4(): string | undefined;
+    proj4IsSet(): boolean;
     private _normalize;
 }
 
@@ -883,7 +887,10 @@ declare const enum PointsceneEvents {
     RegisterUpdateHook = "pointscene_register_update_hook",
     SetPhotoBackgroundMode = "pointscene_set_photo_background_mode",
     SetPhotoPeekMode = "pointscene_set_photo_peek_mode",
-    UpdateOrbitPoint = "pointscene_update_orbit_point"
+    UpdateOrbitPoint = "pointscene_update_orbit_point",
+    UpdateQueryParam = "pointscene_update_query_param",
+    QueryParamUpdated = "pointscene_query_param_updated",
+    FitTopView = "pointscene_fit_top_view"
 }
 /** Handles event dispatching to user DOM */
 declare class Events {
@@ -1194,7 +1201,7 @@ declare class PointClouds {
     /**
      * Render point clouds depending on active shaders
      */
-    render(renderer?: WebGLRenderer, scene?: Scene, camera?: PerspectiveCamera): void;
+    render(renderer?: WebGLRenderer, scene?: Scene, camera?: PerspectiveCamera | OrthographicCamera): void;
     /**
      * Update point clouds
      */
@@ -1275,6 +1282,10 @@ interface InitTmsProviderOpts {
     minZoom?: number;
     maxZoom?: number;
 }
+interface AddTmsLayerOpts {
+    bounds?: number[][];
+    isTms?: boolean;
+}
 declare class TmsProvider {
     private earthRadius;
     private earthCircumference;
@@ -1287,15 +1298,20 @@ declare class TmsProvider {
     private wgs84;
     private tiles;
     private referenceFrame;
-    private urls;
+    private layers;
     private scene;
+    private group;
     private updateCounter;
     private updateInProgress;
     constructor(opts: TmsProviderOpts);
     init(opts: InitTmsProviderOpts): Promise<void>;
-    addUrl(url: string): void;
-    removeUrl(url: string): void;
-    setUrlIndex(url: string, toIdx: number): void;
+    isVisible(url: string): boolean;
+    setVisibility(url: string, value: boolean): void;
+    hasVisibleLayers(): boolean;
+    setOffset(offset: Vector3): void;
+    addLayer(url: string, opts: AddTmsLayerOpts): void;
+    removeLayer(url: string): void;
+    setLayerIndex(url: string, toIdx: number): void;
     refresh(): Promise<void>;
     private removeTileDelayed;
     private removeTile;
@@ -1312,6 +1328,7 @@ declare class TmsProvider {
     private tileDistanceSquared;
     private createTileMesh;
     private loadImage;
+    private isTileInsideBounds;
     private getTexture;
     private tileCoordsToKey;
     private keyToTileCoords;
@@ -1322,11 +1339,30 @@ declare class TmsProvider {
     private tileToBounds;
 }
 
+declare type QueryParamTypes = 'float' | 'float[]' | 'string' | 'int' | 'int[]';
+declare class QueryParams {
+    queryParams: {
+        [key: string]: string;
+    };
+    private domEl;
+    private events;
+    constructor(domEl: HTMLElement);
+    update(): void;
+    dispose(): void;
+    isSet(param: string): boolean;
+    private parse;
+    set(param: string, value: number | number[] | string, paramType: QueryParamTypes): void;
+    get(param: string, paramType: QueryParamTypes): number | number[] | string | undefined;
+    private getQueryParam;
+    private handleQueryParamUpdate;
+}
+
 interface IModules {
     scene: Scene;
     camera: PerspectiveCamera | OrthographicCamera;
     renderer: WebGLRenderer;
     domEl: HTMLElement;
+    queryParams: QueryParams;
     referenceFrame?: ReferenceFrame;
 }
 /** Modules class handles creating and updating all the modules */
@@ -1336,6 +1372,7 @@ declare class Modules {
     private renderer;
     private domEl;
     private tmsProvider?;
+    private queryParams;
     sceneStatic: Scene;
     scenePointCloud: Scene;
     scenePickable: Scene;
@@ -1360,12 +1397,13 @@ declare class Modules {
     private disableRaycast;
     private updateHooks;
     private orbitPoint;
+    private fog;
     constructor(opts: IModules);
     setupLights(scene: Scene, intensity?: number): void;
     /**
      * Main render function
      */
-    render(): void;
+    render(splitViews: SplitView[]): void;
     /**
      * Raycast to scenePickable
      */
@@ -1388,9 +1426,6 @@ declare class Modules {
     initTMSProvider(gridCenter: Coords, opts: {
         proj4?: string;
     }): Promise<TmsProvider>;
-    /**
-     * Creates all the different modules
-     */
     private updateMouseFromTouch;
     private handleMouseMove;
     private handleTouchMove;
@@ -1410,8 +1445,9 @@ declare class Modules {
 interface Layer {
     id: string;
     name: string;
-    type: 'pointcloud' | 'mesh' | '360';
-    object: Object3D;
+    type: 'pointcloud' | 'mesh' | '360' | 'tms';
+    object?: Object3D;
+    provider?: TmsProvider;
 }
 declare class Layers {
     private data;
@@ -1427,7 +1463,7 @@ declare class Layers {
     private triggerUpdate;
     private triggerVisibilityUpdate;
     count(): number;
-    isVisible(id: string): boolean | undefined;
+    isVisible(id: string): boolean;
     setVisibility(id: string, value: boolean): void;
     toggleVisibility(id: string): void;
 }
@@ -1542,14 +1578,22 @@ interface InitUIOpts {
     disableLayers?: boolean;
     disablePointclouds?: boolean;
     disableMeasure?: boolean;
+    disableShare?: boolean;
     domElId?: string;
+}
+interface SplitView {
+    camera: PerspectiveCamera | OrthographicCamera;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
 }
 /** Main class for PointsceneJS */
 declare class World {
     layers: Layers;
+    queryParams: QueryParams;
     private domEl;
     private showStats;
-    private preserveDrawingBuffer;
     scene: Scene | undefined;
     controls?: CamControls;
     private camControls?;
@@ -1570,10 +1614,13 @@ declare class World {
     private screenHeight;
     private freezeAnimate;
     private prevControlDistance;
+    private splitViews;
     constructor(opts: IWorld);
     dispose(): void;
+    splitProfileView(): void;
     private onWindowResize;
     private handleRendererFocus;
+    private handleFitTopView;
     /**
      * Add binds
      */
@@ -1588,13 +1635,14 @@ declare class World {
     private handleMeasureUICreated;
     private handlePointcloudUICreated;
     initUI(opts?: InitUIOpts): void;
-    getSceneBoundingBox(): Box3 | null | undefined;
+    getSceneBoundingBox(includeStatic?: boolean): Box3 | null | undefined;
     getCameraPosition(): Vector3 | undefined;
     getControlTarget(): Vector3 | undefined;
     /**
      * Fits top view based on point clouds bounding box
      */
-    fitTopView(): void;
+    fitTopView(transition?: boolean): Promise<void>;
+    setCameraView(camera: Vector3, target: Vector3, transition?: boolean): Promise<void>;
     getScreenShot(saveAsFile?: boolean): boolean | string;
     setCameraMode(mode: CameraMode): void;
     setClippingPlanes(planes: Plane[]): void;
@@ -1703,6 +1751,7 @@ declare class Transformations {
 interface CameraControlOpts {
     camera: PerspectiveCamera | OrthographicCamera;
     domEl: HTMLElement;
+    referenceFrame: ReferenceFrame;
 }
 declare enum ControlMode {
     FirstPerson = "walk",
@@ -1725,7 +1774,11 @@ declare class CameraControls {
     private fpsDollySpeed;
     private sphereMinDistance;
     private sphereMaxDistance;
+    private updateTimeout;
+    private referenceFrame;
     constructor(opts: CameraControlOpts);
+    private triggerCameraUpdate;
+    private handleOnUpdate;
     private handleOnSleep;
     private handleOnRest;
     private handleDisableControls;
