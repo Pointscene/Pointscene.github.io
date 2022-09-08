@@ -1635,6 +1635,7 @@ declare class World {
     private handleMeasureUICreated;
     private handlePointcloudUICreated;
     initUI(opts?: InitUIOpts): void;
+    getWorldBoundingBox(includeStatic?: boolean): Box3 | null | undefined;
     getSceneBoundingBox(includeStatic?: boolean): Box3 | null | undefined;
     getCameraPosition(): Vector3 | undefined;
     getControlTarget(): Vector3 | undefined;
