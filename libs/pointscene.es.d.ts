@@ -465,7 +465,7 @@ declare class PointCloudOctree extends PointCloudTree {
     hideDescendants(object: Object3D): void;
     moveToOrigin(): void;
     moveToGroundPlane(): void;
-    getBoundingBoxWorld(): Box3;
+    getBoundingBoxWorld(bbox?: Box3): Box3;
     getVisibleExtent(): Box3;
     pick(renderer: WebGLRenderer, camera: Camera, ray: Ray, params?: Partial<PickParams>): PickPoint | null;
     get progress(): number;
