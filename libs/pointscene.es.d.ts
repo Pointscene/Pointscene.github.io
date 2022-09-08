@@ -1451,6 +1451,7 @@ interface Layer {
 }
 declare class Layers {
     private data;
+    private order;
     private onUpdateFn;
     private onVisibilityUpdateFn;
     constructor();
