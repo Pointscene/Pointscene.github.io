@@ -1,5 +1,5 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereBufferGeometry, CircleGeometry, Plane, Raycaster, Line, Mesh, SpriteMaterial, Sprite } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Line, Mesh, SpriteMaterial, Sprite } from 'three';
 import CamControls from 'camera-controls';
 import { Context } from 'vm';
 
@@ -686,7 +686,7 @@ declare class Potree implements IPotree {
         precision: string;
     };
     lru: LRU;
-    loadPointCloud(url: string, getUrl: GetUrlFn, xhrRequest?: (input: RequestInfo, init?: RequestInit | undefined) => Promise<Response>, xhrInit?: RequestInit): Promise<PointCloudOctree>;
+    loadPointCloud(url: string, getUrl: GetUrlFn, xhrRequest?: (input: RequestInfo, init?: RequestInit) => Promise<Response>, xhrInit?: RequestInit): Promise<PointCloudOctree>;
     updatePointClouds(pointClouds: PointCloudOctree[], camera: Camera, renderer: WebGLRenderer): IVisibilityUpdateResult;
     static pick(pointClouds: PointCloudOctree[], renderer: WebGLRenderer, camera: Camera, ray: Ray, params?: Partial<PickParams>): PickPoint | null;
     dispose(): void;
@@ -817,6 +817,9 @@ declare namespace index {
   };
 }
 
+interface ReferenceFrameOpts {
+    domEl?: HTMLElement;
+}
 /** ReferenceFrame handles global origin and related transformations */
 declare class ReferenceFrame {
     private _isSet;
@@ -827,6 +830,9 @@ declare class ReferenceFrame {
     private mPreComputed;
     private mNeedsUpdate;
     private proj4?;
+    private events;
+    private domEl?;
+    constructor(opts?: ReferenceFrameOpts);
     computeBoundingBox(box: Box3): Box3;
     computeUntranslatedBoundingBox(box: Box3): Box3;
     decomposeMatrix(m: Matrix4): {
@@ -885,6 +891,7 @@ declare const enum PointsceneEvents {
     RegisterPicker = "pointscene_register_picker",
     RegisterPointclouds = "pointscene_register_pointclouds",
     RegisterUpdateHook = "pointscene_register_update_hook",
+    ReferenceFrameIsSet = "pointscene_reference_frame_set",
     SetPhotoBackgroundMode = "pointscene_set_photo_background_mode",
     SetPhotoPeekMode = "pointscene_set_photo_peek_mode",
     UpdateOrbitPoint = "pointscene_update_orbit_point",
@@ -957,11 +964,13 @@ interface IPhotos {
     mouse: Vector2;
     camera: PerspectiveCamera | OrthographicCamera;
     referenceFrame: ReferenceFrame;
+    disablePhotoNavigation?: boolean;
 }
 declare type PhotoUrlCallback = (photo: Photo) => Promise<string>;
 interface PhotoOpts {
     getUrl: PhotoUrlCallback;
     getDepthUrl: PhotoUrlCallback;
+    disablePhotoNavigation?: boolean;
 }
 interface Photo {
     url?: string;
@@ -1011,7 +1020,7 @@ declare class Photos {
     protected nNearest: number;
     protected maxDistance: number;
     protected nearestObjects: any;
-    protected geometry: SphereBufferGeometry | undefined;
+    protected geometry: SphereGeometry | undefined;
     protected ringGeometry: CircleGeometry | undefined;
     protected activeTexture: Texture | undefined;
     protected activeDepthTexture: Texture | undefined;
@@ -1022,6 +1031,7 @@ declare class Photos {
     protected isActive: boolean | undefined;
     protected kdtree: KdTree | undefined;
     protected depthScale: number;
+    protected disablePhotoNavigation: boolean;
     constructor(props: IPhotos);
     dispose(): void;
     /**
@@ -1029,7 +1039,7 @@ declare class Photos {
      */
     update(): void;
     private setAllPickable;
-    protected getGeometry(): SphereBufferGeometry;
+    protected getGeometry(): SphereGeometry;
     protected getRingGeometry(): CircleGeometry;
     protected getActiveMaterial(): ShaderMaterial;
     private getMaterial;
@@ -1064,7 +1074,7 @@ declare class Photos {
     protected add(photo: Photo, params: any): void;
     protected getObjectAtIndex(idx: number): Object3D<three.Event>;
     protected index(): void;
-    protected openNearest(position: Vector3): void;
+    openNearest(position: Vector3, look?: Vector3): void;
     protected getNearest(position: Vector3, params?: any): {
         d: any;
         idx: number;
@@ -1119,17 +1129,9 @@ declare class PhotoSpheres extends Photos {
     private getDepthMetricValue;
     private normalizePixel;
     private getDepthPixelValue;
-    load(photos: Photo[], opts?: PhotoOpts): Object3D;
-    private setTargetSize;
-    private setActiveOpacity;
-    private setVisibility;
+    load(photos: Photo[], opts?: PhotoOpts): Group;
     private setBackgroundMode;
-    private handleOpenNearestSphere;
     private handleSetSphereBackgroundMode;
-    private handleSetSphereVisibility;
-    private handleSetSphereSize;
-    private handleSetSphereOpacity;
-    private handleLoadSpheres;
     /**
      * Add binds
      */
@@ -1193,6 +1195,7 @@ declare class PointClouds {
     fitIntensityRange(): boolean;
     private setDefaults;
     private load;
+    addPointcloud(url: string): Promise<PointCloudOctree[]>;
     loadInternal(url: string | string[], opts?: {
         queryString?: string;
         xhrInit?: RequestInit;
@@ -1237,6 +1240,7 @@ declare class PointClouds {
     setIntensityRange(range: [number, number]): void;
     setVisibility(value: boolean): void;
     resize(renderer?: WebGLRenderer, camera?: PerspectiveCamera | OrthographicCamera, domEl?: HTMLElement): void;
+    remove(idx: number): void;
     handleWindowResize(): void;
     handleLoadPointcloud(event: Event): void;
     handleSetClipBoxes(event: Event): void;
@@ -1330,6 +1334,7 @@ declare class TmsProvider {
     private loadImage;
     private isTileInsideBounds;
     private getTexture;
+    dispose(): void;
     private tileCoordsToKey;
     private keyToTileCoords;
     private zoom;
@@ -1344,6 +1349,7 @@ declare class QueryParams {
     queryParams: {
         [key: string]: string;
     };
+    disabled: boolean;
     private domEl;
     private events;
     constructor(domEl: HTMLElement);
@@ -1352,9 +1358,12 @@ declare class QueryParams {
     isSet(param: string): boolean;
     private parse;
     set(param: string, value: number | number[] | string, paramType: QueryParamTypes): void;
+    remove(param: string): void;
     get(param: string, paramType: QueryParamTypes): number | number[] | string | undefined;
     private getQueryParam;
     private handleQueryParamUpdate;
+    private handleEnterSphere;
+    private handleExitSphere;
 }
 
 interface IModules {
@@ -1362,7 +1371,7 @@ interface IModules {
     camera: PerspectiveCamera | OrthographicCamera;
     renderer: WebGLRenderer;
     domEl: HTMLElement;
-    queryParams: QueryParams;
+    queryParams: QueryParams | undefined;
     referenceFrame?: ReferenceFrame;
 }
 /** Modules class handles creating and updating all the modules */
@@ -1410,12 +1419,13 @@ declare class Modules {
     private raycast;
     private disposeMaterial;
     private recursiveRemove;
-    private disposeScene;
+    disposeScene(node: any): void;
     dispose(): void;
     private handleRegisterUpdateHook;
     private registerUpdateHook;
     update(delta: number): void;
-    loadPhotoSpheres(photos: Photo[], opts?: PhotoOpts): Object3D;
+    loadPhotoSpheres(photos: Photo[], opts?: PhotoOpts): Group;
+    addPointcloud(url: string): Promise<PointCloudOctree[]>;
     createPointcloudModule(): void;
     loadPointcloud(url: string, opts?: {
         queryString?: string;
@@ -1572,6 +1582,8 @@ interface IWorld {
     preventAutoStart?: boolean;
     antialias?: boolean;
     disableControls?: boolean;
+    disableTelemetry?: boolean;
+    disableQueryParams?: boolean;
 }
 declare type CameraMode = 'perspective' | 'orthographic';
 interface InitUIOpts {
@@ -1592,7 +1604,7 @@ interface SplitView {
 /** Main class for PointsceneJS */
 declare class World {
     layers: Layers;
-    queryParams: QueryParams;
+    queryParams: QueryParams | undefined;
     private domEl;
     private showStats;
     scene: Scene | undefined;
@@ -1636,6 +1648,7 @@ declare class World {
     private handleMeasureUICreated;
     private handlePointcloudUICreated;
     initUI(opts?: InitUIOpts): void;
+    disposeUI(): void;
     getWorldBoundingBox(includeStatic?: boolean): Box3 | null | undefined;
     getSceneBoundingBox(includeStatic?: boolean): Box3 | null | undefined;
     getCameraPosition(): Vector3 | undefined;
@@ -1797,4 +1810,4 @@ declare class CameraControls {
     dispose(): void;
 }
 
-export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index as Potree, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
+export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index as Potree, ReferenceFrameOpts, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
