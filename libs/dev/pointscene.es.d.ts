@@ -1074,7 +1074,7 @@ declare class Photos {
     protected add(photo: Photo, params: any): void;
     protected getObjectAtIndex(idx: number): Object3D<three.Event>;
     protected index(): void;
-    openNearest(position: Vector3): void;
+    openNearest(position: Vector3, look?: Vector3): void;
     protected getNearest(position: Vector3, params?: any): {
         d: any;
         idx: number;
@@ -1349,6 +1349,7 @@ declare class QueryParams {
     queryParams: {
         [key: string]: string;
     };
+    disabled: boolean;
     private domEl;
     private events;
     constructor(domEl: HTMLElement);
@@ -1357,9 +1358,12 @@ declare class QueryParams {
     isSet(param: string): boolean;
     private parse;
     set(param: string, value: number | number[] | string, paramType: QueryParamTypes): void;
+    remove(param: string): void;
     get(param: string, paramType: QueryParamTypes): number | number[] | string | undefined;
     private getQueryParam;
     private handleQueryParamUpdate;
+    private handleEnterSphere;
+    private handleExitSphere;
 }
 
 interface IModules {

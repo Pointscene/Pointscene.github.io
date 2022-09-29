@@ -23,9 +23,7 @@
         'analytics_storage': 'denied'
       });
     </script>
-    <!--<script src="https://pointscene.github.io/libs/pointscene.umd.js"></script>-->
     <script src="https://pointscene.github.io/libs/dev/pointscene.umd.js"></script>
-    <!--<script src="../build/pointscene.js"></script>-->
     <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
     <style>
       body {
@@ -396,7 +394,7 @@
         */
         const disablePhotoNavigation = getQueryParam('disablePhotoNavigation');
 
-        const photoGroup = pointscene.modules.loadPhotoSpheres(photos, { disablePhotoNavigation });
+        const photoGroup = pointscene.modules.loadPhotoSpheres(photos, { disablePhotoNavigation: !!disablePhotoNavigation });
 
         pointscene.layers.add({
           id,
@@ -496,16 +494,12 @@
         plausible('Load LayersJSON', { props: { count: layers.length }});
       }
 
-      const getQueryParam = (str, isBoolean = false) => {
+      const getQueryParam = (str) => {
         const queryParams = new URLSearchParams(document.location.search);
         const param = queryParams.get(str);
 
         if (param) {
-          if (!isBoolean) {
-            return decodeURIComponent(param);
-          }
-
-          return true;
+          return decodeURIComponent(param);
         }
 
         return undefined;
@@ -533,6 +527,7 @@
         // Initialize Pointscene lib
         pointscene = Pointscene.init({
           domEl,
+          disableQueryParams: true,
         });
 
         if (potreeUrl) {
@@ -583,7 +578,23 @@
           renderDiv.style.opacity = '1.0';
         }, 50);
 
-        if (pointscene.queryParams.isSet('camera') && pointscene.queryParams.isSet('look')) {
+        if (pointscene.queryParams.isSet('openNearestPhoto')) {
+          if (pointscene.modules.photoSpheres) {
+            const position = pointscene.queryParams.get('camera', 'float[]');
+
+            pointscene.modules.photoSpheres.openNearest({
+              x: position[0],
+              y: position[1],
+              z: position[2],
+            });
+
+          } else {
+            // Fallback
+            await pointscene.fitTopView();
+
+          }
+
+        } else if (pointscene.queryParams.isSet('camera') && pointscene.queryParams.isSet('look')) {
           // First fit to top view and after to camera view for a transtion effect
           await pointscene.fitTopView();
 
@@ -600,23 +611,6 @@
             z: look[2],
           }, true);
 
-        } else if (pointscene.queryParams.isSet('openNearestPhoto')) {
-
-          if (pointscene.modules.photoSpheres) {
-            const position = pointscene.queryParams.get('openNearestPhoto', 'float[]');
-
-            pointscene.modules.photoSpheres.openNearest({
-              x: position[0],
-              y: position[1],
-              z: position[2],
-            });
-
-          } else {
-            // Fallback
-            await pointscene.fitTopView();
-
-          }
-
         } else {
 
           await pointscene.fitTopView();
@@ -630,6 +624,8 @@
             tmsProvider.setOffset({ x: 0, y: 0, z: bbox.min.z });
           }
         }
+
+        pointscene.queryParams.disabled = false;
 
         if (pointscene.layers.count() === 0 && !linkExpired) {
           plausible('No layers provided');
