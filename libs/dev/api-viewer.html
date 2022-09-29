@@ -1,0 +1,691 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Pointscene 3D viewer for comparing point clouds and design files</title>
+    <meta property="og:title" content="Pointscene 3D viewer for comparing point clouds and design files" />
+    <meta property="og:url" content="https://pointscene.com" />
+    <meta property="og:description" content="Compare designs to as-built conditions and prevent construction delays" />
+    <meta property="og:image" content="https://api.pointscene.com/viewer/3d/pointscene_square.png" />
+
+    <script defer data-domain="api.pointscene.com" src="https://plausible.io/js/plausible.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0S76WFX6V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V0S76WFX6V');
+      // Deny all by default
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied'
+      });
+    </script>
+    <!--<script src="https://pointscene.github.io/libs/pointscene.umd.js"></script>-->
+    <script src="https://pointscene.github.io/libs/dev/pointscene.umd.js"></script>
+    <!--<script src="../build/pointscene.js"></script>-->
+    <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
+    <style>
+      body {
+        padding: 0px;
+        margin: 0px;
+        background-color: #365379;
+        overflow: hidden;
+      }
+      #pointscene-view {
+        width: 100%; 
+        height: 100vh; 
+        padding: 0px; 
+        margin: 0px;
+        visibility: visible;
+        opacity: 0.1;
+        transition: visibility 0.3s linear,opacity 0.3s linear;
+      }
+      #loading-overlay {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        color: white;
+        font-size: 24px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        width: 100vw;
+        height: 100vh;
+        visibility: visible;
+        opacity: 0.9;
+        touch-action: none;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        transition: visibility 0.3s linear,opacity 0.3s linear;
+      }
+      #cookie-consent {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        background-color: white;
+        color: #365379;
+        font-size: large;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        width: 98%;
+        min-height: 120px;
+        visibility: hidden;
+        touch-action: none;
+        display: block;
+        align-items: center;
+        justify-content: center;
+        z-index: 101;
+        opacity: 0.9;
+      }
+      .link-expired-error {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        color: #365379;
+        background-color: white;
+        font-size: large;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        visibility: hidden;
+      }
+      button.cookie-button {
+        position: relative;
+        left: 3px;
+        font-family: 'Open Sans';
+        padding: 2px;
+        margin: 2px;
+        padding-left: 4px;
+        padding-right: 4px;
+        background-color: white;
+        border-radius: 5px;
+        border-color: #365379;
+        border-width: 0px;
+        transition: all 0.3s ease 0s;
+        color: #365379;
+        width: 210px;
+        height: 50px;
+        font-size: 14px;
+        box-shadow: none;
+      }
+      button.cookie-accept {
+        color: white;
+        background-color: #365379;
+      }
+      button.cookie-button:active {
+        background-color: #eee;
+      }
+      button.cookie-button:hover {
+        cursor: pointer;
+        background-color: #eee;
+      }
+      #pointscene-logo {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-overlay">Loading...</div>
+
+    <div id="cookie-consent">
+      <div style="padding: 20px;"><b>Cookie settings</b></div>
+      <div style="padding: 20px;">
+        We use cookies to personalize content and analyze traffic to our website.
+        You can choose to accept only cookies that are necessary for the website to function or to also allow tracking cookies.
+        For more information, please see our <a href="https://pointscene.com/privacy-policy/">privacy policy</a>.
+      </div>
+      <div style="align-content: right;">
+        <button class="cookie-button" onclick="acceptEssential()">Accept only essential</button>
+        <button class="cookie-button cookie-accept" onclick="acceptAll()">Accept all cookies</button>
+      </div>
+    </div>
+
+    <div id="link-expired" class="link-expired-error">
+      <p><a href="https://pointscene.com?utm_source=3D_viewer&utm_medium=viewer_logo_link_expired" target="_blank"><img src="./pointscene_logo.svg" width="320px" /></a></p>
+      <p><h2>Share link has expired. Please contact the sender for a new one.</h2></p>
+      <p>Need links that don't expire? Check out <a href="https://pointscene.com/pricing/?utm_source=3D_viewer&utm_medium=viewer_link_expired_pricing" target="_blank">Pointscene Project license</a> for permanent links.</p>
+    </div>
+
+    <div id="link-error" class="link-expired-error">
+      <p><a href="https://pointscene.com?utm_source=3D_viewer&utm_medium=viewer_logo_link_error" target="_blank"><img src="./pointscene_logo.svg" width="320px" /></a></p>
+      <p><h2>There was a problem loading the share link. Please contact the sender for a new one.</h2></p>
+      <p>Need links that don't expire? Check out <a href="https://pointscene.com/pricing/?utm_source=3D_viewer&utm_medium=viewer_link_error_pricing" target="_blank">Pointscene Project license</a> for permanent links.</p>
+    </div>
+
+    <div id="pointscene-logo">
+      <a href="https://pointscene.com?utm_source=3D_viewer&utm_medium=viewer_logo" target="_blank"><img src="./pointscene_logo.svg" width="160px" /></a>
+    </div>
+
+    <div id="pointscene-view"></div>
+
+    <script>
+      let pointscene;
+      let linkExpired = false;
+      let tmsProvider;
+
+      const updateLoadingIndicator = (count, total) => {
+        const loadingOverlay = document.querySelector("#loading-overlay");
+        if (!loadingOverlay) {
+          return;
+        }
+
+        let progress = parseInt(100 * count / (total - 1));
+
+        if (isNaN(progress)) {
+          progress = 0;
+        }
+
+        if (progress === 100) {
+          loadingOverlay.innerHTML = 'Go!';
+        } else {
+          loadingOverlay.innerHTML = `Loading ${progress} %...`;
+        }        
+      }
+
+      const maybeSetReferenceFrame = (offset, proj4) => {
+        if (!pointscene) {
+          throw new Error("Pointscene not initialized");
+        }
+
+        const referenceFrame = pointscene.modules.referenceFrame;
+
+        if (!referenceFrame.isSet()) {
+          referenceFrame.setPosition(offset, true);
+
+          if (proj4) {
+            referenceFrame.setProj4(proj4);
+          }
+        }
+      }
+
+      const isExpired = (dateStr) => {
+        if (!dateStr) {
+          return false;
+        }
+        return Date.now() > new Date(dateStr);
+      }
+
+      const addIfcLayer = async ({ id, name, url, offset, scale, proj4 }, projOut) => {
+        let ifcModel;
+        try {
+          ifcModel = await Pointscene.loaders.loadIFC(url, { 
+            wasmPath: '../libs/wasm/',
+            projIn: proj4,
+            projOut: projOut,
+            offset,
+          });
+        } catch(error) {
+          //
+          console.log(error);
+        }
+
+        if (!ifcModel) {
+          plausible('Failed to load IFC');
+          showError();
+          throw new Error('Failed to load IFC');
+        }
+
+        let ifcOffset = offset;
+
+        if (proj4 && projOut) {
+          const projected = await pointscene.projectPoints([[offset.x, offset.y, offset.z]], proj4, projOut);
+          ifcOffset = {
+            x: projected[0][0],
+            y: projected[0][1],
+            z: projected[0][2],
+          }
+        }
+
+        maybeSetReferenceFrame(ifcOffset, projOut);
+
+        const ifcPosition = pointscene.modules.referenceFrame.toScene(ifcOffset);
+
+        ifcModel.up.set(0, 0, 1);
+        ifcModel.scale.set(scale.x, scale.y, scale.z);
+        ifcModel.rotation.set(Math.PI / 2, 0, 0);
+        ifcModel.position.copy(ifcPosition);
+
+        pointscene.modules.scenePickable.add(ifcModel);
+
+        pointscene.layers.add({
+          id,
+          name,
+          type: 'ifc',
+          object: ifcModel,
+        });
+
+        plausible('Load IFC');
+      }
+
+      const addIfcUrl = async ({ url }) => {
+        const queryParams = new URLSearchParams(document.location.search);
+        let ifcOffsetStr = queryParams.get('ifcOffset');
+        if (!ifcOffsetStr) {
+          ifcOffsetStr = '0,0,0';
+        }
+
+        const ifcOffset = ifcOffsetStr.split(',').map(val => parseFloat(val));
+
+        return await addIfcLayer({
+          id: 'ifc-url-query-0',
+          name: 'IFC',
+          url,
+          offset: { x: ifcOffset[0], y: ifcOffset[1], z: ifcOffset[2] },
+          scale: { x: 1, y: 1, z: 1 },
+        });
+      }
+
+      const addLandXmlLayer = async({ id, name, url, offset, scale, proj4 }, projOut) => {
+        let landXml;
+        try {
+          landXml = await Pointscene.loaders.loadLandXML(url, {
+            offset,
+            projIn: proj4,
+            projOut,
+          });
+
+        } catch {
+          //
+        }
+
+        if (!landXml) {
+          plausible('Failed to load LandXML');
+          showError();
+          throw new Error('Failed to load LandXML');
+        }
+
+        let landxmlOffset = offset;
+
+        if (proj4 && projOut) {
+          const projected = await pointscene.projectPoints([[offset.x, offset.y, offset.z]], proj4, projOut);
+          landxmlOffset = {
+            x: projected[0][0],
+            y: projected[0][1],
+            z: projected[0][2],
+          }
+        }
+
+        maybeSetReferenceFrame(landxmlOffset, projOut);
+
+        const landxmlPosition = pointscene.modules.referenceFrame.toScene(landxmlOffset);
+
+        landXml.forEach((m, idx) => {
+            m.scale.set(scale.x, scale.y, scale.z);
+            m.position.copy(landxmlPosition);
+
+            pointscene.modules.scenePickable.add(m);
+
+            pointscene.layers.add({
+              id: `${id}-${idx}`,
+              name: `${name} (${idx + 1}/${landXml.length})`,
+              type: 'mesh',
+              object: m,
+            });
+        });
+
+        plausible('Load LandXML', { props: { count: landXml.length }});
+      }
+
+      const addLandXmlUrl = async ({ url }) => {
+        const queryParams = new URLSearchParams(document.location.search);
+        let landxmlOffsetStr = queryParams.get('landxmlOffset');
+          if (!landxmlOffsetStr) {
+            landxmlOffsetStr = '0,0,0';
+          }
+
+          const landxmlOffset = landxmlOffsetStr.split(',').map(val => parseFloat(val));
+
+          return await addLandXmlLayer({
+            id: 'landxml-url-query-0',
+            name: 'LandXML',
+            url,
+            offset: { x: landxmlOffset[0], y: landxmlOffset[1], z: landxmlOffset[2] },
+            scale: { x: 1, y: 1, z: 1 },
+          });
+      }
+
+      const addPointcloudLayer = async ({ id, name, url }, projOut) => {
+        let pointcloud;
+        // Reference frame is set while loading point cloud if needed
+        try {
+          pointcloud = await pointscene.modules.loadPointcloud(url);
+        } catch {
+          //
+        }
+
+        if (!pointcloud) {
+          plausible('Failed to load point cloud');
+          showError();
+          throw new Error('Failed to load point cloud');
+        }
+
+        pointscene.layers.add({
+          id,
+          name,
+          type: 'pointcloud',
+          object: pointcloud[0],
+        });
+
+        if (projOut && !pointscene.modules.referenceFrame.proj4IsSet()) {
+          pointscene.modules.referenceFrame.setProj4(projOut);
+        }
+
+        plausible('Load point cloud');
+      }
+
+      const add360Layer = async ({ id, name, url }) => {
+        const res = await fetch(url);
+        const photos = await res.json();
+
+        /* example photo
+          {
+              "url":"360/Job001-Setup002_0.jpg",
+              "filename":"Job001-Setup002_0.jpg",
+              "quaternion":{"x":0.5464386653713528,"y":-0.44900150089063956,"z":-0.4488245538392024,"w":0.5462224428345734},
+              "position":{"x":24491788.518854767,"y":6815584.892042044,"z":144.88271366338418}
+          }
+        */
+        const disablePhotoNavigation = getQueryParam('disablePhotoNavigation');
+
+        const photoGroup = pointscene.modules.loadPhotoSpheres(photos, { disablePhotoNavigation });
+
+        pointscene.layers.add({
+          id,
+          name,
+          type: '360',
+          object: photoGroup,
+        });
+
+        plausible('Load 360', { props: { count: photos.length }});
+      }
+
+      const addTMSLayers = async (layers) => {
+        tmsProvider = await pointscene.modules.initTMSProvider(pointscene.modules.referenceFrame.position, {
+          proj4: pointscene.modules.referenceFrame.getProj4(),
+        });
+
+        layers.forEach(layer => {
+          tmsProvider.addLayer(layer.url, {
+            bounds: layer.bounds,
+            isTms: false,
+          });
+
+          pointscene.layers.add({
+            id: layer.url,
+            name: layer.name,
+            type: 'tms',
+            provider: tmsProvider,
+          });
+
+          plausible('Load TMS');
+        });
+      }
+
+      const addLayersJson = async ({ url, proj4 }) => {
+        let layers;
+
+        try {
+          const res = await fetch(url);
+          layers = await res.json();
+
+        } catch {
+          showError();
+          plausible('Failed to load LayersJSON');
+          throw new Error('Failed to load LayersJSON');
+        }
+
+        if (!layers || layers.length === 0) {
+          showError();
+        }
+
+        const tmsLayers = [];
+
+        for (const [idx, layer] of layers.entries()) {
+          updateLoadingIndicator(idx, layers.length);
+
+          const expired = isExpired(layer.expiry);
+          if (expired) {
+            linkExpired = true;
+            plausible('Share link expired');
+            break;
+          }
+
+          switch(layer.type) {
+            case 'ifc':
+              await addIfcLayer(layer, proj4);
+              break;
+            case 'pointcloud':
+              await addPointcloudLayer(layer, proj4);
+              break;
+            case 'landxml':
+              await addLandXmlLayer(layer, proj4);
+              break;
+            case 'tms':
+              tmsLayers.push(layer);
+              break;
+            case '360':
+              // TODO
+              throw new Error('Layer type "360" not implemented');
+              break;
+            case 'group-360':
+              await add360Layer(layer);
+              break;
+            case 'dxf':
+              // TODO
+              throw new Error('Layer type "dxf" not implemented');
+              break;
+            default:
+              throw new Error(`Unknown layer type: ${layer.type}`);
+              break;
+          }
+        }
+
+        if (tmsLayers.length > 0 && !linkExpired) {
+          addTMSLayers(tmsLayers);
+        }
+
+        plausible('Load LayersJSON', { props: { count: layers.length }});
+      }
+
+      const getQueryParam = (str, isBoolean = false) => {
+        const queryParams = new URLSearchParams(document.location.search);
+        const param = queryParams.get(str);
+
+        if (param) {
+          if (!isBoolean) {
+            return decodeURIComponent(param);
+          }
+
+          return true;
+        }
+
+        return undefined;
+      }
+
+      const showError = () => {
+        const expEl = document.querySelector('#link-error');
+        expEl.style.visibility = 'visible';
+      }
+
+      const load = async () => {
+        let domEl = document.querySelector('#pointscene-view');
+
+        // Grab query parameters for input data
+        const queryParams = new URLSearchParams(document.location.search);
+        const potreeUrl = getQueryParam('potreeUrl');
+        const ifcUrl = getQueryParam('ifcUrl');
+        const landxmlUrl = getQueryParam('landxmlUrl');
+        const layersUrl = getQueryParam('layersUrl');
+        const photosUrl = getQueryParam('photosUrl');
+        // TODO:
+        //const tmsUrl = getQueryParam('tmsUrl');
+        const proj4 = getQueryParam('proj4');
+
+        // Initialize Pointscene lib
+        pointscene = Pointscene.init({
+          domEl,
+        });
+
+        if (potreeUrl) {
+          await addPointcloudLayer({
+            id: 'pointcloud-url-query-0',
+            name: 'Point cloud',
+            url: decodeURIComponent(potreeUrl),
+          });
+        }
+
+        if (ifcUrl) {
+          await addIfcUrl({ url: decodeURIComponent(ifcUrl) });
+        }
+
+        if (landxmlUrl) {
+          await addLandXmlUrl({ url: decodeURIComponent(landxmlUrl) });
+        }
+
+        if (photosUrl) {
+          add360Layer({
+            id: '360',
+            name: '360',
+            url: decodeURIComponent(photosUrl),
+          });
+        }
+
+        if (layersUrl) {
+          await addLayersJson({ url: decodeURIComponent(layersUrl), proj4 });
+        }
+
+        if (linkExpired) {
+          const expEl = document.querySelector('#link-expired');
+          expEl.style.visibility = 'visible';
+          return;
+        }
+
+        pointscene.modules.setupLights(pointscene.modules.scenePickable);
+
+        pointscene.initUI();
+
+        setTimeout(() => {
+          const loadingOverlay = document.querySelector('#loading-overlay');
+          const renderDiv = document.querySelector('#pointscene-view');
+
+          loadingOverlay.style.visibility = 'hidden';
+          loadingOverlay.style.opacity = '0.0';
+          renderDiv.style.visibility = 'visible';
+          renderDiv.style.opacity = '1.0';
+        }, 50);
+
+        if (pointscene.queryParams.isSet('camera') && pointscene.queryParams.isSet('look')) {
+          // First fit to top view and after to camera view for a transtion effect
+          await pointscene.fitTopView();
+
+          const camera = pointscene.queryParams.get('camera', 'float[]');
+          const look = pointscene.queryParams.get('look', 'float[]');
+
+          await pointscene.setCameraView({
+            x: camera[0],
+            y: camera[1],
+            z: camera[2],
+          }, {
+            x: look[0],
+            y: look[1],
+            z: look[2],
+          }, true);
+
+        } else if (pointscene.queryParams.isSet('openNearestPhoto')) {
+
+          if (pointscene.modules.photoSpheres) {
+            const position = pointscene.queryParams.get('openNearestPhoto', 'float[]');
+
+            pointscene.modules.photoSpheres.openNearest({
+              x: position[0],
+              y: position[1],
+              z: position[2],
+            });
+
+          } else {
+            // Fallback
+            await pointscene.fitTopView();
+
+          }
+
+        } else {
+
+          await pointscene.fitTopView();
+
+        }
+
+        if (tmsProvider) {
+          // Fit tms plane to geometry
+          const bbox = pointscene.getWorldBoundingBox();
+          if (bbox) {
+            tmsProvider.setOffset({ x: 0, y: 0, z: bbox.min.z });
+          }
+        }
+
+        if (pointscene.layers.count() === 0 && !linkExpired) {
+          plausible('No layers provided');
+          showError();
+        }
+      };
+
+      window.onload = async () => {
+        const consent = getCookieConsent();
+
+        if (!consent) {
+          const el = document.querySelector('#cookie-consent');
+          el.style.visibility = 'visible';
+        } else if (consent === 'all') {
+          allowGA();
+          allowLF();
+        }
+
+        load();
+      }
+
+      const hideCookieConsent = () => {
+        const el = document.querySelector('#cookie-consent');
+        el.style.visibility = 'hidden';
+      }
+
+      const acceptEssential = () => {
+        localStorage.setItem('pointscene-cookie-consent', 'essential');
+        hideCookieConsent();
+      }
+
+      const acceptAll = () => {
+        allowGA();
+        allowLF();
+        localStorage.setItem('pointscene-cookie-consent', 'all');
+        hideCookieConsent();
+      }
+
+      const clearCookieConsent = () => {
+        localStorage.removeItem('pointscene-cookie-consent');
+      }
+
+      const getCookieConsent = () => {
+        return localStorage.getItem('pointscene-cookie-consent');
+      }
+
+      const allowGA = () => {
+        gtag('consent', 'update', {
+          'ad_storage': 'granted',
+          'analytics_storage': 'granted'
+        });
+      }
+
+      const allowLF = () => {
+        (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('p1e024BOXOXaGB6d');
+      }
+    </script>
+  </body>
+</html>
