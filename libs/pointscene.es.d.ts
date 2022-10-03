@@ -1307,6 +1307,7 @@ declare class TmsProvider {
     private group;
     private updateCounter;
     private updateInProgress;
+    private lastCameraPosition;
     constructor(opts: TmsProviderOpts);
     init(opts: InitTmsProviderOpts): Promise<void>;
     isVisible(url: string): boolean;
@@ -1327,6 +1328,7 @@ declare class TmsProvider {
     private recursiveMerge;
     private recursiveSplit;
     update(delta: number, camera: PerspectiveCamera | OrthographicCamera): Promise<void>;
+    private updateTexture;
     createBaseGrid(): Promise<void>;
     private createTiles;
     private tileDistanceSquared;
