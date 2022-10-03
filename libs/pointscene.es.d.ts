@@ -1317,6 +1317,7 @@ declare class TmsProvider {
     addLayer(url: string, opts: AddTmsLayerOpts): void;
     removeLayer(url: string): void;
     setLayerIndex(url: string, toIdx: number): void;
+    private updateMeshTexture;
     refresh(): Promise<void>;
     private removeTileDelayed;
     private removeTile;
@@ -1328,9 +1329,9 @@ declare class TmsProvider {
     private recursiveMerge;
     private recursiveSplit;
     update(delta: number, camera: PerspectiveCamera | OrthographicCamera): Promise<void>;
-    private updateTexture;
     createBaseGrid(): Promise<void>;
     private createTiles;
+    private bboxInFrustum;
     private tileDistanceSquared;
     private createTileMesh;
     private loadImage;
