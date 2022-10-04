@@ -1301,6 +1301,8 @@ declare class TmsProvider {
     private proj4;
     private wgs84;
     private tiles;
+    private cache;
+    private cacheSize;
     private referenceFrame;
     private layers;
     private scene;
@@ -1308,6 +1310,9 @@ declare class TmsProvider {
     private updateCounter;
     private updateInProgress;
     private lastCameraPosition;
+    private pickPlane;
+    private maxRecursionDepth;
+    private firstUpdate;
     constructor(opts: TmsProviderOpts);
     init(opts: InitTmsProviderOpts): Promise<void>;
     isVisible(url: string): boolean;
@@ -1318,8 +1323,10 @@ declare class TmsProvider {
     removeLayer(url: string): void;
     setLayerIndex(url: string, toIdx: number): void;
     private updateMeshTexture;
-    refresh(): Promise<void>;
-    private removeTileDelayed;
+    refresh(keys?: string[]): Promise<void>;
+    private getFromCache;
+    private putToCache;
+    private purgeCache;
     private removeTile;
     private getParentCoords;
     private hasChildren;
