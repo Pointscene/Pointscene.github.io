@@ -1,6 +1,7 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Line, Mesh, SpriteMaterial, Sprite } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Mesh, SpriteMaterial, Sprite } from 'three';
 import CamControls from 'camera-controls';
+import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { Context } from 'vm';
 
 declare type IGradient = [number, Color][];
@@ -1099,6 +1100,7 @@ interface PickResult {
 }
 declare class Picker {
     domEl: HTMLElement;
+    hoveredObject?: Object3D;
     private raycaster;
     private mouse;
     camera: PerspectiveCamera | OrthographicCamera;
@@ -1113,6 +1115,7 @@ declare class Picker {
     private getFaceNormal;
     pick(normalizedPosition?: Vector2, multiple?: boolean): PickResult | PickResult[] | null;
     intersectPlane(plane: Plane): PickResult | null;
+    intersectObject(object: Object3D): PickResult | null;
 }
 
 interface IPhotoSpheres extends IPhotos {
@@ -1336,6 +1339,7 @@ declare class TmsProvider {
     private recursiveMerge;
     private recursiveSplit;
     update(delta: number, camera: PerspectiveCamera | OrthographicCamera): Promise<void>;
+    private cleanParentTiles;
     createBaseGrid(): Promise<void>;
     private createTiles;
     private bboxInFrustum;
@@ -1452,6 +1456,7 @@ declare class Modules {
     private handleTouchStart;
     private handleTouchEnd;
     private isHoveredInteractive;
+    private hoveredAllowsOrbitUpdate;
     private handleMouseDown;
     private handleMouseUp;
     /**
@@ -1493,7 +1498,7 @@ interface LoadMeshOpts {
     isPickable?: boolean;
     isInteractive?: boolean;
 }
-declare function loadLine(vertices: number[][], color?: Color): Line;
+declare function loadLine(vertices: number[][], color: Color): Line2;
 declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
 
 interface IfcLoadOpts {
@@ -1635,6 +1640,8 @@ declare class World {
     private renderer;
     private screenWidth;
     private screenHeight;
+    static screenWidth: number;
+    static screenHeight: number;
     private freezeAnimate;
     private prevControlDistance;
     private splitViews;
