@@ -898,11 +898,12 @@ declare const enum PointsceneEvents {
     UpdateOrbitPoint = "pointscene_update_orbit_point",
     UpdateQueryParam = "pointscene_update_query_param",
     QueryParamUpdated = "pointscene_query_param_updated",
-    FitTopView = "pointscene_fit_top_view"
+    FitTopView = "pointscene_fit_top_view",
+    LayerVisibilityChanged = "pointscene_layer_visibility_changed"
 }
 /** Handles event dispatching to user DOM */
 declare class Events {
-    _debug: boolean;
+    private debug;
     dispatch(eventName: string, eventParams?: object, scope?: HTMLElement): void;
 }
 
@@ -1087,11 +1088,14 @@ interface PickerOpts {
     domEl: HTMLElement;
     camera: PerspectiveCamera | OrthographicCamera;
     scenePickable: Scene;
+    scenePointcloud: Scene;
     sceneStatic: Scene;
     modules: Modules;
 }
 interface PickResult {
     point: Vector3;
+    pointOnLine?: Vector3;
+    faceIndex?: number;
     distance: number;
     normal?: Vector3 | null;
     object: Object3D;
@@ -1106,6 +1110,7 @@ declare class Picker {
     camera: PerspectiveCamera | OrthographicCamera;
     scenePickable: Scene;
     sceneStatic: Scene;
+    scenePointcloud: Scene;
     modules: Modules;
     pickPointclouds: boolean;
     pickModels: boolean;
@@ -1479,7 +1484,9 @@ declare class Layers {
     private order;
     private onUpdateFn;
     private onVisibilityUpdateFn;
-    constructor();
+    private events;
+    private domEl;
+    constructor(domEl: HTMLElement);
     add(layer: Layer): void;
     dispose(): void;
     getAll(): Layer[];
@@ -1497,6 +1504,7 @@ declare class Layers {
 interface LoadMeshOpts {
     isPickable?: boolean;
     isInteractive?: boolean;
+    useBVH?: boolean;
 }
 declare function loadLine(vertices: number[][], color: Color): Line2;
 declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
@@ -1645,9 +1653,9 @@ declare class World {
     private freezeAnimate;
     private prevControlDistance;
     private splitViews;
+    static splitViews: SplitView[];
     constructor(opts: IWorld);
     dispose(): void;
-    splitProfileView(): void;
     private onWindowResize;
     private handleRendererFocus;
     private handleFitTopView;
@@ -1827,4 +1835,109 @@ declare class CameraControls {
     dispose(): void;
 }
 
-export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index as Potree, ReferenceFrameOpts, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
+declare class EyeDomeLightingMaterial extends ShaderMaterial {
+    private neighbourCnt;
+    private neighbours;
+    private isWebGL2;
+    constructor();
+    getDefines(): string;
+    setIsWebGL2(val: boolean): void;
+    updateShaderSource(): void;
+    get neighbourCount(): number;
+    set neighbourCount(value: number);
+}
+
+declare class EDLRenderer {
+    edlMaterial: EyeDomeLightingMaterial;
+    private rtEDL;
+    private screenScene;
+    private screenQuad;
+    private camera;
+    constructor(domEl?: HTMLElement, renderer?: WebGLRenderer, camera?: PerspectiveCamera);
+    resize(domEl: HTMLElement, renderer: WebGLRenderer, camera: PerspectiveCamera | OrthographicCamera): void;
+    dispose(): void;
+    render(renderer: WebGLRenderer, scene: Scene, camera: PerspectiveCamera | OrthographicCamera): void;
+}
+
+interface ProfilePointsData {
+    classification?: Uint8Array;
+    color?: Uint8Array;
+    intensity?: Float32Array;
+    mileage?: Float64Array;
+    numberOfReturns?: Uint8Array;
+    pointSourceID?: Uint16Array;
+    position?: Float32Array;
+    returnNumber?: Uint8Array;
+}
+declare class ProfilePoints {
+    boundingBox: Box3;
+    numPoints: number;
+    data: ProfilePointsData;
+    constructor();
+    add(points: ProfilePoints): void;
+}
+
+interface Segment {
+    start: Vector3;
+    end: Vector3;
+    cutPlane: Plane;
+    halfPlane: Plane;
+    length: number;
+    points: ProfilePoints;
+}
+declare class ProfileData {
+    profile: Profile;
+    boundingBox: Box3;
+    segments: Segment[];
+    constructor(profile: Profile);
+    size(): number;
+}
+
+interface PointCloudProfileRequestOpts {
+    pointcloud: PointCloudOctree;
+    profile: Profile;
+    maxDepth?: number;
+    onProgress: ProfileRequestCallback;
+    onFinish: ProfileRequestCallback;
+    onCancel: () => void;
+}
+interface Profile {
+    points: Vector3[];
+    width: number;
+}
+interface ProfileRequestArgs {
+    request: PointCloudProfileRequest;
+    data: ProfileData;
+}
+declare type ProfileRequestCallback = (args: ProfileRequestArgs) => void;
+interface PriorityQueueItem {
+    node: PointCloudOctreeGeometryNode;
+    weight: number;
+}
+declare class PointCloudProfileRequest {
+    isFinished: boolean;
+    private pointcloud;
+    private profile;
+    private maxDepth;
+    private onProgress;
+    private onFinish;
+    private onCancel;
+    private pointsServed;
+    private highestLevelServed;
+    private priorityQueue;
+    private temporaryResult;
+    private profileRequests;
+    private updateGeneratorInstance;
+    private cancelRequested;
+    constructor(opts: PointCloudProfileRequestOpts);
+    private initialize;
+    private nodeIntersectsProfile;
+    private traverse;
+    update(): void;
+    private updateGenerator;
+    private getAccepted;
+    private getPointsInsideProfile;
+    requestCancel(): void;
+}
+
+export { CameraControlOpts, CameraControls, ControlMode, CustomMath, EDLRenderer, IPickPointCloud, IPointClouds, Init, Modules, PhotoSpheres, Photos, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ReferenceFrameOpts, Segment, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
