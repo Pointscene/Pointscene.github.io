@@ -973,6 +973,8 @@ interface PhotoOpts {
     getUrl: PhotoUrlCallback;
     getDepthUrl: PhotoUrlCallback;
     disablePhotoNavigation?: boolean;
+    targetProj4?: string;
+    navigationFootprintOffsetZ?: number;
 }
 interface Photo {
     url?: string;
@@ -993,6 +995,7 @@ interface Photo {
         y: number;
         z: number;
     };
+    proj4?: string;
 }
 /** Base class for Photos */
 declare class Photos {
@@ -1124,6 +1127,7 @@ declare class Picker {
 }
 
 interface IPhotoSpheres extends IPhotos {
+    navigationFootprintOffsetZ?: number;
 }
 /** PhotoSphere class extends Photos */
 declare class PhotoSpheres extends Photos {
@@ -1137,7 +1141,7 @@ declare class PhotoSpheres extends Photos {
     private getDepthMetricValue;
     private normalizePixel;
     private getDepthPixelValue;
-    load(photos: Photo[], opts?: PhotoOpts): Group;
+    load(photos: Photo[], opts?: PhotoOpts): Promise<Group>;
     private setBackgroundMode;
     private handleSetSphereBackgroundMode;
     /**
@@ -1443,7 +1447,7 @@ declare class Modules {
     private handleRegisterUpdateHook;
     private registerUpdateHook;
     update(delta: number): void;
-    loadPhotoSpheres(photos: Photo[], opts?: PhotoOpts): Group;
+    loadPhotoSpheres(photos: Photo[], opts?: PhotoOpts): Promise<Group>;
     addPointcloud(url: string): Promise<PointCloudOctree[]>;
     createPointcloudModule(): void;
     loadPointcloud(url: string, opts?: {
