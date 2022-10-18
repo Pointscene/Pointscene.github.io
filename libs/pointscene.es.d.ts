@@ -1025,7 +1025,8 @@ declare class Photos {
     protected nNearest: number;
     protected maxDistance: number;
     protected nearestObjects: any;
-    protected geometry: SphereGeometry | undefined;
+    protected sphereGeometry: SphereGeometry | undefined;
+    protected atmosphereGeometry: SphereGeometry | undefined;
     protected ringGeometry: CircleGeometry | undefined;
     protected activeTexture: Texture | undefined;
     protected activeDepthTexture: Texture | undefined;
@@ -1037,6 +1038,8 @@ declare class Photos {
     protected kdtree: KdTree | undefined;
     protected depthScale: number;
     protected disablePhotoNavigation: boolean;
+    protected opacityLow: number;
+    protected opacityHigh: number;
     constructor(props: IPhotos);
     dispose(): void;
     /**
@@ -1044,10 +1047,13 @@ declare class Photos {
      */
     update(): void;
     private setAllPickable;
-    protected getGeometry(): SphereGeometry;
+    protected getGeometries(): {
+        sphere: SphereGeometry;
+        atmosphere: SphereGeometry;
+    };
     protected getRingGeometry(): CircleGeometry;
     protected getActiveMaterial(): ShaderMaterial;
-    private getMaterial;
+    private getMaterials;
     private setPeekMode;
     private handleResize;
     private handleClearHoveredObjects;
