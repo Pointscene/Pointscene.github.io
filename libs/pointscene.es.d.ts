@@ -2055,7 +2055,7 @@ interface MeasureGeometry {
     polygons: Vector3[][];
 }
 declare type MeasurementDimensions = 'all' | 'xy' | 'z';
-declare type MeasurementType = 'point' | 'distance' | 'area' | 'none';
+declare type MeasurementType = 'point' | 'distance' | 'area' | 'none' | 'area-line';
 declare class MeasureTool {
     picker: Picker;
     referenceFrame: ReferenceFrame;
@@ -2069,12 +2069,11 @@ declare class MeasureTool {
     private markerGeometry;
     private activeMarker;
     private activeLine;
-    private activeDashedLine;
     private domEl;
     private hasKinks;
     private labelRenderer;
-    private activeLabelDiv;
-    private activeLabel;
+    private activeLabelDivs;
+    private activeLabels;
     private events;
     private updateCounter;
     private markerMinPixelSize;
@@ -2090,8 +2089,6 @@ declare class MeasureTool {
     private getLabel;
     private setLabelStyle;
     start(type: MeasurementType, opts: MeasurementStartOpts): void;
-    setActiveDimensions(dims: MeasurementDimensions): void;
-    private getPosition;
     private getNormal;
     private getArea;
     private update;
@@ -2101,6 +2098,7 @@ declare class MeasureTool {
     private updateMarkers;
     private updateLabels;
     clear(): void;
+    private getLerpCenter;
     private getDistance;
     private setLabelText;
     private updateActiveMarker;
@@ -2120,7 +2118,6 @@ declare class MeasureTool {
     private createLine;
     private getMaterial;
     private getLineMaterial;
-    private getLineDashedMaterial;
     private getGeometryArray;
     getGeometry(): MeasureGeometry;
 }
@@ -2139,6 +2136,7 @@ interface LabelOpts {
     transform: string;
     marginLeft: string;
     marginTop: string;
+    className: string;
 }
 declare class ProfileViewLabels {
     renderer: CSS2DRenderer;
@@ -2149,6 +2147,7 @@ declare class ProfileViewLabels {
     constructor(referenceFrame: ReferenceFrame);
     update({ width, height, viewWidth, viewHeight, center, profilePoints }: ProfileLabelUpdateOpts): void;
     render(camera: OrthographicCamera): void;
+    private isBehindElement;
     private createLabel;
     private removeLabels;
     dispose(): void;
