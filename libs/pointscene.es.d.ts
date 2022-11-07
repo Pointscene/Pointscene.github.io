@@ -900,7 +900,9 @@ declare const enum PointsceneEvents {
     UpdateQueryParam = "pointscene_update_query_param",
     QueryParamUpdated = "pointscene_query_param_updated",
     FitTopView = "pointscene_fit_top_view",
-    LayerVisibilityChanged = "pointscene_layer_visibility_changed"
+    LayerVisibilityChanged = "pointscene_layer_visibility_changed",
+    LeftClick = "pointscene_on_leftclick",
+    MouseMove = "pointscene_on_mousemove"
 }
 /** Handles event dispatching to user DOM */
 declare class Events {
@@ -1116,7 +1118,7 @@ declare class Picker {
     domEl: HTMLElement;
     hoveredObject?: Object3D;
     private raycaster;
-    private mouse;
+    mouse: Vector2;
     camera: PerspectiveCamera | OrthographicCamera;
     scenePickable: Scene;
     sceneStatic: Scene;
@@ -1555,8 +1557,8 @@ interface SurfaceTin {
     faces: number[][];
 }
 interface LandXMLProperties {
-    tin: SurfaceTin;
-    lines: Breakline[];
+    tin?: SurfaceTin;
+    lines?: Breakline[];
 }
 interface LandXMLLoadOpts {
     offset?: number[];
@@ -1564,7 +1566,7 @@ interface LandXMLLoadOpts {
     projOut?: string;
 }
 declare const stringToHex: (str: string) => Color;
-declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group[]>;
+declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group | undefined>;
 
 declare function loadDXF(url: string): Promise<void>;
 
@@ -1951,10 +1953,98 @@ declare class PointCloudProfileRequest {
     requestCancel(): void;
 }
 
+interface MeasurementsOpts {
+    picker: Picker;
+    referenceFrame: ReferenceFrame;
+    hideLabels?: boolean;
+    getPositionFn?: (point: Vector3) => Vector3;
+    getDistanceFn?: (a: Vector3, b: Vector3) => number;
+    getAreaFn?: (triangles: Vector3[][]) => number;
+}
+interface MeasurementStartOpts {
+    onFinish?: (points: Vector3[]) => void;
+    onUpdate?: (position: Vector3) => void;
+}
+interface MeasureGeometry {
+    points: Vector3[];
+    lines: Vector3[][];
+    polygons: Vector3[][];
+}
+declare type MeasurementDimensions = 'all' | 'xy' | 'z';
+declare type MeasurementType = 'point' | 'distance' | 'area' | 'none' | 'area-line';
+declare class MeasureTool {
+    picker: Picker;
+    referenceFrame: ReferenceFrame;
+    private markers;
+    points: Vector3[];
+    pickingPlane?: Plane;
+    activeType: MeasurementType;
+    private activeDimensions;
+    private activeAreaMesh;
+    private markerRadius;
+    private markerGeometry;
+    private activeMarker;
+    private activeLine;
+    domEl: HTMLElement;
+    camera: PerspectiveCamera | OrthographicCamera;
+    private hasKinks;
+    labelRenderer: CSS2DRenderer;
+    private activeLabelDivs;
+    private activeLabels;
+    private events;
+    private updateCounter;
+    private markerMinPixelSize;
+    private markerMaxPixelSize;
+    hideLabels: boolean;
+    onFinish?: (points: Vector3[]) => void;
+    onUpdate?: (position: Vector3) => void;
+    private getAreaFn?;
+    private getDistanceFn?;
+    private getPositionFn?;
+    constructor(opts: MeasurementsOpts);
+    private getLabelDiv;
+    private getLabel;
+    private setLabelStyle;
+    start(type: MeasurementType, opts: MeasurementStartOpts): void;
+    private getNormal;
+    private getArea;
+    isWaitingToPickFirstPoint(): boolean;
+    update(delta: number): void;
+    private findGeometryObject;
+    private findMarkerGroup;
+    private calculateScale;
+    private updateMarkers;
+    private updateLabels;
+    clear(): void;
+    private getLerpCenter;
+    private getDistance;
+    private setLabelText;
+    updateActiveMarker(): void;
+    private triangulatePolygon;
+    private updateActiveArea;
+    private addPoint;
+    setActiveMarkerColor(color: number): void;
+    setActiveMarkerScale(scale: number): void;
+    handleLeftClick(): void;
+    handleMouseMove(): void;
+    snapToLineIntersection(intersection: PickResult): void;
+    cancel(): void;
+    dispose(): void;
+    end(): void;
+    private createMarker;
+    private createMesh;
+    private createLine;
+    private getMaterial;
+    private getLineMaterial;
+    private getGeometryArray;
+    getGeometry(): MeasureGeometry;
+}
+
 interface ClippingPlaneToolOpts {
     picker: Picker;
     referenceFrame: ReferenceFrame;
     renderer: WebGLRenderer;
+    measureTool?: MeasureTool;
 }
 interface ClippingPlaneStartOpts {
     onFinish: (points: Vector3[]) => void;
@@ -1969,7 +2059,8 @@ interface LineStepResult {
 }
 declare type PlaneMode = 'free' | 'cross_on_line';
 declare class ClippingPlaneTool {
-    private measureTool;
+    private clipTool;
+    private measureTool?;
     private onUpdate?;
     private onFinish?;
     private clipPlane;
@@ -2037,91 +2128,6 @@ declare class ElevationRangeTool {
     end(): void;
 }
 
-interface MeasurementsOpts {
-    picker: Picker;
-    referenceFrame: ReferenceFrame;
-    hideLabels?: boolean;
-    getPositionFn?: (point: Vector3) => Vector3;
-    getDistanceFn?: (a: Vector3, b: Vector3) => number;
-    getAreaFn?: (triangles: Vector3[][]) => number;
-}
-interface MeasurementStartOpts {
-    onFinish?: (points: Vector3[]) => void;
-    onUpdate?: (position: Vector3) => void;
-}
-interface MeasureGeometry {
-    points: Vector3[];
-    lines: Vector3[][];
-    polygons: Vector3[][];
-}
-declare type MeasurementDimensions = 'all' | 'xy' | 'z';
-declare type MeasurementType = 'point' | 'distance' | 'area' | 'none' | 'area-line';
-declare class MeasureTool {
-    picker: Picker;
-    referenceFrame: ReferenceFrame;
-    private markers;
-    points: Vector3[];
-    pickingPlane?: Plane;
-    private activeType;
-    private activeDimensions;
-    private activeAreaMesh;
-    private markerRadius;
-    private markerGeometry;
-    private activeMarker;
-    private activeLine;
-    private domEl;
-    private hasKinks;
-    private labelRenderer;
-    private activeLabelDivs;
-    private activeLabels;
-    private events;
-    private updateCounter;
-    private markerMinPixelSize;
-    private markerMaxPixelSize;
-    private hideLabels;
-    private onFinish?;
-    private onUpdate?;
-    private getAreaFn?;
-    private getDistanceFn?;
-    private getPositionFn?;
-    constructor(opts: MeasurementsOpts);
-    private getLabelDiv;
-    private getLabel;
-    private setLabelStyle;
-    start(type: MeasurementType, opts: MeasurementStartOpts): void;
-    private getNormal;
-    private getArea;
-    private update;
-    private findGeometryObject;
-    private findMarkerGroup;
-    private calculateScale;
-    private updateMarkers;
-    private updateLabels;
-    clear(): void;
-    private getLerpCenter;
-    private getDistance;
-    private setLabelText;
-    private updateActiveMarker;
-    private triangulatePolygon;
-    private updateActiveArea;
-    private addPoint;
-    setActiveMarkerColor(color: number): void;
-    setActiveMarkerScale(scale: number): void;
-    private handleLeftClick;
-    private handleMouseMove;
-    snapToLineIntersection(intersection: PickResult): void;
-    cancel(): void;
-    dispose(): void;
-    end(): void;
-    private createMarker;
-    private createMesh;
-    private createLine;
-    private getMaterial;
-    private getLineMaterial;
-    private getGeometryArray;
-    getGeometry(): MeasureGeometry;
-}
-
 interface ProfileLabelUpdateOpts {
     width: number;
     height: number;
@@ -2158,6 +2164,7 @@ interface ProfileViewOpts {
     width: number;
     height: number;
     referenceFrame: ReferenceFrame;
+    measureTool?: MeasureTool;
     loadProgressCallback?: LoadProgressCallback;
     loadFinishCallback?: () => void;
 }
@@ -2184,10 +2191,24 @@ declare class ProfileView {
     private pointCloudProfileRequests;
     private maxPointCount;
     labels: ProfileViewLabels;
+    private measureToolRef?;
+    private measureTool?;
+    private mouse;
+    private clipPlane?;
+    private prevPicker?;
+    private prevClipPlane?;
+    private picker?;
     constructor(opts: ProfileViewOpts);
+    private handlePointerMove;
+    private handlePointerDown;
+    private handlePointerUp;
+    private handlePointerEnter;
+    private handlePointerLeave;
     private updatePointCloudProfileData;
     private updatePointCloudProfileRequests;
     update(opts: ProfileViewUpdateOpts): void;
+    private extractLinesFromMesh;
+    private extractLinesFromScene;
     private extractLines;
     render(): void;
     dispose(): void;
