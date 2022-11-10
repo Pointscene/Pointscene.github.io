@@ -23,7 +23,9 @@
         'analytics_storage': 'denied'
       });
     </script>
+
     <script src="https://pointscene.github.io/libs/dev/pointscene.umd.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
     <style>
       body {
@@ -128,6 +130,7 @@
         position: absolute;
         bottom: 20px;
         right: 20px;
+        z-index: 1;
       }
     </style>
   </head>
@@ -316,18 +319,16 @@
 
         const landxmlPosition = pointscene.modules.referenceFrame.toScene(landxmlOffset);
 
-        landXml.forEach((m, idx) => {
-            m.scale.set(scale.x, scale.y, scale.z);
-            m.position.copy(landxmlPosition);
+        landXml.scale.set(scale.x, scale.y, scale.z);
+        landXml.position.copy(landxmlPosition);
 
-            pointscene.modules.scenePickable.add(m);
+        pointscene.modules.scenePickable.add(landXml);
 
-            pointscene.layers.add({
-              id: `${id}-${idx}`,
-              name: `${name} (${idx + 1}/${landXml.length})`,
-              type: 'mesh',
-              object: m,
-            });
+        pointscene.layers.add({
+          id: `${id}`,
+          name: `${name}`,
+          type: 'mesh',
+          object: landXml,
         });
 
         plausible('Load LandXML', { props: { count: landXml.length }});
@@ -380,7 +381,7 @@
         plausible('Load point cloud');
       }
 
-      const add360Layer = async ({ id, name, url }) => {
+      const add360Layer = async ({ id, name, url }, projOut) => {
         const res = await fetch(url);
         const photos = await res.json();
 
@@ -390,11 +391,16 @@
               "filename":"Job001-Setup002_0.jpg",
               "quaternion":{"x":0.5464386653713528,"y":-0.44900150089063956,"z":-0.4488245538392024,"w":0.5462224428345734},
               "position":{"x":24491788.518854767,"y":6815584.892042044,"z":144.88271366338418}
+              "proj4":""
           }
         */
         const disablePhotoNavigation = getQueryParam('disablePhotoNavigation');
 
-        const photoGroup = pointscene.modules.loadPhotoSpheres(photos, { disablePhotoNavigation: !!disablePhotoNavigation });
+        const photoGroup = await pointscene.modules.loadPhotoSpheres(photos, {
+          disablePhotoNavigation: !!disablePhotoNavigation,
+          targetProj4: projOut,
+          //navigationFootprintOffsetZ: -2.5,
+        });
 
         pointscene.layers.add({
           id,
@@ -441,6 +447,12 @@
           throw new Error('Failed to load LayersJSON');
         }
 
+        if (layers && layers.statusCode === 403) {
+          linkExpired = true;
+          plausible('Share link expired');
+          return;
+        }
+
         if (!layers || layers.length === 0) {
           showError();
         }
@@ -475,7 +487,7 @@
               throw new Error('Layer type "360" not implemented');
               break;
             case 'group-360':
-              await add360Layer(layer);
+              await add360Layer(layer, proj4);
               break;
             case 'dxf':
               // TODO
@@ -520,9 +532,14 @@
         const landxmlUrl = getQueryParam('landxmlUrl');
         const layersUrl = getQueryParam('layersUrl');
         const photosUrl = getQueryParam('photosUrl');
-        // TODO:
-        //const tmsUrl = getQueryParam('tmsUrl');
         const proj4 = getQueryParam('proj4');
+        const exp = getQueryParam('exp');
+
+        if (exp && isExpired(exp)) {
+          const expEl = document.querySelector('#link-expired');
+          expEl.style.visibility = 'visible';
+          return;
+        }
 
         // Initialize Pointscene lib
         pointscene = Pointscene.init({

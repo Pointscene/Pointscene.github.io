@@ -1,7 +1,9 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Line, Mesh, SpriteMaterial, Sprite } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Mesh, SpriteMaterial, Sprite } from 'three';
 import CamControls from 'camera-controls';
+import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { Context } from 'vm';
+import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 declare type IGradient = [number, Color][];
 interface IClassification {
@@ -897,11 +899,14 @@ declare const enum PointsceneEvents {
     UpdateOrbitPoint = "pointscene_update_orbit_point",
     UpdateQueryParam = "pointscene_update_query_param",
     QueryParamUpdated = "pointscene_query_param_updated",
-    FitTopView = "pointscene_fit_top_view"
+    FitTopView = "pointscene_fit_top_view",
+    LayerVisibilityChanged = "pointscene_layer_visibility_changed",
+    LeftClick = "pointscene_on_leftclick",
+    MouseMove = "pointscene_on_mousemove"
 }
 /** Handles event dispatching to user DOM */
 declare class Events {
-    _debug: boolean;
+    private debug;
     dispatch(eventName: string, eventParams?: object, scope?: HTMLElement): void;
 }
 
@@ -971,6 +976,8 @@ interface PhotoOpts {
     getUrl: PhotoUrlCallback;
     getDepthUrl: PhotoUrlCallback;
     disablePhotoNavigation?: boolean;
+    targetProj4?: string;
+    navigationFootprintOffsetZ?: number;
 }
 interface Photo {
     url?: string;
@@ -991,6 +998,7 @@ interface Photo {
         y: number;
         z: number;
     };
+    proj4?: string;
 }
 /** Base class for Photos */
 declare class Photos {
@@ -1020,7 +1028,8 @@ declare class Photos {
     protected nNearest: number;
     protected maxDistance: number;
     protected nearestObjects: any;
-    protected geometry: SphereGeometry | undefined;
+    protected sphereGeometry: SphereGeometry | undefined;
+    protected atmosphereGeometry: SphereGeometry | undefined;
     protected ringGeometry: CircleGeometry | undefined;
     protected activeTexture: Texture | undefined;
     protected activeDepthTexture: Texture | undefined;
@@ -1032,6 +1041,8 @@ declare class Photos {
     protected kdtree: KdTree | undefined;
     protected depthScale: number;
     protected disablePhotoNavigation: boolean;
+    protected opacityLow: number;
+    protected opacityHigh: number;
     constructor(props: IPhotos);
     dispose(): void;
     /**
@@ -1039,10 +1050,13 @@ declare class Photos {
      */
     update(): void;
     private setAllPickable;
-    protected getGeometry(): SphereGeometry;
+    protected getGeometries(): {
+        sphere: SphereGeometry;
+        atmosphere: SphereGeometry;
+    };
     protected getRingGeometry(): CircleGeometry;
     protected getActiveMaterial(): ShaderMaterial;
-    private getMaterial;
+    private getMaterials;
     private setPeekMode;
     private handleResize;
     private handleClearHoveredObjects;
@@ -1086,11 +1100,14 @@ interface PickerOpts {
     domEl: HTMLElement;
     camera: PerspectiveCamera | OrthographicCamera;
     scenePickable: Scene;
+    scenePointcloud: Scene;
     sceneStatic: Scene;
     modules: Modules;
 }
 interface PickResult {
     point: Vector3;
+    pointOnLine?: Vector3;
+    faceIndex?: number;
     distance: number;
     normal?: Vector3 | null;
     object: Object3D;
@@ -1099,11 +1116,13 @@ interface PickResult {
 }
 declare class Picker {
     domEl: HTMLElement;
+    hoveredObject?: Object3D;
     private raycaster;
-    private mouse;
+    mouse: Vector2;
     camera: PerspectiveCamera | OrthographicCamera;
     scenePickable: Scene;
     sceneStatic: Scene;
+    scenePointcloud: Scene;
     modules: Modules;
     pickPointclouds: boolean;
     pickModels: boolean;
@@ -1113,9 +1132,11 @@ declare class Picker {
     private getFaceNormal;
     pick(normalizedPosition?: Vector2, multiple?: boolean): PickResult | PickResult[] | null;
     intersectPlane(plane: Plane): PickResult | null;
+    intersectObject(object: Object3D): PickResult | null;
 }
 
 interface IPhotoSpheres extends IPhotos {
+    navigationFootprintOffsetZ?: number;
 }
 /** PhotoSphere class extends Photos */
 declare class PhotoSpheres extends Photos {
@@ -1129,7 +1150,7 @@ declare class PhotoSpheres extends Photos {
     private getDepthMetricValue;
     private normalizePixel;
     private getDepthPixelValue;
-    load(photos: Photo[], opts?: PhotoOpts): Group;
+    load(photos: Photo[], opts?: PhotoOpts): Promise<Group>;
     private setBackgroundMode;
     private handleSetSphereBackgroundMode;
     /**
@@ -1301,12 +1322,18 @@ declare class TmsProvider {
     private proj4;
     private wgs84;
     private tiles;
+    private cache;
+    private cacheSize;
     private referenceFrame;
     private layers;
     private scene;
     private group;
     private updateCounter;
     private updateInProgress;
+    private lastCameraPosition;
+    private pickPlane;
+    private maxRecursionDepth;
+    private firstUpdate;
     constructor(opts: TmsProviderOpts);
     init(opts: InitTmsProviderOpts): Promise<void>;
     isVisible(url: string): boolean;
@@ -1316,8 +1343,11 @@ declare class TmsProvider {
     addLayer(url: string, opts: AddTmsLayerOpts): void;
     removeLayer(url: string): void;
     setLayerIndex(url: string, toIdx: number): void;
-    refresh(): Promise<void>;
-    private removeTileDelayed;
+    private updateMeshTexture;
+    refresh(keys?: string[]): Promise<void>;
+    private getFromCache;
+    private putToCache;
+    private purgeCache;
     private removeTile;
     private getParentCoords;
     private hasChildren;
@@ -1327,8 +1357,10 @@ declare class TmsProvider {
     private recursiveMerge;
     private recursiveSplit;
     update(delta: number, camera: PerspectiveCamera | OrthographicCamera): Promise<void>;
+    private cleanParentTiles;
     createBaseGrid(): Promise<void>;
     private createTiles;
+    private bboxInFrustum;
     private tileDistanceSquared;
     private createTileMesh;
     private loadImage;
@@ -1424,7 +1456,7 @@ declare class Modules {
     private handleRegisterUpdateHook;
     private registerUpdateHook;
     update(delta: number): void;
-    loadPhotoSpheres(photos: Photo[], opts?: PhotoOpts): Group;
+    loadPhotoSpheres(photos: Photo[], opts?: PhotoOpts): Promise<Group>;
     addPointcloud(url: string): Promise<PointCloudOctree[]>;
     createPointcloudModule(): void;
     loadPointcloud(url: string, opts?: {
@@ -1442,6 +1474,7 @@ declare class Modules {
     private handleTouchStart;
     private handleTouchEnd;
     private isHoveredInteractive;
+    private hoveredAllowsOrbitUpdate;
     private handleMouseDown;
     private handleMouseUp;
     /**
@@ -1464,7 +1497,9 @@ declare class Layers {
     private order;
     private onUpdateFn;
     private onVisibilityUpdateFn;
-    constructor();
+    private events;
+    private domEl;
+    constructor(domEl: HTMLElement);
     add(layer: Layer): void;
     dispose(): void;
     getAll(): Layer[];
@@ -1482,8 +1517,9 @@ declare class Layers {
 interface LoadMeshOpts {
     isPickable?: boolean;
     isInteractive?: boolean;
+    useBVH?: boolean;
 }
-declare function loadLine(vertices: number[][], color?: Color): Line;
+declare function loadLine(vertices: number[][], color: Color): Line2;
 declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
 
 interface IfcLoadOpts {
@@ -1521,8 +1557,8 @@ interface SurfaceTin {
     faces: number[][];
 }
 interface LandXMLProperties {
-    tin: SurfaceTin;
-    lines: Breakline[];
+    tin?: SurfaceTin;
+    lines?: Breakline[];
 }
 interface LandXMLLoadOpts {
     offset?: number[];
@@ -1530,7 +1566,7 @@ interface LandXMLLoadOpts {
     projOut?: string;
 }
 declare const stringToHex: (str: string) => Color;
-declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group[]>;
+declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group | undefined>;
 
 declare function loadDXF(url: string): Promise<void>;
 
@@ -1625,12 +1661,14 @@ declare class World {
     private renderer;
     private screenWidth;
     private screenHeight;
+    static screenWidth: number;
+    static screenHeight: number;
     private freezeAnimate;
     private prevControlDistance;
     private splitViews;
+    static splitViews: SplitView[];
     constructor(opts: IWorld);
     dispose(): void;
-    splitProfileView(): void;
     private onWindowResize;
     private handleRendererFocus;
     private handleFitTopView;
@@ -1810,4 +1848,423 @@ declare class CameraControls {
     dispose(): void;
 }
 
-export { CameraControlOpts, CameraControls, ControlMode, CustomMath, Init, Modules, PhotoSpheres, Photos, PointClouds, PointsceneEvents, index as Potree, ReferenceFrameOpts, TextSprite, Transformations, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
+declare class EyeDomeLightingMaterial extends ShaderMaterial {
+    private neighbourCnt;
+    private neighbours;
+    private isWebGL2;
+    constructor();
+    getDefines(): string;
+    setIsWebGL2(val: boolean): void;
+    updateShaderSource(): void;
+    get neighbourCount(): number;
+    set neighbourCount(value: number);
+}
+
+declare class EDLRenderer {
+    edlMaterial: EyeDomeLightingMaterial;
+    private rtEDL;
+    private screenScene;
+    private screenQuad;
+    private camera;
+    constructor(domEl?: HTMLElement, renderer?: WebGLRenderer, camera?: PerspectiveCamera);
+    resize(domEl: HTMLElement, renderer: WebGLRenderer, camera: PerspectiveCamera | OrthographicCamera): void;
+    dispose(): void;
+    render(renderer: WebGLRenderer, scene: Scene, camera: PerspectiveCamera | OrthographicCamera): void;
+}
+
+interface ProfilePointsData {
+    classification?: Uint8Array;
+    color?: Uint8Array;
+    intensity?: Float32Array;
+    mileage?: Float64Array;
+    numberOfReturns?: Uint8Array;
+    pointSourceID?: Uint16Array;
+    position?: Float32Array;
+    returnNumber?: Uint8Array;
+}
+declare class ProfilePoints {
+    boundingBox: Box3;
+    numPoints: number;
+    data: ProfilePointsData;
+    constructor();
+    add(points: ProfilePoints): void;
+}
+
+interface Segment {
+    start: Vector3;
+    end: Vector3;
+    cutPlane: Plane;
+    halfPlane: Plane;
+    length: number;
+    points: ProfilePoints;
+}
+declare class ProfileData {
+    profile: Profile;
+    boundingBox: Box3;
+    segments: Segment[];
+    constructor(profile: Profile);
+    size(): number;
+}
+
+interface PointCloudProfileRequestOpts {
+    pointcloud: PointCloudOctree;
+    profile: Profile;
+    maxDepth?: number;
+    onProgress: ProfileRequestCallback;
+    onFinish: ProfileRequestCallback;
+    onCancel: () => void;
+}
+interface Profile {
+    points: Vector3[];
+    width: number;
+}
+interface ProfileRequestArgs {
+    request: PointCloudProfileRequest;
+    data: ProfileData;
+}
+declare type ProfileRequestCallback = (args: ProfileRequestArgs) => void;
+interface PriorityQueueItem {
+    node: PointCloudOctreeGeometryNode;
+    weight: number;
+}
+declare class PointCloudProfileRequest {
+    isFinished: boolean;
+    private pointcloud;
+    private profile;
+    private maxDepth;
+    private onProgress;
+    private onFinish;
+    private onCancel;
+    private pointsServed;
+    private highestLevelServed;
+    private priorityQueue;
+    private temporaryResult;
+    private profileRequests;
+    private updateGeneratorInstance;
+    private cancelRequested;
+    constructor(opts: PointCloudProfileRequestOpts);
+    private initialize;
+    private nodeIntersectsProfile;
+    private traverse;
+    update(): void;
+    private updateGenerator;
+    private getAccepted;
+    private getPointsInsideProfile;
+    requestCancel(): void;
+}
+
+interface MeasurementsOpts {
+    picker: Picker;
+    referenceFrame: ReferenceFrame;
+    hideLabels?: boolean;
+    getPositionFn?: (point: Vector3) => Vector3;
+    getDistanceFn?: (a: Vector3, b: Vector3) => number;
+    getAreaFn?: (triangles: Vector3[][]) => number;
+}
+interface MeasurementStartOpts {
+    onFinish?: (points: Vector3[]) => void;
+    onUpdate?: (position: Vector3) => void;
+}
+interface MeasureGeometry {
+    points: Vector3[];
+    lines: Vector3[][];
+    polygons: Vector3[][];
+}
+declare type MeasurementDimensions = 'all' | 'xy' | 'z';
+declare type MeasurementType = 'point' | 'distance' | 'area' | 'none' | 'area-line';
+declare class MeasureTool {
+    picker: Picker;
+    referenceFrame: ReferenceFrame;
+    private markers;
+    points: Vector3[];
+    pickingPlane?: Plane;
+    activeType: MeasurementType;
+    orientMarkersTowardsCamera: boolean;
+    private activeDimensions;
+    private activeAreaMesh;
+    private markerRadius;
+    private markerGeometry;
+    private activeMarker;
+    private activeLine;
+    domEl: HTMLElement;
+    camera: PerspectiveCamera | OrthographicCamera;
+    private hasKinks;
+    labelRenderer: CSS2DRenderer;
+    private activeLabelDivs;
+    private activeLabels;
+    private events;
+    private updateCounter;
+    private markerMinPixelSize;
+    private markerMaxPixelSize;
+    hideLabels: boolean;
+    labelTooltipMarginTop: number;
+    onFinish?: (points: Vector3[]) => void;
+    onUpdate?: (position: Vector3) => void;
+    private getAreaFn?;
+    private getDistanceFn?;
+    private getPositionFn?;
+    constructor(opts: MeasurementsOpts);
+    private getLabelDiv;
+    private getLabel;
+    private setLabelStyle;
+    start(type: MeasurementType, opts: MeasurementStartOpts): void;
+    private getNormal;
+    private getArea;
+    isWaitingToPickFirstPoint(): boolean;
+    update(delta: number): void;
+    private findGeometryObject;
+    private findMarkerGroup;
+    private calculateScale;
+    private updateMarkers;
+    populateMarkersFromScene(scene: Scene): void;
+    private updateLabels;
+    clear(): void;
+    private getLerpCenter;
+    private getDistance;
+    private setLabelText;
+    updateActiveMarker(): void;
+    private triangulatePolygon;
+    private updateActiveArea;
+    private addPoint;
+    setActiveMarkerColor(color: number): void;
+    setActiveMarkerScale(scale: number): void;
+    handleLeftClick(): void;
+    handleMouseMove(): void;
+    snapToLineIntersection(intersection: PickResult): void;
+    cancel(): void;
+    dispose(): void;
+    end(): void;
+    private createMarker;
+    private createMesh;
+    private createLine;
+    private getMaterial;
+    private getGeometryArray;
+    getGeometry(): MeasureGeometry;
+}
+
+interface ClippingPlaneToolOpts {
+    picker: Picker;
+    referenceFrame: ReferenceFrame;
+    renderer: WebGLRenderer;
+    measureTool?: MeasureTool;
+}
+interface ClippingPlaneStartOpts {
+    onFinish: (points: Vector3[]) => void;
+    onUpdate: (points: Vector3[]) => void;
+}
+interface LineStepResult {
+    start: Vector3;
+    end: Vector3;
+    distance: number;
+    faceIndex: number;
+    pointOnLine: Vector3;
+}
+declare type PlaneMode = 'free' | 'cross_on_line';
+declare class ClippingPlaneTool {
+    private clipTool;
+    private measureTool?;
+    private onUpdate?;
+    private onFinish?;
+    private clipPlane;
+    private pickPlane;
+    private model;
+    private slider;
+    private axis;
+    private meshVisible;
+    private renderer;
+    private needsUpdate;
+    private events;
+    private isDragging;
+    private dragStartOffset?;
+    private mode;
+    private activeProfileLine;
+    private profileView;
+    private splitViewSlider;
+    private profilePoints;
+    private stepSize;
+    private zoomMultiplier;
+    constructor(opts: ClippingPlaneToolOpts);
+    private update;
+    start(opts: ClippingPlaneStartOpts): void;
+    private flipNormal;
+    private getNonClipMaterial;
+    private getSlider;
+    private handleVisibilityUpdate;
+    private handleSliderHoverIn;
+    private handleSliderHoverOut;
+    private handleSliderDragStart;
+    private handleSliderDragEnd;
+    private findNextStepOnLine;
+    private findNearestSegmentOnLine;
+    private translatePlane;
+    private updateProfilePointsFromModel;
+    private updateProfileView;
+    private updatePlane;
+    private updatePlaneFromPoints;
+    private updateProfileOnLine;
+    private add;
+    private handleProfileAction;
+    private createProfileView;
+    private disposeProfileView;
+    end(): void;
+    clear(needsUpdate?: boolean): void;
+    dispose(): void;
+}
+
+interface ElevationRangeToolOpts {
+    picker: Picker;
+    referenceFrame: ReferenceFrame;
+}
+interface ElevationRangeStartOpts {
+    onFinish: (points: number[]) => void;
+    onUpdate: (points: number[]) => void;
+}
+declare class ElevationRangeTool {
+    private measureTool;
+    private points;
+    private onUpdate?;
+    private onFinish?;
+    constructor(opts: ElevationRangeToolOpts);
+    start(opts: ElevationRangeStartOpts): void;
+    private add;
+    end(): void;
+}
+
+interface ProfileLabelUpdateOpts {
+    width: number;
+    height: number;
+    viewWidth: number;
+    viewHeight: number;
+    center: Vector3;
+    profilePoints: Vector3[];
+}
+interface LabelOpts {
+    text: string;
+    position: Vector3;
+    transform: string;
+    marginLeft: string;
+    marginTop: string;
+    className: string;
+}
+declare class ProfileViewLabels {
+    renderer: CSS2DRenderer;
+    private scene;
+    private targetLabelCount;
+    private minLabelDistance;
+    private referenceFrame;
+    constructor(referenceFrame: ReferenceFrame);
+    update({ width, height, viewWidth, viewHeight, center, profilePoints }: ProfileLabelUpdateOpts): void;
+    render(camera: OrthographicCamera): void;
+    private isBehindElement;
+    private createLabel;
+    private removeLabels;
+    dispose(): void;
+}
+
+declare type LoadProgressCallback = (message: string) => void;
+interface ProfileViewOpts {
+    width: number;
+    height: number;
+    referenceFrame: ReferenceFrame;
+    measureTool?: MeasureTool;
+    domEl: HTMLElement;
+    loadProgressCallback?: LoadProgressCallback;
+    loadFinishCallback?: () => void;
+}
+interface ProfileViewUpdateOpts {
+    center: Vector3;
+    clipPlane: Plane;
+    profilePoints: Vector3[];
+    depth: number;
+    zoom: number;
+    width: number;
+    height: number;
+    scene: Scene;
+    scenePointcloud?: Scene;
+}
+declare class ProfileView {
+    private orthoCamera;
+    profileRenderer: WebGLRenderer;
+    private profileGrid;
+    private profileScene;
+    private profileLines;
+    private profilePoints;
+    private loadProgressCallback?;
+    private loadFinishCallback?;
+    private pointCloudProfileRequests;
+    private maxPointCount;
+    labels: ProfileViewLabels;
+    private measureToolRef?;
+    private measureTool?;
+    private mouse;
+    private clipPlane?;
+    constructor(opts: ProfileViewOpts);
+    private handlePointerMove;
+    private handlePointerDown;
+    private handlePointerEnter;
+    private handlePointerLeave;
+    private updatePointCloudProfileData;
+    private updatePointCloudProfileRequests;
+    update(opts: ProfileViewUpdateOpts): void;
+    private extractLinesFromMesh;
+    private extractLinesFromScene;
+    private extractLines;
+    render(): void;
+    dispose(): void;
+}
+
+interface SplitViewSliderOpts {
+    domEl: HTMLElement;
+    splitRatio: number;
+}
+interface UpdateCallbackArgs {
+    up: {
+        width: number;
+        height: number;
+    };
+    down: {
+        width: number;
+        height: number;
+    };
+    allowPropagation?: boolean;
+}
+interface CloseCallbackArgs {
+    width: number;
+    height: number;
+}
+interface ProfileToolActionProps {
+    value: number | string;
+}
+declare type ProfileToolAction = 'step_forward' | 'step_back' | 'zoom_in' | 'zoom_out' | 'step_change';
+declare type UpdateCallback = (args: UpdateCallbackArgs) => void;
+declare type CloseCallback = (args: CloseCallbackArgs) => void;
+declare class SplitViewSlider {
+    private domEl;
+    splitPosition: number;
+    container: HTMLElement;
+    isDisposed: boolean;
+    private sliderHeight;
+    private buttonSize;
+    private events;
+    private backgroundColor;
+    private sliderColor;
+    private totalHeight;
+    private splitRatio;
+    private updateCallback?;
+    private closeCallback?;
+    constructor(opts: SplitViewSliderOpts);
+    setUpdateCallback(callback: UpdateCallback): void;
+    setCloseCallback(callback: CloseCallback): void;
+    createProfileToolPanel(onAction: (action: ProfileToolAction, props?: ProfileToolActionProps) => void): void;
+    private handleResize;
+    private update;
+    private createSlider;
+    private createButton;
+    private createCloseButton;
+    updateLoadIndicator(message: string): void;
+    hideLoadIndicator(): void;
+    private createLoadIndicator;
+    dispose(): void;
+}
+
+export { CameraControlOpts, CameraControls, ClippingPlaneStartOpts, ClippingPlaneTool, ClippingPlaneToolOpts, CloseCallback, CloseCallbackArgs, ControlMode, CustomMath, EDLRenderer, ElevationRangeStartOpts, ElevationRangeTool, ElevationRangeToolOpts, IPickPointCloud, IPointClouds, Init, LabelOpts, LineStepResult, LoadProgressCallback, MeasureGeometry, MeasureTool, MeasurementDimensions, MeasurementStartOpts, MeasurementType, MeasurementsOpts, Modules, PhotoSpheres, Photos, PlaneMode, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfileLabelUpdateOpts, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ProfileToolAction, ProfileToolActionProps, ProfileView, ProfileViewLabels, ProfileViewOpts, ProfileViewUpdateOpts, ReferenceFrameOpts, Segment, SplitViewSlider, SplitViewSliderOpts, TextSprite, Transformations, UpdateCallback, UpdateCallbackArgs, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
