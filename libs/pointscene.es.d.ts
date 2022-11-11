@@ -1979,6 +1979,7 @@ declare class MeasureTool {
     points: Vector3[];
     pickingPlane?: Plane;
     activeType: MeasurementType;
+    orientMarkersTowardsCamera: boolean;
     private activeDimensions;
     private activeAreaMesh;
     private markerRadius;
@@ -1996,6 +1997,7 @@ declare class MeasureTool {
     private markerMinPixelSize;
     private markerMaxPixelSize;
     hideLabels: boolean;
+    labelTooltipMarginTop: number;
     onFinish?: (points: Vector3[]) => void;
     onUpdate?: (position: Vector3) => void;
     private getAreaFn?;
@@ -2014,6 +2016,7 @@ declare class MeasureTool {
     private findMarkerGroup;
     private calculateScale;
     private updateMarkers;
+    populateMarkersFromScene(scene: Scene): void;
     private updateLabels;
     clear(): void;
     private getLerpCenter;
@@ -2035,7 +2038,6 @@ declare class MeasureTool {
     private createMesh;
     private createLine;
     private getMaterial;
-    private getLineMaterial;
     private getGeometryArray;
     getGeometry(): MeasureGeometry;
 }
@@ -2165,6 +2167,7 @@ interface ProfileViewOpts {
     height: number;
     referenceFrame: ReferenceFrame;
     measureTool?: MeasureTool;
+    domEl: HTMLElement;
     loadProgressCallback?: LoadProgressCallback;
     loadFinishCallback?: () => void;
 }
@@ -2195,13 +2198,9 @@ declare class ProfileView {
     private measureTool?;
     private mouse;
     private clipPlane?;
-    private prevPicker?;
-    private prevClipPlane?;
-    private picker?;
     constructor(opts: ProfileViewOpts);
     private handlePointerMove;
     private handlePointerDown;
-    private handlePointerUp;
     private handlePointerEnter;
     private handlePointerLeave;
     private updatePointCloudProfileData;
