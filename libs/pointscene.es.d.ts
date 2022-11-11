@@ -2107,6 +2107,7 @@ declare class ClippingPlaneTool {
     private createProfileView;
     private disposeProfileView;
     end(): void;
+    clearMeasurements(): void;
     clear(needsUpdate?: boolean): void;
     dispose(): void;
 }
@@ -2199,6 +2200,7 @@ declare class ProfileView {
     private mouse;
     private clipPlane?;
     constructor(opts: ProfileViewOpts);
+    clearMeasurements(): void;
     private handlePointerMove;
     private handlePointerDown;
     private handlePointerEnter;
