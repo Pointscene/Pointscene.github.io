@@ -2106,6 +2106,7 @@ declare class ClippingPlaneTool {
     private add;
     private handleProfileAction;
     private createProfileView;
+    getProfileGeometries(): MeasureGeometry;
     private disposeProfileView;
     end(): void;
     clearMeasurements(): void;
@@ -2158,7 +2159,6 @@ declare class ProfileViewLabels {
     constructor(referenceFrame: ReferenceFrame);
     update({ width, height, viewWidth, viewHeight, center, profilePoints }: ProfileLabelUpdateOpts): void;
     render(camera: OrthographicCamera): void;
-    private isBehindElement;
     private createLabel;
     private removeLabels;
     dispose(): void;
@@ -2214,6 +2214,7 @@ declare class ProfileView {
     private extractLinesFromScene;
     private extractLines;
     render(): void;
+    getGeometry(): MeasureGeometry;
     dispose(): void;
 }
 
@@ -2239,7 +2240,7 @@ interface CloseCallbackArgs {
 interface ProfileToolActionProps {
     value: number | string;
 }
-declare type ProfileToolAction = 'step_forward' | 'step_back' | 'zoom_in' | 'zoom_out' | 'step_change';
+declare type ProfileToolAction = 'step_forward' | 'step_back' | 'zoom_in' | 'zoom_out' | 'step_change' | 'export_dxf';
 declare type UpdateCallback = (args: UpdateCallbackArgs) => void;
 declare type CloseCallback = (args: CloseCallbackArgs) => void;
 declare class SplitViewSlider {
@@ -2271,4 +2272,17 @@ declare class SplitViewSlider {
     dispose(): void;
 }
 
-export { CameraControlOpts, CameraControls, ClippingPlaneStartOpts, ClippingPlaneTool, ClippingPlaneToolOpts, CloseCallback, CloseCallbackArgs, ControlMode, CustomMath, EDLRenderer, ElevationRangeStartOpts, ElevationRangeTool, ElevationRangeToolOpts, IPickPointCloud, IPointClouds, Init, LabelOpts, LineStepResult, LoadProgressCallback, MeasureGeometry, MeasureTool, MeasurementDimensions, MeasurementStartOpts, MeasurementType, MeasurementsOpts, Modules, PhotoSpheres, Photos, PlaneMode, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfileLabelUpdateOpts, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ProfileToolAction, ProfileToolActionProps, ProfileView, ProfileViewLabels, ProfileViewOpts, ProfileViewUpdateOpts, ReferenceFrameOpts, Segment, SplitViewSlider, SplitViewSliderOpts, TextSprite, Transformations, UpdateCallback, UpdateCallbackArgs, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
+interface DxfPoints {
+    data: Vector3[];
+    layer: string;
+}
+interface DxfLines {
+    data: Vector3[][];
+    layer: string;
+}
+interface DxfPolygons {
+    data: Vector3[][];
+    layer: string;
+}
+
+export { CameraControlOpts, CameraControls, ClippingPlaneStartOpts, ClippingPlaneTool, ClippingPlaneToolOpts, CloseCallback, CloseCallbackArgs, ControlMode, CustomMath, DxfLines, DxfPoints, DxfPolygons, EDLRenderer, ElevationRangeStartOpts, ElevationRangeTool, ElevationRangeToolOpts, IPickPointCloud, IPointClouds, Init, LabelOpts, LineStepResult, LoadProgressCallback, MeasureGeometry, MeasureTool, MeasurementDimensions, MeasurementStartOpts, MeasurementType, MeasurementsOpts, Modules, PhotoSpheres, Photos, PlaneMode, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfileLabelUpdateOpts, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ProfileToolAction, ProfileToolActionProps, ProfileView, ProfileViewLabels, ProfileViewOpts, ProfileViewUpdateOpts, ReferenceFrameOpts, Segment, SplitViewSlider, SplitViewSliderOpts, TextSprite, Transformations, UpdateCallback, UpdateCallbackArgs, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
