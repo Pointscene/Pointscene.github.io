@@ -2084,6 +2084,7 @@ declare class ClippingPlaneTool {
     private stepSize;
     private zoomMultiplier;
     constructor(opts: ClippingPlaneToolOpts);
+    isActive(): boolean;
     private update;
     start(opts: ClippingPlaneStartOpts): void;
     private flipNormal;
@@ -2108,6 +2109,7 @@ declare class ClippingPlaneTool {
     private disposeProfileView;
     end(): void;
     clearMeasurements(): void;
+    cancel(): void;
     clear(needsUpdate?: boolean): void;
     dispose(): void;
 }
