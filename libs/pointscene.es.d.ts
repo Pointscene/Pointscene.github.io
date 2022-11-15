@@ -1117,6 +1117,7 @@ interface PickResult {
 declare class Picker {
     domEl: HTMLElement;
     hoveredObject?: Object3D;
+    lastIntersection?: PickResult;
     private raycaster;
     mouse: Vector2;
     camera: PerspectiveCamera | OrthographicCamera;
@@ -2066,6 +2067,7 @@ declare class ClippingPlaneTool {
     private onUpdate?;
     private onFinish?;
     private clipPlane;
+    private clipPlaneOnStart;
     private pickPlane;
     private model;
     private slider;
@@ -2083,7 +2085,9 @@ declare class ClippingPlaneTool {
     private profilePoints;
     private stepSize;
     private zoomMultiplier;
+    private hoveredLine;
     constructor(opts: ClippingPlaneToolOpts);
+    profileViewIsVisible(): boolean;
     isActive(): boolean;
     private update;
     start(opts: ClippingPlaneStartOpts): void;
