@@ -1,9 +1,9 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Mesh, SpriteMaterial, Sprite } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Mesh, SpriteMaterial, Sprite, Line } from 'three';
 import CamControls from 'camera-controls';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { Context } from 'vm';
-import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 declare type IGradient = [number, Color][];
 interface IClassification {
@@ -1476,6 +1476,7 @@ declare class Modules {
     private handleTouchEnd;
     private isHoveredInteractive;
     private hoveredAllowsOrbitUpdate;
+    private hoveredHasMetaData;
     private handleMouseDown;
     private handleMouseUp;
     /**
@@ -1525,6 +1526,7 @@ declare function loadMesh(vertices: number[][], faces: number[][], color?: Color
 
 interface IfcLoadOpts {
     wasmPath?: string;
+    workerPath?: string;
     offset?: {
         x: number;
         y: number;
@@ -1987,6 +1989,8 @@ declare class MeasureTool {
     private markerGeometry;
     private activeMarker;
     private activeLine;
+    private activeMarkerMeta;
+    private metaTool;
     domEl: HTMLElement;
     camera: PerspectiveCamera | OrthographicCamera;
     private hasKinks;
@@ -2001,6 +2005,7 @@ declare class MeasureTool {
     labelTooltipMarginTop: number;
     onFinish?: (points: Vector3[]) => void;
     onUpdate?: (position: Vector3) => void;
+    setLabelTextFn?: (labelType: MeasurementType, labelDivs: HTMLElement[], object: Mesh | Line, labels: CSS2DObject[], isActiveMarker: boolean) => void;
     private getAreaFn?;
     private getDistanceFn?;
     private getPositionFn?;
@@ -2023,6 +2028,7 @@ declare class MeasureTool {
     private getLerpCenter;
     private getDistance;
     private setLabelText;
+    private updateActiveMarkerMeta;
     updateActiveMarker(): void;
     private triangulatePolygon;
     private updateActiveArea;
@@ -2062,6 +2068,7 @@ interface LineStepResult {
 }
 declare type PlaneMode = 'free' | 'cross_on_line';
 declare class ClippingPlaneTool {
+    minCrossSectionWidth: number;
     private clipTool;
     private measureTool?;
     private onUpdate?;
