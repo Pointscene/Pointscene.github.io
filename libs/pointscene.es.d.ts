@@ -1965,7 +1965,7 @@ interface MeasurementsOpts {
     getAreaFn?: (triangles: Vector3[][]) => number;
 }
 interface MeasurementStartOpts {
-    onFinish?: (points: Vector3[]) => void;
+    onFinish?: (points: Vector3[], intersection?: PickResult) => void;
     onUpdate?: (position: Vector3) => void;
 }
 interface MeasureGeometry {
@@ -2003,7 +2003,7 @@ declare class MeasureTool {
     private markerMaxPixelSize;
     hideLabels: boolean;
     labelTooltipMarginTop: number;
-    onFinish?: (points: Vector3[]) => void;
+    onFinish?: (points: Vector3[], intersection?: PickResult) => void;
     onUpdate?: (position: Vector3) => void;
     setLabelTextFn?: (labelType: MeasurementType, labelDivs: HTMLElement[], object: Mesh | Line, labels: CSS2DObject[], isActiveMarker: boolean) => void;
     private getAreaFn?;
@@ -2040,7 +2040,7 @@ declare class MeasureTool {
     snapToLineIntersection(intersection: PickResult): void;
     cancel(): void;
     dispose(): void;
-    end(): void;
+    end(hit?: PickResult): void;
     private createMarker;
     private createMesh;
     private createLine;
