@@ -1991,6 +1991,8 @@ declare class MeasureTool {
     private activeLine;
     private activeMarkerMeta;
     private metaTool;
+    showSlope: boolean;
+    showSlopeCallback?: (val: boolean) => void;
     domEl: HTMLElement;
     camera: PerspectiveCamera | OrthographicCamera;
     private hasKinks;
@@ -2010,6 +2012,7 @@ declare class MeasureTool {
     private getDistanceFn?;
     private getPositionFn?;
     constructor(opts: MeasurementsOpts);
+    toggleShowSlope(): void;
     private getLabelDiv;
     private getLabel;
     private setLabelStyle;
@@ -2026,6 +2029,9 @@ declare class MeasureTool {
     private updateLabels;
     clear(): void;
     private getLerpCenter;
+    private angleToPercentageStr;
+    private getRatioStr;
+    private getAngle;
     private getDistance;
     private setLabelText;
     private updateActiveMarkerMeta;
