@@ -1,9 +1,9 @@
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Mesh, SpriteMaterial, Sprite } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Mesh, SpriteMaterial, Sprite, Line } from 'three';
 import CamControls from 'camera-controls';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { Context } from 'vm';
-import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
+import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
 
 declare type IGradient = [number, Color][];
 interface IClassification {
@@ -1117,6 +1117,7 @@ interface PickResult {
 declare class Picker {
     domEl: HTMLElement;
     hoveredObject?: Object3D;
+    lastIntersection?: PickResult;
     private raycaster;
     mouse: Vector2;
     camera: PerspectiveCamera | OrthographicCamera;
@@ -1475,6 +1476,7 @@ declare class Modules {
     private handleTouchEnd;
     private isHoveredInteractive;
     private hoveredAllowsOrbitUpdate;
+    private hoveredHasMetaData;
     private handleMouseDown;
     private handleMouseUp;
     /**
@@ -1524,6 +1526,7 @@ declare function loadMesh(vertices: number[][], faces: number[][], color?: Color
 
 interface IfcLoadOpts {
     wasmPath?: string;
+    workerPath?: string;
     offset?: {
         x: number;
         y: number;
@@ -1962,7 +1965,7 @@ interface MeasurementsOpts {
     getAreaFn?: (triangles: Vector3[][]) => number;
 }
 interface MeasurementStartOpts {
-    onFinish?: (points: Vector3[]) => void;
+    onFinish?: (points: Vector3[], intersection?: PickResult) => void;
     onUpdate?: (position: Vector3) => void;
 }
 interface MeasureGeometry {
@@ -1986,6 +1989,10 @@ declare class MeasureTool {
     private markerGeometry;
     private activeMarker;
     private activeLine;
+    private activeMarkerMeta;
+    private metaTool;
+    showSlope: boolean;
+    showSlopeCallback?: (val: boolean) => void;
     domEl: HTMLElement;
     camera: PerspectiveCamera | OrthographicCamera;
     private hasKinks;
@@ -1998,12 +2005,14 @@ declare class MeasureTool {
     private markerMaxPixelSize;
     hideLabels: boolean;
     labelTooltipMarginTop: number;
-    onFinish?: (points: Vector3[]) => void;
+    onFinish?: (points: Vector3[], intersection?: PickResult) => void;
     onUpdate?: (position: Vector3) => void;
+    setLabelTextFn?: (labelType: MeasurementType, labelDivs: HTMLElement[], object: Mesh | Line, labels: CSS2DObject[], isActiveMarker: boolean) => void;
     private getAreaFn?;
     private getDistanceFn?;
     private getPositionFn?;
     constructor(opts: MeasurementsOpts);
+    toggleShowSlope(): void;
     private getLabelDiv;
     private getLabel;
     private setLabelStyle;
@@ -2020,8 +2029,12 @@ declare class MeasureTool {
     private updateLabels;
     clear(): void;
     private getLerpCenter;
+    private angleToPercentageStr;
+    private getRatioStr;
+    private getAngle;
     private getDistance;
     private setLabelText;
+    private updateActiveMarkerMeta;
     updateActiveMarker(): void;
     private triangulatePolygon;
     private updateActiveArea;
@@ -2033,7 +2046,7 @@ declare class MeasureTool {
     snapToLineIntersection(intersection: PickResult): void;
     cancel(): void;
     dispose(): void;
-    end(): void;
+    end(hit?: PickResult): void;
     private createMarker;
     private createMesh;
     private createLine;
@@ -2061,11 +2074,13 @@ interface LineStepResult {
 }
 declare type PlaneMode = 'free' | 'cross_on_line';
 declare class ClippingPlaneTool {
+    minCrossSectionWidth: number;
     private clipTool;
     private measureTool?;
     private onUpdate?;
     private onFinish?;
     private clipPlane;
+    private clipPlaneOnStart;
     private pickPlane;
     private model;
     private slider;
@@ -2083,7 +2098,10 @@ declare class ClippingPlaneTool {
     private profilePoints;
     private stepSize;
     private zoomMultiplier;
+    private hoveredLine;
     constructor(opts: ClippingPlaneToolOpts);
+    profileViewIsVisible(): boolean;
+    isActive(): boolean;
     private update;
     start(opts: ClippingPlaneStartOpts): void;
     private flipNormal;
@@ -2105,8 +2123,11 @@ declare class ClippingPlaneTool {
     private add;
     private handleProfileAction;
     private createProfileView;
+    getProfileGeometries(): MeasureGeometry;
     private disposeProfileView;
     end(): void;
+    clearMeasurements(): void;
+    cancel(): void;
     clear(needsUpdate?: boolean): void;
     dispose(): void;
 }
@@ -2155,7 +2176,6 @@ declare class ProfileViewLabels {
     constructor(referenceFrame: ReferenceFrame);
     update({ width, height, viewWidth, viewHeight, center, profilePoints }: ProfileLabelUpdateOpts): void;
     render(camera: OrthographicCamera): void;
-    private isBehindElement;
     private createLabel;
     private removeLabels;
     dispose(): void;
@@ -2189,6 +2209,7 @@ declare class ProfileView {
     private profileScene;
     private profileLines;
     private profilePoints;
+    private profileCaps?;
     private loadProgressCallback?;
     private loadFinishCallback?;
     private pointCloudProfileRequests;
@@ -2199,6 +2220,7 @@ declare class ProfileView {
     private mouse;
     private clipPlane?;
     constructor(opts: ProfileViewOpts);
+    clearMeasurements(): void;
     private handlePointerMove;
     private handlePointerDown;
     private handlePointerEnter;
@@ -2208,8 +2230,10 @@ declare class ProfileView {
     update(opts: ProfileViewUpdateOpts): void;
     private extractLinesFromMesh;
     private extractLinesFromScene;
+    private indexLines;
     private extractLines;
     render(): void;
+    getGeometry(): MeasureGeometry;
     dispose(): void;
 }
 
@@ -2235,7 +2259,7 @@ interface CloseCallbackArgs {
 interface ProfileToolActionProps {
     value: number | string;
 }
-declare type ProfileToolAction = 'step_forward' | 'step_back' | 'zoom_in' | 'zoom_out' | 'step_change';
+declare type ProfileToolAction = 'step_forward' | 'step_back' | 'zoom_in' | 'zoom_out' | 'step_change' | 'export_dxf';
 declare type UpdateCallback = (args: UpdateCallbackArgs) => void;
 declare type CloseCallback = (args: CloseCallbackArgs) => void;
 declare class SplitViewSlider {
@@ -2267,4 +2291,17 @@ declare class SplitViewSlider {
     dispose(): void;
 }
 
-export { CameraControlOpts, CameraControls, ClippingPlaneStartOpts, ClippingPlaneTool, ClippingPlaneToolOpts, CloseCallback, CloseCallbackArgs, ControlMode, CustomMath, EDLRenderer, ElevationRangeStartOpts, ElevationRangeTool, ElevationRangeToolOpts, IPickPointCloud, IPointClouds, Init, LabelOpts, LineStepResult, LoadProgressCallback, MeasureGeometry, MeasureTool, MeasurementDimensions, MeasurementStartOpts, MeasurementType, MeasurementsOpts, Modules, PhotoSpheres, Photos, PlaneMode, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfileLabelUpdateOpts, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ProfileToolAction, ProfileToolActionProps, ProfileView, ProfileViewLabels, ProfileViewOpts, ProfileViewUpdateOpts, ReferenceFrameOpts, Segment, SplitViewSlider, SplitViewSliderOpts, TextSprite, Transformations, UpdateCallback, UpdateCallbackArgs, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
+interface DxfPoints {
+    data: Vector3[];
+    layer: string;
+}
+interface DxfLines {
+    data: Vector3[][];
+    layer: string;
+}
+interface DxfPolygons {
+    data: Vector3[][];
+    layer: string;
+}
+
+export { CameraControlOpts, CameraControls, ClippingPlaneStartOpts, ClippingPlaneTool, ClippingPlaneToolOpts, CloseCallback, CloseCallbackArgs, ControlMode, CustomMath, DxfLines, DxfPoints, DxfPolygons, EDLRenderer, ElevationRangeStartOpts, ElevationRangeTool, ElevationRangeToolOpts, IPickPointCloud, IPointClouds, Init, LabelOpts, LineStepResult, LoadProgressCallback, MeasureGeometry, MeasureTool, MeasurementDimensions, MeasurementStartOpts, MeasurementType, MeasurementsOpts, Modules, PhotoSpheres, Photos, PlaneMode, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfileLabelUpdateOpts, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ProfileToolAction, ProfileToolActionProps, ProfileView, ProfileViewLabels, ProfileViewOpts, ProfileViewUpdateOpts, ReferenceFrameOpts, Segment, SplitViewSlider, SplitViewSliderOpts, TextSprite, Transformations, UpdateCallback, UpdateCallbackArgs, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };

@@ -23,9 +23,7 @@
         'analytics_storage': 'denied'
       });
     </script>
-
     <script src="https://pointscene.github.io/libs/dev/pointscene.umd.js"></script>
-
     <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
     <style>
       body {
@@ -219,7 +217,8 @@
         let ifcModel;
         try {
           ifcModel = await Pointscene.loaders.loadIFC(url, { 
-            wasmPath: '../dev/wasm/',
+            wasmPath: '../libs/wasm/',
+            //TODO: workerPath: '../libs/workers/',
             projIn: proj4,
             projOut: projOut,
             offset,
