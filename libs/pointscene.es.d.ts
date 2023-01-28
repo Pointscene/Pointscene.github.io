@@ -2209,6 +2209,7 @@ declare class ProfileView {
     private profileScene;
     private profileLines;
     private profilePoints;
+    private profileCaps?;
     private loadProgressCallback?;
     private loadFinishCallback?;
     private pointCloudProfileRequests;
@@ -2229,6 +2230,7 @@ declare class ProfileView {
     update(opts: ProfileViewUpdateOpts): void;
     private extractLinesFromMesh;
     private extractLinesFromScene;
+    private indexLines;
     private extractLines;
     render(): void;
     getGeometry(): MeasureGeometry;
