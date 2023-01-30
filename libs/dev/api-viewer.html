@@ -25,6 +25,7 @@
       });
     </script>
     <script src="https://pointscene.github.io/libs/dev/pointscene.umd.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
     <style>
       body {
@@ -382,8 +383,40 @@
       }
 
       const add360Layer = async ({ id, name, url }, projOut) => {
-        const res = await fetch(url);
-        const photos = await res.json();
+        let photos;
+        let position; // Single photo position
+        let disablePhotoNavigation = getQueryParam('disablePhotoNavigation');
+
+        try {
+          if (url.endsWith('.json')) {
+            // Open JSON
+            const res = await fetch(url);
+            photos = await res.json();
+
+          } else {
+            let quaternion = pointscene.queryParams.get('photoQuaterion', 'xyzw[]');
+
+            if (!quaternion) {
+              quaternion = { x: 0, y: 0, z: 0, w: 1 };
+              disablePhotoNavigation = true;
+            }
+
+            position = pointscene.queryParams.get('photoPosition', 'xyz[]');
+
+            // Open single photo
+            photos = [{
+              url,
+              filename: name,
+              quaternion,
+              position,
+            }];
+          }
+
+        } catch (err) {
+          showError();
+          throw new Error(err);
+        }
+
 
         /* example photo
           {
@@ -394,7 +427,6 @@
               "proj4":""
           }
         */
-        const disablePhotoNavigation = getQueryParam('disablePhotoNavigation');
 
         const photoGroup = await pointscene.modules.loadPhotoSpheres(photos, {
           disablePhotoNavigation: !!disablePhotoNavigation,
@@ -408,6 +440,12 @@
           type: '360',
           object: photoGroup,
         });
+
+        if (position) {
+          // Open single photo
+          // await pointscene.modules.photoSpheres.openNearest(position);
+        }
+        
 
         plausible('Load 360', { props: { count: photos.length }});
       }
@@ -531,6 +569,7 @@
         const ifcUrl = getQueryParam('ifcUrl');
         const landxmlUrl = getQueryParam('landxmlUrl');
         const layersUrl = getQueryParam('layersUrl');
+        const photoUrl = getQueryParam('photoUrl');
         const photosUrl = getQueryParam('photosUrl');
         const proj4 = getQueryParam('proj4');
         const exp = getQueryParam('exp');
@@ -564,10 +603,18 @@
         }
 
         if (photosUrl) {
-          add360Layer({
+          await add360Layer({
             id: '360',
             name: '360',
             url: decodeURIComponent(photosUrl),
+          });
+        }
+
+        if (photoUrl) {
+          await add360Layer({
+            id: '360',
+            name: '360',
+            url: decodeURIComponent(photoUrl),
           });
         }
 
@@ -597,13 +644,12 @@
 
         if (pointscene.queryParams.isSet('openNearestPhoto')) {
           if (pointscene.modules.photoSpheres) {
-            const position = pointscene.queryParams.get('camera', 'float[]');
+            let position = pointscene.queryParams.get('camera', 'xyz[]');
+            if (!position) {
+              position = pointscene.queryParams.get('photoPosition', 'xyz[]');
+            }
 
-            pointscene.modules.photoSpheres.openNearest({
-              x: position[0],
-              y: position[1],
-              z: position[2],
-            });
+            pointscene.modules.photoSpheres.openNearest(position);
 
           } else {
             // Fallback

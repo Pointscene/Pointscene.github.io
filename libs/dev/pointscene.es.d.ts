@@ -1377,7 +1377,18 @@ declare class TmsProvider {
     private tileToBounds;
 }
 
-declare type QueryParamTypes = 'float' | 'float[]' | 'string' | 'int' | 'int[]';
+declare type Xyz = {
+    x: number;
+    y: number;
+    z: number;
+};
+declare type Xyzw = {
+    x: number;
+    y: number;
+    z: number;
+    w: number;
+};
+declare type QueryParamTypes = 'float' | 'float[]' | 'xyz[]' | 'xyzw[]' | 'string' | 'int' | 'int[]';
 declare class QueryParams {
     queryParams: {
         [key: string]: string;
@@ -1390,9 +1401,9 @@ declare class QueryParams {
     dispose(): void;
     isSet(param: string): boolean;
     private parse;
-    set(param: string, value: number | number[] | string, paramType: QueryParamTypes): void;
+    set(param: string, value: number | number[] | string | Xyz | Xyzw, paramType: QueryParamTypes): void;
     remove(param: string): void;
-    get(param: string, paramType: QueryParamTypes): number | number[] | string | undefined;
+    get(param: string, paramType: QueryParamTypes): number | number[] | string | undefined | Xyz | Xyzw;
     private getQueryParam;
     private handleQueryParamUpdate;
     private handleEnterSphere;
