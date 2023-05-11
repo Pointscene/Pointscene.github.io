@@ -862,6 +862,10 @@ declare class ReferenceFrame {
         forceMatrixUpdate?: boolean;
         useScale?: boolean;
     }): Vector3;
+    toSceneZ(val: number, opts?: {
+        forceMatrixUpdate?: boolean;
+        useScale?: boolean;
+    }): number;
     set upAxis(axis: string);
     get upAxis(): string;
     setPosition(position: Vector3, negate?: boolean): void;
@@ -1218,6 +1222,7 @@ declare class PointClouds {
     private setDefaults;
     private load;
     addPointcloud(url: string): Promise<PointCloudOctree[]>;
+    getObjectByName(name: string): PointCloudOctree | undefined;
     loadInternal(url: string | string[], opts?: {
         queryString?: string;
         xhrInit?: RequestInit;
@@ -1262,6 +1267,7 @@ declare class PointClouds {
     setIntensityRange(range: [number, number]): void;
     setVisibility(value: boolean): void;
     resize(renderer?: WebGLRenderer, camera?: PerspectiveCamera | OrthographicCamera, domEl?: HTMLElement): void;
+    removeByName(name: string): void;
     remove(idx: number): void;
     handleWindowResize(): void;
     handleLoadPointcloud(event: Event): void;
@@ -1502,7 +1508,7 @@ interface Layer {
     id: string;
     name: string;
     type: 'pointcloud' | 'mesh' | '360' | 'tms';
-    object?: Object3D;
+    object?: Mesh | PointCloudOctree | Group;
     provider?: TmsProvider;
 }
 declare class Layers {
@@ -1514,8 +1520,10 @@ declare class Layers {
     private domEl;
     constructor(domEl: HTMLElement);
     add(layer: Layer): void;
+    get(id: string): Layer;
     dispose(): void;
     getAll(): Layer[];
+    exists(id: string): boolean;
     remove(layer: Layer): void;
     registerOnUpdateCallback(fn: () => void): void;
     registerOnVisibilityUpdateCallback(fn: () => void): void;
@@ -1531,6 +1539,7 @@ interface LoadMeshOpts {
     isPickable?: boolean;
     isInteractive?: boolean;
     useBVH?: boolean;
+    verticeOffset?: number[];
 }
 declare function loadLine(vertices: number[][], color: Color): Line2;
 declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
@@ -1619,6 +1628,18 @@ declare namespace Loaders {
   };
 }
 
+declare const fitElevationRange: (minZ: number, maxZ: number, base: number, stepCount: number) => number[];
+declare const getElevationMaterial: () => ShaderMaterial;
+
+declare const Materials_fitElevationRange: typeof fitElevationRange;
+declare const Materials_getElevationMaterial: typeof getElevationMaterial;
+declare namespace Materials {
+  export {
+    Materials_fitElevationRange as fitElevationRange,
+    Materials_getElevationMaterial as getElevationMaterial,
+  };
+}
+
 interface IWorld {
     domEl: HTMLElement;
     showStats?: boolean;
@@ -1662,6 +1683,7 @@ declare class World {
     private camControls?;
     modules: Modules | undefined;
     loaders: typeof Loaders;
+    materials: typeof Materials;
     private rangeNear;
     private rangeFar;
     private perspectiveCamera;
@@ -1709,6 +1731,8 @@ declare class World {
      * Fits top view based on point clouds bounding box
      */
     fitTopView(transition?: boolean): Promise<void>;
+    fitBoundingBox(boundingBox: Box3): Promise<void>;
+    fitLayer(id: string): Promise<void>;
     setCameraView(camera: Vector3, target: Vector3, transition?: boolean): Promise<void>;
     getScreenShot(saveAsFile?: boolean): boolean | string;
     setCameraMode(mode: CameraMode): void;
@@ -2315,4 +2339,4 @@ interface DxfPolygons {
     layer: string;
 }
 
-export { CameraControlOpts, CameraControls, ClippingPlaneStartOpts, ClippingPlaneTool, ClippingPlaneToolOpts, CloseCallback, CloseCallbackArgs, ControlMode, CustomMath, DxfLines, DxfPoints, DxfPolygons, EDLRenderer, ElevationRangeStartOpts, ElevationRangeTool, ElevationRangeToolOpts, IPickPointCloud, IPointClouds, Init, LabelOpts, LineStepResult, LoadProgressCallback, MeasureGeometry, MeasureTool, MeasurementDimensions, MeasurementStartOpts, MeasurementType, MeasurementsOpts, Modules, PhotoSpheres, Photos, PlaneMode, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfileLabelUpdateOpts, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ProfileToolAction, ProfileToolActionProps, ProfileView, ProfileViewLabels, ProfileViewOpts, ProfileViewUpdateOpts, ReferenceFrameOpts, Segment, SplitViewSlider, SplitViewSliderOpts, TextSprite, Transformations, UpdateCallback, UpdateCallbackArgs, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders };
+export { CameraControlOpts, CameraControls, ClippingPlaneStartOpts, ClippingPlaneTool, ClippingPlaneToolOpts, CloseCallback, CloseCallbackArgs, ControlMode, CustomMath, DxfLines, DxfPoints, DxfPolygons, EDLRenderer, ElevationRangeStartOpts, ElevationRangeTool, ElevationRangeToolOpts, IPickPointCloud, IPointClouds, Init, LabelOpts, LineStepResult, LoadProgressCallback, MeasureGeometry, MeasureTool, MeasurementDimensions, MeasurementStartOpts, MeasurementType, MeasurementsOpts, Modules, PhotoSpheres, Photos, PlaneMode, PointCloudProfileRequest, PointCloudProfileRequestOpts, PointClouds, PointsceneEvents, index as Potree, PriorityQueueItem, Profile, ProfileData, ProfileLabelUpdateOpts, ProfilePoints, ProfilePointsData, ProfileRequestArgs, ProfileRequestCallback, ProfileToolAction, ProfileToolActionProps, ProfileView, ProfileViewLabels, ProfileViewOpts, ProfileViewUpdateOpts, ReferenceFrameOpts, Segment, SplitViewSlider, SplitViewSliderOpts, TextSprite, Transformations, UpdateCallback, UpdateCallbackArgs, World, init as default, eulerToQuaternion, getPlane, init, Loaders as loaders, Materials as materials };
