@@ -25,7 +25,6 @@
       });
     </script>
     <script src="https://pointscene.github.io/libs/dev/pointscene.umd.js"></script>
-
     <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
     <style>
       body {
@@ -152,7 +151,7 @@
 
     <div id="link-expired" class="link-expired-error">
       <p><a href="https://pointscene.com?utm_source=3D_viewer&utm_medium=viewer_logo_link_expired" target="_blank"><img src="./pointscene_logo.svg" width="320px" /></a></p>
-      <p><h2>Share link has expired. Please contact the sender for a new one.</h2></p>
+      <p><h2>The viewer link has expired. Please re-open the view from Pointscene or contact the sender for a new link.</h2></p>
       <p>Need links that don't expire? Check out <a href="https://pointscene.com/pricing/?utm_source=3D_viewer&utm_medium=viewer_link_expired_pricing" target="_blank">Pointscene Project license</a> for permanent links.</p>
     </div>
 
@@ -219,11 +218,10 @@
         let ifcModel;
         try {
           ifcModel = await Pointscene.loaders.loadIFC(url, { 
-            wasmPath: '../libs/wasm/',
-            //TODO: workerPath: '../libs/workers/',
             projIn: proj4,
             projOut: projOut,
             offset,
+            name,
           });
         } catch(error) {
           //
@@ -337,18 +335,18 @@
 
       const addLandXmlUrl = async ({ url }) => {
         const queryParams = new URLSearchParams(document.location.search);
-        let landxmlOffsetStr = queryParams.get('landxmlOffset');
-          if (!landxmlOffsetStr) {
-            landxmlOffsetStr = '0,0,0';
+        let landXmlOffsetStr = queryParams.get('landXmlOffset');
+          if (!landXmlOffsetStr) {
+            landXmlOffsetStr = '0,0,0';
           }
 
-          const landxmlOffset = landxmlOffsetStr.split(',').map(val => parseFloat(val));
+          const landXmlOffset = landXmlOffsetStr.split(',').map(val => parseFloat(val));
 
           return await addLandXmlLayer({
             id: 'landxml-url-query-0',
             name: 'LandXML',
             url,
-            offset: { x: landxmlOffset[0], y: landxmlOffset[1], z: landxmlOffset[2] },
+            offset: { x: landXmlOffset[0], y: landXmlOffset[1], z: landXmlOffset[2] },
             scale: { x: 1, y: 1, z: 1 },
           });
       }
@@ -394,10 +392,10 @@
             photos = await res.json();
 
           } else {
-            let quaternion = pointscene.queryParams.get('photoQuaterion', 'xyzw[]');
+            let quaternion = pointscene.queryParams.get('photoQuaternion', 'xyzw[]');
 
             if (!quaternion) {
-              quaternion = { x: 0, y: 0, z: 0, w: 1 };
+              quaternion = { x: 0.7071067812, y: 0, z: 0, w: 0.7071067812 };
               disablePhotoNavigation = true;
             }
 
@@ -441,12 +439,6 @@
           object: photoGroup,
         });
 
-        if (position) {
-          // Open single photo
-          // await pointscene.modules.photoSpheres.openNearest(position);
-        }
-        
-
         plausible('Load 360', { props: { count: photos.length }});
       }
 
@@ -469,6 +461,49 @@
           });
 
           plausible('Load TMS');
+        });
+      }
+
+      const addSurface = ({ faces, vertices, proj4, id, name }) => {
+        const minZ = vertices.reduce((prev, cur) => prev > cur[2] ? cur[2] : prev, Number.MAX_VALUE);
+        const maxZ = vertices.reduce((prev, cur) => prev < cur[2] ? cur[2] : prev, Number.MIN_VALUE);
+
+        const firstVertex = {
+          x: vertices[0][0],
+          y: vertices[0][1],
+          z: vertices[0][2],
+        };
+
+        maybeSetReferenceFrame(firstVertex, proj4);
+
+        const material = pointscene.materials.getElevationMaterial();
+
+        const [minFitZ, maxFitZ] = pointscene.materials.fitElevationRange(minZ, maxZ, 0.0, 10);
+
+        const minSceneZ = pointscene.modules.referenceFrame.toSceneZ(minFitZ);
+        const maxSceneZ = pointscene.modules.referenceFrame.toSceneZ(maxFitZ);
+
+        material.uniforms.minZ.value = minSceneZ;
+        material.uniforms.maxZ.value = maxSceneZ;
+        material.needsUpdate = true;
+
+        const surface = pointscene.loaders.loadMesh(vertices, faces, undefined, undefined, material, {
+          useBVH: true,
+          isInteractive: false,
+          isPickable: true,
+          verticeOffset: vertices[0],
+        });
+
+        const surfacePosition = pointscene.modules.referenceFrame.toScene(firstVertex);
+        surface.position.copy(surfacePosition);
+
+        pointscene.modules.scenePickable.add(surface);
+
+        pointscene.layers.add({
+          id: `${id}`,
+          name: `${name}`,
+          type: 'mesh',
+          object: surface,
         });
       }
 
@@ -567,7 +602,7 @@
         const queryParams = new URLSearchParams(document.location.search);
         const potreeUrl = getQueryParam('potreeUrl');
         const ifcUrl = getQueryParam('ifcUrl');
-        const landxmlUrl = getQueryParam('landxmlUrl');
+        const landXmlUrl = getQueryParam('landXmlUrl');
         const layersUrl = getQueryParam('layersUrl');
         const photoUrl = getQueryParam('photoUrl');
         const photosUrl = getQueryParam('photosUrl');
@@ -598,8 +633,8 @@
           await addIfcUrl({ url: decodeURIComponent(ifcUrl) });
         }
 
-        if (landxmlUrl) {
-          await addLandXmlUrl({ url: decodeURIComponent(landxmlUrl) });
+        if (landXmlUrl) {
+          await addLandXmlUrl({ url: decodeURIComponent(landXmlUrl) });
         }
 
         if (photosUrl) {
@@ -680,6 +715,21 @@
 
         }
 
+        if (pointscene.queryParams.isSet('pointColor')) {
+          const colorType = pointscene.queryParams.get('pointColor', 'int');
+          pointscene.modules.pointclouds?.setColorType(colorType);
+
+          if (pointscene.queryParams.isSet('pointColorRange')) {
+            const colorRange = pointscene.queryParams.get('pointColorRange', 'float[]');
+            pointscene.modules.pointclouds?.setHeightRange(colorRange);
+          }
+        }
+
+        if (pointscene.queryParams.isSet('pointColorEdge')) {
+          const colorEdge = pointscene.queryParams.get('pointColorEdge', 'int');
+          pointscene.modules.pointclouds?.setEDLEnabled(!!colorEdge);
+        }
+
         if (tmsProvider) {
           // Fit tms plane to geometry
           const bbox = pointscene.getWorldBoundingBox();
@@ -696,6 +746,24 @@
         }
       };
 
+      const periodicalCheckSessionExpired = (t = 10 * 60 * 1000) => {
+        const exp = getQueryParam('exp');
+
+        if (!exp) {
+          return;
+        }
+
+        if (isExpired(exp)) {
+          const expEl = document.querySelector('#link-expired');
+          expEl.style.visibility = 'visible';
+          return; 
+        }
+
+        return setTimeout(() => {
+          periodicalCheckSessionExpired();
+        }, t)
+      }
+
       window.onload = async () => {
         const consent = getCookieConsent();
 
@@ -704,10 +772,11 @@
           el.style.visibility = 'visible';
         } else if (consent === 'all') {
           allowGA();
-          allowLF();
         }
 
-        load();
+        await load();
+
+        periodicalCheckSessionExpired();
       }
 
       const hideCookieConsent = () => {
@@ -722,7 +791,6 @@
 
       const acceptAll = () => {
         allowGA();
-        allowLF();
         localStorage.setItem('pointscene-cookie-consent', 'all');
         hideCookieConsent();
       }
@@ -740,10 +808,6 @@
           'ad_storage': 'granted',
           'analytics_storage': 'granted'
         });
-      }
-
-      const allowLF = () => {
-        (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('p1e024BOXOXaGB6d');
       }
     </script>
   </body>
