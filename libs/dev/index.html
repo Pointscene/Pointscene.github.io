@@ -24,7 +24,8 @@
         'analytics_storage': 'denied'
       });
     </script>
-    <script src="https://pointscene.github.io/libs/dev/pointscene.umd.js"></script>
+    <script src="pointscene.umd.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet">
     <style>
       body {
@@ -218,6 +219,8 @@
         let ifcModel;
         try {
           ifcModel = await Pointscene.loaders.loadIFC(url, { 
+            //wasmPath: '../libs/wasm/',
+            //TODO: workerPath: '../libs/workers/',
             projIn: proj4,
             projOut: projOut,
             offset,
@@ -347,6 +350,74 @@
             name: 'LandXML',
             url,
             offset: { x: landXmlOffset[0], y: landXmlOffset[1], z: landXmlOffset[2] },
+            scale: { x: 1, y: 1, z: 1 },
+          });
+      }
+
+      const addGltfLayer = async({ id, name, url, offset, scale, proj4 }, projOut) => {
+        //http://localhost:10001/examples/api-viewer.html?gltfUrl=http://localhost:10001/examples/gltf/pasila.glb
+        let gltf;
+        try {
+          gltf = await Pointscene.loaders.loadGLTF(url, {
+            offset,
+            projIn: proj4,
+            projOut,
+          });
+
+        } catch {
+          //
+        }
+
+        if (!gltf) {
+          plausible('Failed to load GLTF');
+          showError();
+          throw new Error('Failed to load GLTF');
+        }
+
+        let gltfOffset = offset;
+
+        if (proj4 && projOut) {
+          const projected = await pointscene.projectPoints([[offset.x, offset.y, offset.z]], proj4, projOut);
+          gltfOffset = {
+            x: projected[0][0],
+            y: projected[0][1],
+            z: projected[0][2],
+          }
+        }
+
+        maybeSetReferenceFrame(gltfOffset, projOut);
+
+        const gltfPosition = pointscene.modules.referenceFrame.toScene(gltfOffset);
+
+        gltf.scale.set(scale.x, scale.y, scale.z);
+        gltf.position.copy(gltfPosition);
+
+        pointscene.modules.scenePickable.add(gltf);
+
+        pointscene.layers.add({
+          id: `${id}`,
+          name: `${name}`,
+          type: 'mesh',
+          object: gltf,
+        });
+
+        plausible('Load GLTF', { props: { count: gltf.children.length }});
+      }
+
+      const addGltfUrl = async ({ url }) => {
+        const queryParams = new URLSearchParams(document.location.search);
+        let gltfOffsetStr = queryParams.get('gltfOffset');
+          if (!gltfOffsetStr) {
+            gltfOffsetStr = '0,0,0';
+          }
+
+          const gltfOffset = gltfOffsetStr.split(',').map(val => parseFloat(val));
+
+          return await addGltfLayer({
+            id: 'gltf-url-query-0',
+            name: 'GLTF',
+            url,
+            offset: { x: gltfOffset[0], y: gltfOffset[1], z: gltfOffset[2] },
             scale: { x: 1, y: 1, z: 1 },
           });
       }
@@ -562,9 +633,8 @@
             case 'group-360':
               await add360Layer(layer, proj4);
               break;
-            case 'dxf':
-              // TODO
-              throw new Error('Layer type "dxf" not implemented');
+            case 'gltf':
+              await addGltfLayer(layer, proj4);
               break;
             default:
               throw new Error(`Unknown layer type: ${layer.type}`);
@@ -603,11 +673,13 @@
         const potreeUrl = getQueryParam('potreeUrl');
         const ifcUrl = getQueryParam('ifcUrl');
         const landXmlUrl = getQueryParam('landXmlUrl');
+        const gltfUrl = getQueryParam('gltfUrl');
         const layersUrl = getQueryParam('layersUrl');
         const photoUrl = getQueryParam('photoUrl');
         const photosUrl = getQueryParam('photosUrl');
         const proj4 = getQueryParam('proj4');
         const exp = getQueryParam('exp');
+        const disableShare = getQueryParam('disableShare');
 
         if (exp && isExpired(exp)) {
           const expEl = document.querySelector('#link-expired');
@@ -635,6 +707,10 @@
 
         if (landXmlUrl) {
           await addLandXmlUrl({ url: decodeURIComponent(landXmlUrl) });
+        }
+
+        if (gltfUrl) {
+          await addGltfUrl({ url: decodeURIComponent(gltfUrl) });
         }
 
         if (photosUrl) {
@@ -665,7 +741,7 @@
 
         pointscene.modules.setupLights(pointscene.modules.scenePickable);
 
-        pointscene.initUI();
+        pointscene.initUI({ disableShare: !!disableShare });
 
         setTimeout(() => {
           const loadingOverlay = document.querySelector('#loading-overlay');

@@ -2,6 +2,7 @@ import * as three from 'three';
 import { Color, Vector4, IUniform as IUniform$1, Texture, ShaderMaterial, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, Plane, Raycaster, Mesh, SpriteMaterial, Sprite, Line } from 'three';
 import CamControls from 'camera-controls';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
+import { UIManager, Components } from 'openbim-components';
 import { FragmentsGroup } from 'bim-fragment';
 import { Context } from 'vm';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer';
@@ -1555,6 +1556,17 @@ interface LoadMeshOpts {
 declare function loadLine(vertices: number[][], color: Color): Line2;
 declare function loadMesh(vertices: number[][], faces: number[][], color?: Color, colors?: number[][], material?: Material, opts?: LoadMeshOpts): Mesh;
 
+declare class NullUIManager extends UIManager {
+    enabled: boolean;
+    get viewerContainer(): HTMLDivElement;
+}
+declare class MyComponents extends Components {
+    private _nullUI;
+    uiEnabled: boolean;
+    constructor();
+    get ui(): UIManager;
+    init(): Promise<void>;
+}
 interface IfcLoadOpts {
     name: string;
     offset?: {
@@ -1566,7 +1578,13 @@ interface IfcLoadOpts {
     projOut?: string;
     isPickable?: boolean;
     isInteractive?: boolean;
+    wasmPath?: string;
 }
+interface ProjectedBuffer {
+    matrix: Matrix4;
+    buffer: Float32Array;
+}
+declare function projectBuffer(matrix: Matrix4, buffer: Float32Array, projIn: string, projOut: string): Promise<ProjectedBuffer>;
 declare function loadIFC(url: string, opts: IfcLoadOpts): Promise<FragmentsGroup>;
 
 interface Vec3 {
@@ -1601,12 +1619,29 @@ interface LandXMLLoadOpts {
 declare const stringToHex: (str: string) => Color;
 declare function loadLandXML(url: string, opts: LandXMLLoadOpts): Promise<Group | undefined>;
 
-declare function loadDXF(url: string): Promise<void>;
+interface GltfLoadOpts {
+    name: string;
+    offset?: {
+        x: number;
+        y: number;
+        z: number;
+    };
+    projIn?: string;
+    projOut?: string;
+    isPickable?: boolean;
+    isInteractive?: boolean;
+}
+declare function loadGLTF(url: string, opts: GltfLoadOpts): Promise<unknown>;
 
 type Loaders_LoadMeshOpts = LoadMeshOpts;
 declare const Loaders_loadLine: typeof loadLine;
 declare const Loaders_loadMesh: typeof loadMesh;
+type Loaders_NullUIManager = NullUIManager;
+declare const Loaders_NullUIManager: typeof NullUIManager;
+type Loaders_MyComponents = MyComponents;
+declare const Loaders_MyComponents: typeof MyComponents;
 type Loaders_IfcLoadOpts = IfcLoadOpts;
+declare const Loaders_projectBuffer: typeof projectBuffer;
 declare const Loaders_loadIFC: typeof loadIFC;
 type Loaders_Vec3 = Vec3;
 type Loaders_Breakline = Breakline;
@@ -1617,13 +1652,17 @@ type Loaders_LandXMLProperties = LandXMLProperties;
 type Loaders_LandXMLLoadOpts = LandXMLLoadOpts;
 declare const Loaders_stringToHex: typeof stringToHex;
 declare const Loaders_loadLandXML: typeof loadLandXML;
-declare const Loaders_loadDXF: typeof loadDXF;
+type Loaders_GltfLoadOpts = GltfLoadOpts;
+declare const Loaders_loadGLTF: typeof loadGLTF;
 declare namespace Loaders {
   export {
     Loaders_LoadMeshOpts as LoadMeshOpts,
     Loaders_loadLine as loadLine,
     Loaders_loadMesh as loadMesh,
+    Loaders_NullUIManager as NullUIManager,
+    Loaders_MyComponents as MyComponents,
     Loaders_IfcLoadOpts as IfcLoadOpts,
+    Loaders_projectBuffer as projectBuffer,
     Loaders_loadIFC as loadIFC,
     Loaders_Vec3 as Vec3,
     Loaders_Breakline as Breakline,
@@ -1634,7 +1673,8 @@ declare namespace Loaders {
     Loaders_LandXMLLoadOpts as LandXMLLoadOpts,
     Loaders_stringToHex as stringToHex,
     Loaders_loadLandXML as loadLandXML,
-    Loaders_loadDXF as loadDXF,
+    Loaders_GltfLoadOpts as GltfLoadOpts,
+    Loaders_loadGLTF as loadGLTF,
   };
 }
 
