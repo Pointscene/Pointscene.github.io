@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FC } from 'react';
 import * as three from 'three';
-import { Color, Vector4, IUniform as IUniform$1, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Texture, Shader, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, ShaderMaterial, Plane, Raycaster, Mesh } from 'three';
+import { Color, Vector4, IUniform as IUniform$1, Box3, Matrix4, Vector3, Sphere, Camera, WebGLRenderer, EventDispatcher, BufferGeometry, Points, Object3D, WebGLRenderTarget, Ray, RawShaderMaterial, Texture, Scene, Material, Quaternion, Euler, Group, Matrix3, Vector2, PerspectiveCamera, OrthographicCamera, LoadingManager, TextureLoader, SphereGeometry, CircleGeometry, ShaderMaterial, Plane, Raycaster, Mesh } from 'three';
 import CamControls from 'camera-controls';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { UIManager, Components } from 'openbim-components';
@@ -629,7 +629,7 @@ declare class PointCloudMaterial extends RawShaderMaterial {
     setUniform<K extends keyof IPointCloudMaterialUniforms>(name: K, value: IPointCloudMaterialUniforms[K]['value']): void;
     updateMaterial(octree: PointCloudOctree, visibleNodes: PointCloudOctreeNode[], camera: Camera, renderer: WebGLRenderer): void;
     private updateVisibilityTextureData;
-    onBeforeCompile(shader: Shader, renderer: WebGLRenderer): void;
+    onBeforeCompile(shader: any, renderer: WebGLRenderer): void;
     customProgramCacheKey(): string;
     static makeOnBeforeRender(octree: PointCloudOctree, node: PointCloudOctreeNode, pcIndex?: number): (_renderer: WebGLRenderer, _scene: Scene, _camera: Camera, _geometry: BufferGeometry, material: Material) => void;
 }
@@ -878,7 +878,7 @@ declare class Photos {
     private addObjectListeners;
     protected load(params: any): void;
     protected add(photo: Photo, params: any): void;
-    protected getObjectAtIndex(idx: number): Object3D<three.Event>;
+    protected getObjectAtIndex(idx: number): Object3D<three.Object3DEventMap>;
     protected index(): void;
     openNearest(position: Vector3, look?: Vector3): void;
     protected getNearest(position: Vector3, params?: any): {
