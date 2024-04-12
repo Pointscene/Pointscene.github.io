@@ -2117,6 +2117,7 @@ declare class MeasureTool {
     private angleToPercentageStr;
     private getRatioStr;
     private getAngle;
+    private getPercentageStr;
     private getDistance;
     private setLabelText;
     private updateActiveMarkerMeta;
